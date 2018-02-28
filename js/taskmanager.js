@@ -30,7 +30,10 @@ $("#list_doing").on('click', "button", function() {
         $(this).html("redo");
 
         var completedItem = $(this).parent();
+        // strikethrough completed items 
         completedItem.attr("id", "strikethrough");
+        // move completed items to bottom of doing list
+        $('#list_doing').append($(completedItem))
         //$(this).attr("id", "button_redo");
 });
 
