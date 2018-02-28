@@ -16,7 +16,7 @@
 	left: 0;
 }
 #topbar {
-	height: 5%;
+	height: 30%;
 	width: 100%;
 	vertical-align: top;
 	margin-top: 50px;
@@ -32,9 +32,7 @@ h1 span {
 	font: 26px Monaco, MonoSpace;
 	height: 100px;
 	position: absolute;
-	width: auto;
-	right: 10%;
-	top: 10%;
+	align-self: center;
 	transform-origin: bottom center;
 }
 
@@ -66,8 +64,23 @@ h1 span {
 }
 
 #intro {
-	margin-top: 23%;
+	margin-top: 13%;
 	margin-left: 50px;
+}
+
+#circle {
+	float: right;
+	margin: 25px;
+	margin-right: 200px;
+	height: 200px;
+	align-content: center;
+	text-align: center;
+	-webkit-animation: spin 10s infinite linear;
+}
+
+@-webkit-keyframes spin {
+	0%  {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}	
 }
 
 
