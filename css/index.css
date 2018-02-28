@@ -25,7 +25,7 @@
 h1 {
 	font-size: 20px;
 	font-weight: normal;
-	color: blue;
+	color: #3F88C5;
 }
 
 h1 span {
@@ -107,12 +107,12 @@ h2 {
 	margin-left: 15px;
 	font-size: 70px;
 	font-weight: normal;
-	color: blue;
+	color: #3F88C5;
 }
 
 .typed-cursor {
 	font-size: 80px;
-	color: blue;
+	color: #3F88C5;
 }
 
 h3 {
