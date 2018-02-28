@@ -12,7 +12,7 @@ $("#list_todo").on('click', "button", function() {
         // move from list_todo container to list_doing container
         // console.log($(this).parent());
 
-        $(this).html("later");
+        $(this).html("done");
 
         var completedItem = $(this).parent();
         $("#list_doing").prepend(completedItem);
@@ -21,8 +21,10 @@ $("#list_todo").on('click', "button", function() {
 $("#list_doing").on('click', "button", function() {
         // move back from list_doing container to list_todo container
 
-        $(this).html("start");
+        $(this).html("done");
 
-        var completedItem = $(this).parent()
-        $("#list_todo").prepend(completedItem);
+        var completedItem = $(this).parent();
+        completedItem.attr("id", "strikethrough");
 });
+
+

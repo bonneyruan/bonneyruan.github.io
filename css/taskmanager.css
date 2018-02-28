@@ -118,3 +118,11 @@ li {
 	margin-top: 5px;
  	list-style-type: none;
 }
+
+#strikethrough {
+	text-decoration: line-through;
+}
+
+#notstrikethrough {
+	text-decoration-style: none;
+}
