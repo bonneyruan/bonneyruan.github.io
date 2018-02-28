@@ -49,10 +49,12 @@ h2 {
 	margin-left: 15px;
 	font-size: 70px;
 	font-weight: normal;
+	color: blue;
 }
 
 .typed-cursor {
 	font-size: 80px;
+	color: blue;
 }
 
 h3 {
@@ -65,6 +67,7 @@ h3 {
 	width: 585px;
 	margin-left: 172px;
 	margin-top: 10px;
+	border-color: blue;
 }
 
 
