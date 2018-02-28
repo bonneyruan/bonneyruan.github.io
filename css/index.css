@@ -3,7 +3,6 @@
 	font-family: helvetica, arial;
 	margin: 0px;
 	padding: 0px;
-	color: white;
 }
 
 #fullscreen {
@@ -26,13 +25,13 @@
 h1 {
 	font-size: 20px;
 	font-weight: normal;
+	color: blue;
 }
 
 h1 span {
 	font: 26px Monaco, MonoSpace;
 	height: 100px;
 	position: absolute;
-	align-self: center;
 	transform-origin: bottom center;
 }
 
@@ -68,13 +67,17 @@ h1 span {
 	margin-left: 50px;
 }
 
+#work_anchor {
+	height: 100%;
+	width: 25%;
+	float: right;
+}
+
 #circle {
 	float: right;
 	margin: 10px;
 	margin-right: 200px;
 	height: 200px;
-	align-content: center;
-	text-align: center;
 	-webkit-animation: spin 10s infinite linear;
 }
 
