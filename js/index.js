@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  $('.chaffle').chaffle();
+  $("h1").lettering();
+  $(".chaffle").chaffle();
   $('#typed').typed({
     strings: ['designer.','problem solver.', 'pizza enthusiast.', 'good pupper.', 't-shirt collector.', 'packaging admirer.'],
     showCursor: true,

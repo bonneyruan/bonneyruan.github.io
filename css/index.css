@@ -9,6 +9,11 @@
 #fullscreen {
 	height: 100%;
 	width: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 #topbar {
 	height: 5%;
@@ -19,18 +24,49 @@
 }
 
 h1 {
-	color: black;
 	font-size: 20px;
 	font-weight: normal;
 }
 
+h1 span {
+	font: 26px Monaco, MonoSpace;
+	height: 100px;
+	position: absolute;
+	width: auto;
+	right: 10%;
+	top: 10%;
+	transform-origin: bottom center;
+}
+
+/*explore 7char*/
+.char1 {transform: rotate(22.5deg)}
+.char2 {transform: rotate(45deg)}
+.char3 {transform: rotate(67.5deg)}
+.char4 {transform: rotate(90deg)}
+.char5 {transform: rotate(112.5deg)}
+.char6 {transform: rotate(135deg)}
+.char7 {transform: rotate(157.5deg)}
+/*space*/
+.char8 {transform: rotate(180deg)}
+/*my 2char*/
+.char9 {transform: rotate(202.5deg)}
+.char10 {transform: rotate(225deg)}
+/*space*/
+.char11 {transform: rotate(247.5deg)}
+/*work 4char*/
+.char12 {transform: rotate(270deg)}
+.char13 {transform: rotate(292.5deg)}
+.char14 {transform: rotate(315deg)}
+.char15 {transform: rotate(337.5deg)}
+
 #mainscreen {
 	height: 95%;
 	width: 100%;
+	vertical-align: top;
 }
 
 #intro {
-	margin-top: 20%;
+	margin-top: 23%;
 	margin-left: 50px;
 }
 
