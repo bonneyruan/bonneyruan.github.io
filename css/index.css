@@ -73,6 +73,12 @@ h1 span {
 	float: right;
 }
 
+.link {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
 #circle {
 	float: right;
 	margin: 10px;
