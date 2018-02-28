@@ -7,8 +7,10 @@ $(document).ready(
         $("#todo-item-input").val(function() {
             this.value = '';
         });
-        
+
         $('#list_todo').prepend("<li> <button id=startButton>start</button>" + user_input + "</li>");
+        
+        var button_redo = $("#button_redo");
     })
 );
 
@@ -25,11 +27,30 @@ $("#list_todo").on('click', "button", function() {
 $("#list_doing").on('click', "button", function() {
         // move back from list_doing container to list_todo container
 
-        $(this).html("done");
+        $(this).html("redo");
 
         var completedItem = $(this).parent();
         completedItem.attr("id", "strikethrough");
+        //$(this).attr("id", "button_redo");
 });
+
+$('#todo-item-input').keyup(function(event) {
+    if (event.keyCode === 13) {
+        $('#button').click();
+    }
+});
+
+// $("#list_doing").on('click', "button_redo", function() {
+//         // move back from list_doing container to list_todo container
+
+//         $(this).html("start");
+//         var completedItem = $(this).parent();
+//         completedItem.attr("id", "notstrikethrough");
+//         $(this).attr("id", "button");
+// });
+
+
+
 
 
 
