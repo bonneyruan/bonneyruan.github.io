@@ -1,9 +1,14 @@
+// background not maintained when too many tasks added onto screen
+// button click on redo should prepend task to to do list without strikethrough
+// add media queries
+
 $(document).ready(
     $("#button").on('click', function() {
         // once the document loads, create new item with this function
         var user_input = $('#todo-item-input').val();
         // alert(user_input);
 
+        // clear input field upon adding task
         $("#todo-item-input").val(function() {
             this.value = '';
         });
@@ -37,6 +42,7 @@ $("#list_doing").on('click', "button", function() {
         //$(this).attr("id", "button_redo");
 });
 
+// trigger +task button by pressing enter key
 $('#todo-item-input').keyup(function(event) {
     if (event.keyCode === 13) {
         $('#button').click();
