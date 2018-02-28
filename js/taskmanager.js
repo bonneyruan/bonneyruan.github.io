@@ -4,6 +4,10 @@ $(document).ready(
         var user_input = $('#todo-item-input').val();
         // alert(user_input);
 
+        $("#todo-item-input").val(function() {
+            this.value = '';
+        });
+        
         $('#list_todo').prepend("<li> <button id=startButton>start</button>" + user_input + "</li>");
     })
 );
@@ -26,5 +30,6 @@ $("#list_doing").on('click', "button", function() {
         var completedItem = $(this).parent();
         completedItem.attr("id", "strikethrough");
 });
+
 
 
