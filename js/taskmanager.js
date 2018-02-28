@@ -1,6 +1,7 @@
 // background not maintained when too many tasks added onto screen
 // button click on redo should prepend task to to do list without strikethrough
 // add media queries
+// add blurb for how to use 
 
 $(document).ready(
     $("#button").on('click', function() {
@@ -14,8 +15,6 @@ $(document).ready(
         });
 
         $('#list_todo').prepend("<li> <button id=startButton>start</button>" + user_input + "</li>");
-        
-        var button_redo = $("#button_redo");
     })
 );
 
@@ -31,7 +30,6 @@ $("#list_todo").on('click', "button", function() {
 
 $("#list_doing").on('click', "button", function() {
         // move back from list_doing container to list_todo container
-
         $(this).html("redo");
 
         var completedItem = $(this).parent();
@@ -39,7 +37,7 @@ $("#list_doing").on('click', "button", function() {
         completedItem.attr("id", "strikethrough");
         // move completed items to bottom of doing list
         $('#list_doing').append($(completedItem))
-        //$(this).attr("id", "button_redo");
+
 });
 
 // trigger +task button by pressing enter key
@@ -48,15 +46,6 @@ $('#todo-item-input').keyup(function(event) {
         $('#button').click();
     }
 });
-
-// $("#list_doing").on('click', "button_redo", function() {
-//         // move back from list_doing container to list_todo container
-
-//         $(this).html("start");
-//         var completedItem = $(this).parent();
-//         completedItem.attr("id", "notstrikethrough");
-//         $(this).attr("id", "button");
-// });
 
 
 
