@@ -2,7 +2,7 @@ $(document).ready(function() {
   $("h1").lettering();
   $(".chaffle").chaffle();
   $('#typed').typed({
-    strings: ['designer.','problem solver.', 'pizza enthusiast.', 'good pupper.', 't-shirt collector.', 'packaging admirer.'],
+    strings: ['designer.','visual communicator.', 'pizza enthusiast.', 'good pupper.', 'typography junkie.'],
     showCursor: true,
     typeSpeed: 40,
     backSpeed: 20,
