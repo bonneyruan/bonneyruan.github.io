@@ -5,7 +5,14 @@
 	padding: 0px;
 }
 
-#fullscreen {
+br {
+  	content: "";
+  	margin: 2em;
+  	display: block;
+  	font-size: 4%;
+}
+
+.fullscreen {
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -15,25 +22,30 @@
 	left: 0;
 }
 
-/*.navbar {
+#navbar {
+	margin-top: 50px;
 	overflow: hidden;
 	background-color: transparent;
 	position: fixed;
-	margin: 40px;
 	top: 0;
 	width: 100%
 }
 
-.navbar a {
-	float: left;
-	display: block;
+#navbar a {
 	color: #3F88C5;
-	text-align: center;
-	padding: 14px 16px;
 	text-decoration: none;
 	background-color: transparent;
-	font-size: 30px;
-}*/
+}
+
+.sticky {
+	position: fixed;
+	top: 250;
+	width: 100%;
+}
+
+.sticky + .fullscreen {
+	padding-top: 60px;
+}
 
 #topbar {
 	height: 30%;
@@ -78,15 +90,16 @@ h1 span {
 .char15 {transform: rotate(337.5deg)}
 
 #mainscreen {
-	height: 95%;
+	height: 100%;
 	width: 100%;
 	vertical-align: top;
 }
 
 #intro {
-	margin-top: 8%;
+	margin-top: 10%;
 	margin-left: 50px;
-	margin-bottom: 10%;
+	height: 100%;
+
 }
 
 #work_anchor {
@@ -117,9 +130,8 @@ h1 span {
 
 h2 {
 	color: white;
-	font-weight: 700;
+	font-weight: 545;
 	font-size: 800%;
-	font-family: helvetica, arial, sans-serif;
 }
 
 .typed_sentence {
@@ -162,11 +174,16 @@ h3 {
 	width: 100%;
 }
 
+#work_left {
+	width: 30%;
+	display: inline-block;
+}
 h4 {
 	color: white;
 	font-weight: normal;
-	font-size: 70px;
+	font-size: 45px;
 	display: inline-block;
+	background-color: transparent;
 }
 
 h5 {
@@ -174,14 +191,31 @@ h5 {
 	color: white;
 	display: inline-block;
 	font-weight: normal;
-	font-size: 70px;
+	font-size: 45px;
+	background-color: transparent;
 }
+
 
 /*#E08686*/
 /*#DB5461*/
 /*#E07979*/
 /*#00467F*/
 /*#3F88C5*/
+
+#resume {
+	color: #3F88C5;
+}
+
+#resume:link {
+	color: #3F88C5;
+	text-decoration: none;
+	border-bottom: 2px solid #3F88C5;
+}
+
+#resume:hover {
+	color: #E07979;
+	border-bottom: 2px solid #E07979;
+}
 
 #link {
 	color: white;
@@ -199,7 +233,7 @@ h5 {
 }
 
 .projects {
-	margin-top: 50px;
+	margin-top: 0px;
 	margin-left: 20px;
 	margin-right: 50px;
 	float: right;
@@ -256,6 +290,7 @@ footer{
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px transparent;
 }
+
 .hvr-pulse-grow:hover, .hvr-pulse-grow:focus, .hvr-pulse-grow:active {
   -webkit-animation-name: hvr-pulse-grow;
   animation-name: hvr-pulse-grow;
