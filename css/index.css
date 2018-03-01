@@ -150,24 +150,41 @@ h4 {
 
 h5 {
 	margin-left: 20px;
-	color: #3F88C5;
+	color: white;
 	display: inline-block;
 	font-weight: normal;
 	font-size: 70px;
 }
 
-#resume {
-	color: #3F88C5;
+#link {
+	color: white;
 }
 
-#resume:link {
+#link:link {
 	text-decoration: none;
+	border-bottom: 2px solid white;
 }
 
-#resume:hover {
+#link:hover {
+	color: #3F88C5;
 	border-bottom: 2px solid #3F88C5;
 }
 
+.projects {
+	margin-top: 50px;
+	margin-left: 20px;
+	margin-right: 50px;
+	float: right;
+	width: 55%;
+	height: 100%;
+}
+
+h6{
+	color: white;
+	display: block;
+	font-weight: normal;
+	font-size: 50px;
+}
 /* Grow */
 .hvr-grow {
     display: inline-block;
