@@ -156,18 +156,23 @@ h5 {
 	font-size: 70px;
 }
 
+/*#E08686*/
+/*#DB5461*/
+/*#E07979*/
+
 #link {
-	color: white;
+	color: #3F88C5;
 }
 
 #link:link {
+	color: #3F88C5;
 	text-decoration: none;
-	border-bottom: 2px solid white;
+	border-bottom: 2px solid #3F88C5;
 }
 
 #link:hover {
-	color: #3F88C5;
-	border-bottom: 2px solid #3F88C5;
+	color: #00467F;
+	border-bottom: 2px solid #00467F;
 }
 
 .projects {
