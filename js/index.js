@@ -10,6 +10,10 @@ $(document).ready(function() {
     startDelay: 1000,
     backDelay: 1000, 
     loop: true,  
-
+  });
+  $(".link").click(function() {
+    $('html,body').animate({
+        scrollTop: $(".work").offset().top},
+        'slow');
   });
 });
