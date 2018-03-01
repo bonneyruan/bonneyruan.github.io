@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="css/index.css">
   <title>bonney.design</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-1.6.2.min.js" integrity="sha256-0W0HoDU0BfzslffvxQomIbx0Jfml6IlQeDlvsNxGDE8=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <script type='text/javascript' src='js/chaffle.min.js'></script>
@@ -28,12 +30,15 @@
         <div>
           <h2>bonney ruan</h1>
         </div>
-        <div class=typed_sentence>
-          <div class=typed_sentence>
+        <div class=typed_sentence id=sentence>
+          <div class=typed_sentence id=static_words>
             <h3>I'm a</h3>
           </div>
-          <div class=typed_sentence>
+          <div class=typed_sentence id=nonstatic_words>
             <span id=typed></span>
+          </div>
+          <div>
+            <hr id=underline>
           </div>
         </div>
       </div>

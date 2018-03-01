@@ -1,8 +1,9 @@
 * {
-	background-color: black;
-	font-family: proxima nova, avenir next, helvetica, arial, sans-serif;
+	font-family:  avenir next, avenir, 'Montserrat','Muli', helvetica, arial, sans-serif;
 	margin: 0px;
 	padding: 0px;
+	height: 100%
+	width: 100%;
 }
 
 br {
@@ -20,6 +21,7 @@ br {
 	right: 0;
 	bottom: 0;
 	left: 0;
+	background-color: #3F88C5;
 }
 
 #navbar {
@@ -37,7 +39,7 @@ br {
 	background-color: transparent;
 }
 
-.sticky {
+/*.sticky {
 	position: fixed;
 	top: 250;
 	width: 100%;
@@ -45,20 +47,18 @@ br {
 
 .sticky + .fullscreen {
 	padding-top: 60px;
-}
+}*/
 
 #topbar {
 	height: 30%;
 	width: 100%;
 	vertical-align: top;
-	margin-top: 50px;
-	margin-left: 50px;
 }
 
 h1 {
 	font-size: 20px;
 	font-weight: normal;
-	color: #3F88C5;
+	color: white;
 }
 
 h1 span {
@@ -93,13 +93,14 @@ h1 span {
 	height: 100%;
 	width: 100%;
 	vertical-align: top;
+	background-color: #3F88C5;
 }
 
 #intro {
 	margin-top: 10%;
 	margin-left: 50px;
 	height: 100%;
-
+	text-align: center;
 }
 
 #work_anchor {
@@ -129,25 +130,38 @@ h1 span {
 
 
 h2 {
+	text-align: center;
 	color: white;
 	font-weight: 545;
-	font-size: 800%;
+	font-size: 500%;
 }
 
 .typed_sentence {
 	display: inline-block;
 }
 
+#sentence {
+	width: 900px;
+	text-align: initial;
+	transform: scale(0.5);
+}
+
+#nonstatic_words {
+	width: 710px;
+	text-align: center;
+}
+
 #typed {
 	margin-left: 15px;
 	font-size: 70px;
 	font-weight: normal;
-	color: #3F88C5;
+	color: white;
+	text-align: center;
 }
 
 .typed-cursor {
 	font-size: 80px;
-	color: #3F88C5;
+	color: white;
 }
 
 h3 {
@@ -157,7 +171,7 @@ h3 {
 }
 
 #underline {
-	width: 585px;
+	width: 670px;
 	margin-left: 172px;
 	margin-top: 10px;
 	border-color: white;
@@ -168,7 +182,7 @@ h3 {
 	margin-left: 55px;
 	margin-right: 10px;
 	padding-top: 50px;
-	color: white;
+	color: #3F88C5;
 	margin-bottom: 50%;
 	display: inline-block;
 	width: 100%;
@@ -179,7 +193,7 @@ h3 {
 	display: inline-block;
 }
 h4 {
-	color: white;
+	color: #3F88C5;
 	font-weight: normal;
 	font-size: 45px;
 	display: inline-block;
@@ -188,7 +202,7 @@ h4 {
 
 h5 {
 	margin-left: 20px;
-	color: white;
+	color: #3F88C5;
 	display: inline-block;
 	font-weight: normal;
 	font-size: 45px;
@@ -218,18 +232,18 @@ h5 {
 }
 
 #link {
-	color: white;
+	color: #3F88C5;
 }
 
 #link:link {
-	color: white;
+	color: #3F88C5;
 	text-decoration: none;
-	border-bottom: 2px solid white;
+	border-bottom: 2px solid #3F88C5;
 }
 
 #link:hover {
-	color: #3F88C5;
-	border-bottom: 2px solid #3F88C5;
+	color: #E07979;
+	border-bottom: 2px solid #E07979;
 }
 
 .projects {
@@ -242,7 +256,7 @@ h5 {
 }
 
 h6{
-	color: white;
+	color: #3F88C5;
 	display: block;
 	font-weight: normal;
 	font-size: 45px;
@@ -250,12 +264,17 @@ h6{
 }
 
 footer{
-	color: white;
+	color: #3F88C5;
+}
+
+h1:hover{
+	color: #color: #E07979;
 }
 /* Grow */
 .hvr-grow {
     display: inline-block;
     vertical-align: middle;
+    color: #3F88C5;
     transform: translateZ(0);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
     backface-visibility: hidden;
