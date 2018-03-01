@@ -133,14 +133,25 @@ h3 {
 .work {
 	vertical-align: top;
 	margin-left: 50px;
+	margin-right: 10px;
 	padding-top: 50px;
 	color: white;
 	margin-bottom: 50%;
-	display: block;
+	display: inline-block;
+	width: 100%;
 }
 
 h4 {
 	color: white;
+	font-weight: normal;
+	font-size: 70px;
+	display: inline-block;
+}
+
+h5 {
+	margin-left: 20px;
+	color: #3F88C5;
+	display: inline-block;
 	font-weight: normal;
 	font-size: 70px;
 }
@@ -154,7 +165,7 @@ h4 {
 }
 
 #resume:hover {
-	text-decoration: underline;
+	border-bottom: 2px solid #3F88C5;
 }
 
 /* Grow */
