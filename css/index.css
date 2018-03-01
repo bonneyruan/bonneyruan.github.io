@@ -145,6 +145,18 @@ h4 {
 	font-size: 70px;
 }
 
+#resume {
+	color: #3F88C5;
+}
+
+#resume:link {
+	text-decoration: none;
+}
+
+#resume:hover {
+	text-decoration: underline;
+}
+
 /* Grow */
 .hvr-grow {
     display: inline-block;
