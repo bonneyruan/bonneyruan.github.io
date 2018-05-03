@@ -21,17 +21,60 @@ body {
 }
     #home {
         display: inline-block;
+        margin-left: 20px;
     }
     #links {
         display: inline-block;
         float: right;
         margin-right: 22px;
     }
+        .linkbtn {
+            background-color: transparent;
+            padding: 0;
+            font-size: 25px;
+            border: none;
+            cursor: pointer;
+            margin-left: 22px;
+            margin-bottom: 3px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            font-size: 25px;
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            z-index: 1;
+            margin-left: 15px;
+        }
+            .dropdown-content a {
+                padding: 5px;
+                text-decoration: none;
+                display: block;
+                opacity: 0.5;
+            }
+
+            .dropdown-content a:hover {
+                opacity: 1;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .linkbtn{
+                border-bottom: 1px white solid;
+            }
+
+            .linkbtn:hover {
+                border-bottom: 1px white solid;
+            }
 
     h1 {
         font-size: 25px;
         display: inline-block;
-        margin-left: 22px;
     }
 
 #sentence {
@@ -68,3 +111,5 @@ body {
     @keyframes blink {
         to { opacity: 0 }
     }
+
+
