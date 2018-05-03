@@ -9,6 +9,8 @@
     box-sizing: border-box;
 }
 
+
+
 .bird {
     background-image: url(birds.svg);
     background-size: auto 100%;
@@ -267,20 +269,18 @@
 }
 }
 /*end bird animation*/
-
 body {
-    background-image: url("grey_hdpi.svg");
+    background-color: #b0ccd4;
+    background-image: url("wave.svg");
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.body_wrapper {
     overflow-x: hidden;
 }
 
+
 .typed-cursor {
   opacity: 1;
-  font-size: 35px;
+  font-size: 50px;
   -webkit-animation: blink 0.5s alternate infinite ease-in-out;
   -moz-animation: blink 0.5s alternate infinite ease-in-out;
   animation: blink 0.5s alternate infinite ease-in-out;
@@ -326,7 +326,7 @@ body {
         margin: 0;
         margin-top: 0px;
         margin-bottom: 10px;
-        font-size: 75px;
+        font-size: 110px;
         font-weight: 300;
         padding-bottom: 8px;
         border-bottom: 1.5px solid currentColor;
