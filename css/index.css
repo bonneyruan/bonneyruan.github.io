@@ -1,3 +1,7 @@
+/*#2f4f4f dark forest green
+#b0ccd4 light blue
+*/
+
 * {
     font-family: 'Roboto', 'Helvetica', 'Raleway', sans-serif;
     font-weight: 300;
@@ -5,7 +9,7 @@
 }
 
 body {
-    background-color: #b0ccd4;
+    background-color: #8FB2BC;
     overflow-x: hidden;
 }
 
