@@ -36,14 +36,14 @@ body {
 
 #sentence {
     margin: auto;
-    margin-top: 12%;
+    margin-top: 11%;
     width: 76%;
 }
     .static, .nonstatic {
         display: inline-block;
     }
     .nonstatic {
-        width: 76%;
+        width: 77%;
         padding-bottom: 10px;
         border-bottom: 3px solid #FDFDFD;
         text-align: center;
