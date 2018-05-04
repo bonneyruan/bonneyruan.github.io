@@ -1,7 +1,7 @@
 // background not maintained when too many tasks added onto screen
 // button click on redo should prepend task to to do list without strikethrough
 // add media queries
-// add blurb for how to use 
+// add blurb for how to use
 
 $(document).ready(
     $("#button").on('click', function() {
@@ -30,10 +30,10 @@ $("#list_todo").on('click', "button", function() {
 
 $("#list_doing").on('click', "button", function() {
         // move back from list_doing container to list_todo container
-        $(this).html("redo");
+        $(this).html("done");
 
         var completedItem = $(this).parent();
-        // strikethrough completed items 
+        // strikethrough completed items
         completedItem.attr("id", "strikethrough");
         // move completed items to bottom of doing list
         $('#list_doing').append($(completedItem))
