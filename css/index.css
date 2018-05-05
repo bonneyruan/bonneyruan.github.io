@@ -102,7 +102,7 @@ body {
 
     .typed-cursor {
       opacity: 1;
-      font-size: 70xpx;
+      font-size: 70px;
       -webkit-animation: blink 0.5s alternate infinite ease-in-out;
       -moz-animation: blink 0.5s alternate infinite ease-in-out;
       animation: blink 0.5s alternate infinite ease-in-out;
