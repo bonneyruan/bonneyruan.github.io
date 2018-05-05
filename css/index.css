@@ -31,7 +31,7 @@ body {
         .linkbtn {
             background-color: transparent;
             padding: 0;
-            font-size: 25px;
+            font-size: 20px;
             border: none;
             cursor: pointer;
             margin-left: 22px;
@@ -42,7 +42,7 @@ body {
             display: inline-block;
         }
         .dropdown-content {
-            font-size: 25px;
+            font-size: 20px;
             display: none;
             position: absolute;
             min-width: 160px;
@@ -73,7 +73,7 @@ body {
             }
 
     h1 {
-        font-size: 25px;
+        font-size: 20px;
         display: inline-block;
     }
 
@@ -92,7 +92,7 @@ body {
         text-align: center;
     }
     h2, #typed {
-        font-size: 90px;
+        font-size: 75px;
         font-weight: 400;
     }
     h2 {
@@ -102,7 +102,7 @@ body {
 
     .typed-cursor {
       opacity: 1;
-      font-size: 95px;
+      font-size: 75px;
       -webkit-animation: blink 0.5s alternate infinite ease-in-out;
       -moz-animation: blink 0.5s alternate infinite ease-in-out;
       animation: blink 0.5s alternate infinite ease-in-out;
