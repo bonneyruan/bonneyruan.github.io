@@ -1,0 +1,27 @@
+a{
+  font-family: sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  color: black;
+}
+a:hover{
+  font-size: 100px;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  height: 90%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
