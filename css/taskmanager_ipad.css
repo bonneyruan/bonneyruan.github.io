@@ -1,0 +1,128 @@
+*{
+	font-family: sans-serif;
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+
+}
+
+#mainBlocks {
+	display: inline-block;
+	width: 100%; 
+	height: 100%;
+	background-color: #3E5C76;
+}
+
+#leftBlock {
+	display: inline-block;
+	width: 40%;
+	height: 100%;
+}
+
+#title {
+	margin: 15%;
+	margin-top: 20%;
+}
+h1 {
+	color: white;
+	font-size: 850%;
+	vertical-align: top;
+}
+
+#rightBlock {
+	display: inline-block;
+	width: 59%;
+	height: 100%;
+	vertical-align: top;
+}
+
+h2{
+	margin-left: 10%;
+	margin-top: 12%;
+	color: white;
+}
+p {
+	margin-top: 5px;
+	margin-left: 10%;
+	color: white;
+}
+
+#todo-item-input {
+	margin-top: 20%;
+	padding-bottom: 5px;
+	border: none;
+	border-bottom: 2px solid white;
+	background-color: #3E5C76;
+	width: 70%;
+	height: 28px;
+	font-size: 20px;
+	color: white;
+}
+
+#button {
+	margin-left: 5px;
+	background-color: white;
+	padding: 3px;
+	width: 100px;
+	height: 30px;
+	border-radius: 20px;
+
+}
+
+h4 {
+	color: #3E5C76;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+}
+
+.lists {
+	display: inline-block;
+}
+
+#mainBlockList {
+	margin-top: 20px;
+	width: 87%;
+	color:white;
+	vertical-align: top;
+}
+
+#block_todo {
+	width: 50%;
+	vertical-align: top;
+	margin-bottom: 5px;
+}
+
+#block_doing {
+	width: 49%;
+	vertical-align: top;
+	margin-bottom: 5px;
+}
+
+h5 {
+	font-size: 20px;
+}
+
+#startButton {
+	margin-left: 0px;
+	margin-right: 5px;
+	background-color: white;
+	padding: 3px;
+	width: 55px;
+	height: 20px;
+	border-radius: 20px;
+	color: #3E5C76;
+}
+
+li {
+	margin-top: 5px;
+ 	list-style-type: none;
+}
+
+#strikethrough {
+	text-decoration: line-through;
+}
+
+#notstrikethrough {
+	text-decoration-style: none;
+}
