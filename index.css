@@ -35,6 +35,7 @@ nav {
 
 /*masthead*/
 .masthead {
+  background-image: url("berkeley-map.svg");
   display: block;
   vertical-align: middle;
   height: 100%;
