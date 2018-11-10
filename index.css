@@ -1,27 +1,178 @@
-a{
-  font-family: sans-serif;
-  font-style: italic;
-  font-weight: 300;
-  color: black;
+html {
+  box-sizing: border-box;
 }
-a:hover{
-  font-size: 100px;
+*, *:before, *:after {
+  box-sizing: inherit;
+  font-family: "Din";
 }
-
-.outer {
-  display: table;
-  position: absolute;
-  height: 90%;
-  width: 100%;
+@font-face {
+  font-family: "Din";
+  font-weight: bold;
+  src: url("fonts/Din/DinBoldAlternate.otf") format("opentype");
 }
 
-.middle {
-  display: table-cell;
+@font-face {
+  font-family: "Din";
+  font-weight: 100;
+  src: url("fonts/Din/Din-Regular.otf") format("opentype");
+}
+
+/*navbar*/
+.navbar-icon {
+  background-image: url("navbar-icon.svg");
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em; 
+  vertical-align: middle; 
+  content: "";
+  background-size: 100% 100%; 
+  margin: 30px;
+}
+
+/*masthead*/
+.masthead {
+  display: block;
   vertical-align: middle;
 }
+  /*header*/
+  .header {
+    position: absolute;
+    top: 50%;
+    margin-top: -75px;
+    width: 100%;
+  }
+  .header-text {
+    text-align: center;
+  }
+  .header-text>h1{
+    font-size: 40px;
+    margin: 5px;
+    text-transform: uppercase;
+  }
+  .header-text>h2{
+    font-size: 20px;
+    margin: 0px;
+    text-transform: uppercase;
+    color: #99ccff;
+    font-weight: 100;
+  }
+  /*scroll icon*/
+  .arrow-icon-container{
+    position: absolute;
+    bottom: 10%;
+    margin:0;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    display: block;
+  }
+  .arrow-icon{ 
+    background-image: url("arrow-icon.svg");
+    display: inline-block;
+    width: 100%;
+    height: 50px; 
+    vertical-align: middle; 
+    content: "";
+    background-size: 100% 100%; 
+    margin: 0px;
+    animation: bounce 1.5s infinite;
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+  .arrow-icon-bar{ 
+    background-image: url("arrow-icon-bar.svg");
+    display: inline-block;
+    width: 50px;
+    height: 10px;
+    vertical-align: middle; 
+    content: "";
+    background-size: 100% 100%; 
+    margin: 10px 0px;
+    bottom: 0;
+  }
 
-.inner {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+/*animations*/
+/*!
+ * animate.css -http://daneden.me/animate
+ * Version - 3.7.0
+ * Licensed under the MIT license - http://opensource.org/licenses/MIT
+ *
+ * Copyright (c) 2018 Daniel Eden
+ */
+
+@-webkit-keyframes bounce {
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, -4px, 0);
+    transform: translate3d(0, -4px, 0);
+  }
 }
+
+@keyframes bounce {
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, -4px, 0);
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+@media screen and (min-width: 800px) {
+  /* Desktop styles go here */
+}
+
