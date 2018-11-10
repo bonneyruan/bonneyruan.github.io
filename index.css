@@ -3,18 +3,18 @@ html {
 }
 *, *:before, *:after {
   box-sizing: inherit;
-  font-family: "Din";
+  font-family: "Din", sans-serif;
 }
 @font-face {
   font-family: "Din";
   font-weight: bold;
-  src: url("fonts/Din/DinBoldAlternate.otf") format("opentype");
+  src: url("fonts/Din/dinboldalternate-webfont.woff") format("woff");
 }
 
 @font-face {
   font-family: "Din";
   font-weight: 100;
-  src: url("fonts/Din/Din-Regular.otf") format("opentype");
+  src: url("fonts/Din/din-regular-webfont.woff") format("woff");
 }
 
 /*navbar*/
