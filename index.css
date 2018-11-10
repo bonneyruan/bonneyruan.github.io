@@ -36,13 +36,14 @@ nav {
 /*masthead*/
 .masthead {
   background-image: url("berkeley-map.svg");
-  display: block;
+  display: inline-block;
   vertical-align: middle;
   height: 100%;
   width: 100%;
+  font-size: 0;
 }
   /*header*/
-  .header {
+  .mobile .header {
     position: absolute;
     top: 50%;
     margin-top: -84px;
@@ -95,8 +96,115 @@ nav {
     content: "";
     background-size: 100% 100%; 
     margin: 10px 0px;
-    bottom: 0;
+
   }
+
+/*Desktop*/
+
+
+@media screen and (min-width: 1600px) {
+  .mobile{
+    display: none;
+  }
+  .masthead{
+    background-image: none;
+    background-color: #f4f4f8;
+  }
+  /*sidebar*/
+  .sidebar{
+    display: initial;
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    margin: 0;
+    font-size: 10px;
+    padding: 60px;
+    animation: slideInLeft 1s;
+    background-color: white;
+  }
+    /*header*/
+      .sidebar-header{
+        font-size: 20px;
+        margin: 0px;
+        text-transform: uppercase;
+      }
+      .sidebar h1{
+        font-size: 60px;
+        margin: 0;
+        line-height: 1;
+      }
+      .sidebar h2{
+        margin: 0;
+        color: #99ccff;
+        font-weight: 100;
+        line-height: 1;
+        margin-top: 10px;
+        font-size: 30px;
+      }
+    /*category*/
+    .categories-container{
+      margin-top: 50%;
+      margin-bottom: 50%;
+    }
+    .sidebar .category{
+      margin-top: 40px;
+    }
+    .sidebar h3{
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+    .sidebar a{
+      display: block;
+      font-size: 20px;
+      font-weight: 100;
+      margin: 0;
+      margin-top: 8px;
+      text-transform: uppercase;
+      color: black;
+      text-decoration: none;
+      background: linear-gradient(to right, #99ccff 50%, white 50%);
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition:all 0.7s ease;
+    }
+    .sidebar a:hover{
+      background-position: left bottom;
+    }
+    /*about*/
+    .about{ 
+      position: absolute;
+      display: inline-block;
+    }
+    .about h5{
+      font-size: 20px;
+      display: inline-block;
+      text-transform: uppercase;
+      margin-right: 40px;
+      padding-bottom: 5px;
+      border-bottom: solid 5px #99ccff;
+      margin-bottom: 20px;
+    }
+    .about h5:hover{
+      color: #99ccff;
+    }
+    .about h6{
+      font-size: 20px; 
+      display: block;
+      text-transform: uppercase;
+      margin: 0;
+      font-weight: 100;
+
+    }
+  /*showcase*/
+  .showcase{
+      display: inline-block;
+      width: 75%;
+      height: 100%;
+      font-size: 10px;
+      vertical-align: top;
+      background-color: inherit;
+    }
+}
 
 /*animations*/
 /*!
@@ -179,7 +287,34 @@ nav {
   -webkit-transform-origin: center bottom;
   transform-origin: center bottom;
 }
-@media screen and (min-width: 800px) {
-  /* Desktop styles go here */
+
+@-webkit-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
+@keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInLeft {
+  -webkit-animation-name: slideInLeft;
+  animation-name: slideInLeft;
+}
