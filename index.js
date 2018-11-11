@@ -1,6 +1,6 @@
 (function() {
         var colors = {
-          "#CFBFF7": 0.5
+          "#99CCFF": 0.5
         };
         var canvas = new fabric.Canvas('canvas', {
           isDrawingMode: true,

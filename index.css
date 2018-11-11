@@ -4,7 +4,7 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
   font-family: "Din", sans-serif;
-  cursor: url(spraypaintbottle.png), auto;
+  cursor: default;
 }
 @font-face {
   font-family: "Din";
@@ -125,12 +125,11 @@ nav {
   }
     /*header*/
       .sidebar-header{
-        font-size: 20px;
         margin: 0px;
         text-transform: uppercase;
       }
       .sidebar h1{
-        font-size: 60px;
+        font-size: 35px;
         margin: 0;
         line-height: 1;
       }
@@ -140,23 +139,26 @@ nav {
         font-weight: 100;
         line-height: 1;
         margin-top: 10px;
-        font-size: 30px;
+        font-size: 20px;
       }
     /*category*/
     .categories-container{
-      margin-top: 50%;
-      margin-bottom: 50%;
+      margin-top: 35%;
+      margin-bottom: 30%;
     }
     .sidebar .category{
       margin-top: 40px;
     }
+    .sidebar .category-links{
+      cursor: url(paintjar.png) 15 15, auto;
+    }
     .sidebar h3{
-      font-size: 20px;
+      font-size: 15px;
       text-transform: uppercase;
     }
     .sidebar a{
       display: block;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 100;
       margin: 0;
       margin-top: 8px;
@@ -167,29 +169,32 @@ nav {
       background-size: 200% 100%;
       background-position: right bottom;
       transition:all 0.7s ease;
+      cursor: url(paintjar.png) 15 15, auto;;
     }
     .sidebar a:hover{
       background-position: left bottom;
     }
     /*about*/
     .about{ 
-      position: absolute;
       display: inline-block;
+      position: absolute;
+      bottom: 45px;
     }
     .about h5{
-      font-size: 20px;
+      font-size: 15px;
       display: inline-block;
       text-transform: uppercase;
       margin-right: 40px;
-      padding-bottom: 5px;
+      margin: 0;
       border-bottom: solid 5px #99ccff;
-      margin-bottom: 20px;
+      margin-right: 20px;
+      margin-bottom: 10px;
     }
     .about h5:hover{
       color: #99ccff;
     }
     .about h6{
-      font-size: 20px; 
+      font-size: 15px; 
       display: block;
       text-transform: uppercase;
       margin: 0;
@@ -201,7 +206,6 @@ nav {
       z-index: 1;
       display: inline-block;
       width: 75%;
-      height: 100%;
       font-size: 10px;
       vertical-align: top;
       background-color: inherit;
@@ -212,9 +216,9 @@ nav {
     .blimp{
       width: inherit;
       position: absolute;
-      bottom: 30px;
+      bottom: 25px;
       margin-top: -200px;
-      font-size: 15px;
+      font-size: 10px;
       text-transform: uppercase;
     }
   /*canvas*/
@@ -238,7 +242,7 @@ nav {
     top: 0;
     width: 100% !important;
     z-index: 0;
-    /*background-color: #F7F4E8;*/
+    background-color: #f4f4f8;
     -webkit-user-select: initial !important;
   }
 
