@@ -216,6 +216,18 @@ nav {
       user-select: none;
       pointer-events: none;
     }
+    .connect-dots{
+      position: absolute;
+      top: 0;
+      width: 75%;
+      height: 100%;
+      text-align: center;
+    }
+    .connect-dots>img{
+      margin-top: 15%;
+      width: 100%;
+      height: auto;
+    }
     .blimp{
       width: inherit;
       position: absolute;
