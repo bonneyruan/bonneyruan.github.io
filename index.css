@@ -4,6 +4,7 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
   font-family: "Din", sans-serif;
+  cursor: url(spraypaintbottle.png), auto;
 }
 @font-face {
   font-family: "Din";
@@ -102,7 +103,7 @@ nav {
 /*Desktop*/
 
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 800px) {
   .mobile{
     display: none;
   }
@@ -197,13 +198,52 @@ nav {
     }
   /*showcase*/
   .showcase{
+      z-index: 1;
       display: inline-block;
       width: 75%;
       height: 100%;
       font-size: 10px;
       vertical-align: top;
       background-color: inherit;
+      text-align:center;
+      user-select: none;
+      pointer-events: none;
     }
+    .blimp{
+      width: inherit;
+      position: absolute;
+      bottom: 30px;
+      margin-top: -200px;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+  /*canvas*/
+  #canvas {
+    position: fixed;
+    z-index: -5;
+    width: 100%;
+    height: 110vh;
+  }
+
+  .upper-canvas {
+    cursor: url(spraypaintbottle.png), auto!important;
+  }
+
+  .canvas-container {
+    pointer-events: auto;
+    height: 100% !important;
+    left: 25%;
+    overflow: hidden;
+    position: fixed !important;
+    top: 0;
+    width: 100% !important;
+    z-index: 0;
+    /*background-color: #F7F4E8;*/
+    -webkit-user-select: initial !important;
+  }
+
+
+
 }
 
 /*animations*/
