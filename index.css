@@ -49,6 +49,9 @@ nav {
     top: 50%;
     margin-top: -84px;
     width: 100%;
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
   }
   .header-text {
     text-align: center;
@@ -103,7 +106,7 @@ nav {
 /*Desktop*/
 
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   .mobile{
     display: none;
   }
@@ -118,7 +121,7 @@ nav {
     width: 25%;
     height: 100%;
     margin: 0;
-    font-size: 10px;
+    font-size: 8px;
     padding: 60px;
     animation: slideInLeft 1s;
     background-color: white;
@@ -129,7 +132,7 @@ nav {
         text-transform: uppercase;
       }
       .sidebar h1{
-        font-size: 35px;
+        font-size: 25px;
         margin: 0;
         line-height: 1;
       }
@@ -139,7 +142,7 @@ nav {
         font-weight: 100;
         line-height: 1;
         margin-top: 10px;
-        font-size: 20px;
+        font-size: 15px;
       }
     /*category*/
     .categories-container{
@@ -216,9 +219,9 @@ nav {
     .blimp{
       width: inherit;
       position: absolute;
-      bottom: 25px;
+      bottom: 35px;
       margin-top: -200px;
-      font-size: 10px;
+      font-size: 8px;
       text-transform: uppercase;
     }
   /*canvas*/
@@ -247,6 +250,92 @@ nav {
   }
 
 
+
+}
+
+@media screen and (min-width: 1275px) {
+  /*sidebar*/
+    /*header*/
+    .sidebar h1{
+      font-size: 30px;
+    }
+    .sidebar h2{
+      font-size: 20px;
+    }
+    .sidebar h3{
+      font-size: 15px;
+    }
+    .sidebar a{
+      font-size: 15px;
+    }
+    /*about*/
+    .about h5{
+      font-size: 15px;
+    }
+    .about h6{
+      font-size: 15px; 
+    }
+  /*showcase*/
+    .blimp{
+      font-size: 8px;
+    }
+
+}
+
+@media screen and (min-width: 1450px) {
+  /*sidebar*/
+    /*header*/
+    .sidebar h1{
+      font-size: 35px;
+    }
+    .sidebar h2{
+      font-size: 25px;
+    }
+    .sidebar h3{
+      font-size: 20px;
+    }
+    .sidebar a{
+      font-size: 20px;
+    }
+    /*about*/
+    .about h5{
+      font-size: 20px;
+    }
+    .about h6{
+      font-size: 20px; 
+    }
+  /*showcase*/
+    .blimp{
+      font-size: 10px;
+    }
+
+}
+@media screen and (min-width: 1550px) {
+  /*sidebar*/
+    /*header*/
+    .sidebar h1{
+      font-size: 40px;
+    }
+    .sidebar h2{
+      font-size: 30px;
+    }
+    .sidebar h3{
+      font-size: 25px;
+    }
+    .sidebar a{
+      font-size: 25px;
+    }
+    /*about*/
+    .about h5{
+      font-size: 25px;
+    }
+    .about h6{
+      font-size: 25px; 
+    }
+  /*showcase*/
+    .blimp{
+      font-size: 15px;
+    }
 
 }
 
