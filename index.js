@@ -13,7 +13,7 @@
         var colorKeys = Object.keys(colors);
         var color = colorKeys[Math.floor(Math.random() * colorKeys.length)];
         canvas.freeDrawingBrush = new fabric.InkBrush(canvas, {
-          width: 70,
+          width: 45,
           opacity: colors[color],
           color: color
         });
@@ -61,7 +61,6 @@
               canvas._onMouseDownInDrawingMode(syntheticEvent);
             }, 20);
           } 
-
 
           function boundingBoxCheck(){
             // bouncy!
@@ -132,4 +131,17 @@
           target.dispatchEvent(event);
           return event;
         }
+
+        function clearCanvas(){
+            clickX = new Array();
+            clickY = new Array();
+            clickDrag = new Array();
+            context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+          };
+
+        $('#clearCanvasSimple').click(function(e){
+            clearCanvas();
+        });
+
+          
       })();

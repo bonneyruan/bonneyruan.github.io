@@ -222,6 +222,8 @@ nav {
       width: 75%;
       height: 100%;
       text-align: center;
+      padding: 5%;
+      padding-top: 0;
     }
     .connect-dots>img{
       margin-top: 15%;
