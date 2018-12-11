@@ -1,0 +1,187 @@
+/*#2f4f4f dark forest green
+#b0ccd4 light blue
+*/
+
+* {
+    font-family: 'Roboto', 'Helvetica', 'Raleway', sans-serif;
+    font-weight: 300;
+    color: #FDFDFD;
+}
+
+body {
+    background-color: #8FB2BC;
+    overflow-x: hidden;
+}
+
+
+#navbar {
+    height: 10%;
+    width: 100%;
+    display: inline-block;
+}
+    #home {
+        display: inline-block;
+        margin-left: 20px;
+    }
+    #links {
+        display: inline-block;
+        float: right;
+        margin-right: 22px;
+    }
+        .linkbtn {
+            background-color: transparent;
+            padding: 0;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 22px;
+            margin-bottom: 3px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            font-size: 20px;
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            z-index: 1;
+            margin-left: 15px;
+        }
+            .dropdown-content a {
+                padding: 5px;
+                text-decoration: none;
+                display: block;
+                opacity: 0.5;
+            }
+
+            .dropdown-content a:hover {
+                opacity: 1;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .linkbtn{
+                border-bottom: 1px white solid;
+            }
+
+            .linkbtn:hover {
+                border-bottom: 1px white solid;
+            }
+
+    h1 {
+        font-size: 20px;
+        display: inline-block;
+    }
+
+#sentence {
+    margin: auto;
+    margin-top: 11%;
+    width: 76%;
+}
+    .static, .nonstatic {
+        display: inline-block;
+    }
+    .nonstatic {
+        width: 77%;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #FDFDFD;
+        text-align: center;
+    }
+    h2, #typed {
+        font-size: 70px;
+        font-weight: 400;
+    }
+    h2 {
+        font-weight: 300;
+        margin-right: 20px;
+    }
+
+    .typed-cursor {
+      opacity: 1;
+      font-size: 70px;
+      -webkit-animation: blink 0.5s alternate infinite ease-in-out;
+      -moz-animation: blink 0.5s alternate infinite ease-in-out;
+      animation: blink 0.5s alternate infinite ease-in-out;
+    }
+
+    @keyframes blink {
+        to { opacity: 0 }
+    }
+
+@media screen and (max-width: 1241px) {
+    h2, #typed, .typed-cursor {
+        font-size: 40px;
+    }
+    .nonstatic {
+        border-bottom: 3px solid #FDFDFD;
+    }
+    #sentence {
+        margin-top: 15%;
+    }
+}
+
+@media screen and (max-width: 851px) {
+    h2, #typed, .typed-cursor {
+        font-size: 30px;
+    }
+    .nonstatic {
+        border-bottom: 2px solid #FDFDFD;
+    }
+    .linkbtn, .dropdown-content, h1 {
+        font-size: 15px
+    }
+    #sentence {
+        margin-top: 20%;
+    }
+}
+
+@media screen and (max-width: 704px) {
+    h2, #typed, .typed-cursor {
+        font-size: 20px ;
+    }
+    .nonstatic {
+        border-bottom: 1px solid #FDFDFD;
+    }
+    #sentence {
+        margin-top: 35%;
+    }
+}
+
+
+@media screen and (max-width: 565px) {
+    #sentence {
+        width: 90%;
+    }
+    h2, #typed, .typed-cursor {
+        font-size: 13px;
+    }
+    .nonstatic {
+        border-bottom: 1px solid #FDFDFD;
+    }
+    #sentence {
+        margin-top: 50%;
+    }
+}
+/*@media screen and (max-width: 565px) {
+    h2, #typed, .typed-cursor {
+        font-size: 10px;
+    }
+    .nonstatic {
+        border-bottom: 1px solid #FDFDFD;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    h2, #typed, .typed-cursor {
+        font-size: 5px;
+    }
+    .nonstatic {
+        border-bottom: 1px solid #FDFDFD;
+    }
+}
+*/
+
