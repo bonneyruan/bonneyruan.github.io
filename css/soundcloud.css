@@ -1,0 +1,23 @@
+h1 {
+	font-weight: bold;
+}
+
+#playlist, #resultssongs {
+	display: inline-block;
+}
+
+#songs {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.columns {
+	border-style: solid;
+	padding: 2px;
+}
+
+.picture {
+    width: 50%;
+    height: auto;
+}

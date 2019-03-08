@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Get Work Done</title>
+    <link rel="stylesheet" href="css/taskmanager.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!--color scheme: #0D1321 #1D2D44 #3E5C76 #748CAB #FOEBD8-->
+<!--color scheme: #E0FBFC #C2DFE3 #3E5C76 #748CAB #9DB4C0-->
+</head>
+    <body>
+        <!-- main two block div -->
+        <div id=mainBlocks>
+            <!-- main left block div -->
+            <div id=leftBlock>
+                <div id=title>
+                   <div>
+                        <h1>Get</h1>
+                    </div>
+                    <div>
+                        <h1>Work</h1>
+                    </div>
+                    <div>
+                        <h1>Done</h1>
+                    </div>
+                    <!-- <div id=instructions>
+                        <h2>Hey there!</h2>
+                        <p>Feel free to use this task manager to organize your life. Type in a task and press enter to move it to your list. Click the box to mark tasks as done.</p>
+                    </div> -->
+                </div>
+
+            </div>
+            <!-- main right block div -->
+            <div id=rightBlock>
+                <!--<h2>Hey there!</h2>
+                <p>Feel free to use this To Do List to organize your life.<br>Type in a task and press add item to move it to your list.<br>Click the box to mark tasks as done.</p>
+             -->
+                <section>
+                    <!-- create input tag for user input -->
+                    <input id="todo-item-input" onblur = "this.focus()" autofocus="">
+
+                    <!-- button takes input and adds a new element with content to 'list_do' -->
+                    <button id="button"> <h4>+ task</h4> </button>
+
+
+                    <!-- ability to move items between list_todo and list_doing -->
+                    <div>
+                        <div id="mainBlockList" class="lists">
+                            <div id="block_todo" class="lists">
+                                <h5> To Do </h5>
+                                <div id="list_todo"> </div>
+                            </div>
+                            <div id="block_doing" class="lists">
+                                <h5> Doing </h5>
+                                <div id="list_doing"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <script type="text/javascript" src="js/taskmanager.js"> </script>
+            </div>
+        </div>
+    </body>
+</html>
+
