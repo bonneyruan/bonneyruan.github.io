@@ -58,3 +58,35 @@ window.smoothScroll = function(target) {
 }
 
 
+$(function() {
+  $('.location-restaurants').hover(function() {
+    $('.side-description').css('visibility', 'visible');
+  }, function() {
+    // on mouseout, reset the background colour
+    // $('.side-description').css('visibility', 'hidden');
+  });
+});
+$(function() {
+  $('.panel').hover(function() {
+    $('.side-description').css('visibility', 'hidden');
+  }, function() {
+    // on mouseout, reset the background colour
+    // $('.side-description').css('visibility', 'hidden');
+  });
+});
+$(function() {
+  $('#atelier-crenn').hover(function() {
+    $('#restaurant-name').html('hellooooo');
+  }, function() {
+    // on mouseout, reset the background colour
+  });
+});
+
+$(function() {
+  $('#bellota').hover(function() {
+    $('#restaurant-name').html('Bellota');
+  }, function() {
+    // on mouseout, reset the background colour
+  });
+});
+
