@@ -28,36 +28,32 @@ body {
   justify-content: space-around;
   align-items: center;*/
   font-family: sans-serif;
+  display: flex;
+  flex-flow: column;
 }
-.color-red{
-    background-color: #F55D3E;
+
+.logo{
+    /*background-image: url('logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;*/
+    padding-left: 40px;
+    padding-top: -10px;
+    max-width: 50%;
+
+
 }
-.color-yellow{
-    background-color: #F7D624;
-}
-.color-white{
+.whitebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 400px;
+    height: 100%;
     background-color: white;
-}
-.color-blue{
-    background-color: #054A91;
-}
-.color-green{
-    background-color: #00A896;
-}
-.location-color-red:hover{
-    color: #F55D3E;
-}
-.location-color-yellow:hover{
-    color: #F7D624;
-}
-.location-color-green:hover{
-    color: #00A896;
-}
-.location-color-white:hover{
-    color: black;
-}
-.location-color-blue:hover{
-    color: #054A91;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
 }
 .sidebar {
     display: flex;
@@ -75,9 +71,9 @@ body {
 }
 
     .sidebar .logo, .sidebar h1{
-        padding-top: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
         padding-bottom: 0px;
         /*color: #F7D624;*/
         color: #484848;
@@ -88,37 +84,48 @@ body {
         display: flex;
         align-content: center;
         font-size: 20px;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 40px;
+        padding-right: 40px;
         padding-bottom: 10px;
+        color: #484848;
     }
     .sidebar .locations a:hover{
         font-weight: 500;
     }    
     .recommend {
-        padding-bottom: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        position: absolute;
+        /*right: 0;
+        padding-top: 30px;*/
+        bottom: 0;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
     }
-    .recommend button{
-        border: 2px solid #484848;
+    .recommend-button{
+        border: 2px solid #ED1C24;
+        color: #ED1C24;
+        font-size: 15px;
         padding: 3px;
         padding-left: 20px;
         padding-right: 20px;
         border-radius: 20px;
+        opacity: 0.6;
+    }
+    .recommend-button:hover{
+        color: white;
+        background-color: #ED1C24;
     }
 
 .side-description{
-    visibility: hidden;
     color: #484848;
+    display: none;
     
 }
     .side-description hr{
         border-style: solid;
         border-width: 0.5px;
-        margin-left: 30px;
-        margin-right: 30px;
-        display: block;
+        margin-left: 40px;
+        margin-right: 40px;
     }
 
     .side-description .snippet{
@@ -130,9 +137,26 @@ body {
         margin-bottom: 0;
         display: block;
     }
+    .restaurant-detail-container{
+        padding-bottom: 30px;
+    }
+        .restaurant-detail{
+            display: flex;
+            flex-direction: row;
+            padding-left: 40px;
+        }
+            .detail-image{
+                width: 20px;
+                padding-bottom: 8px;
+            }
+            .detail-info h2{
+                padding-left: 10px;
+                font-size: 16px;
+                padding-bottom: 5px;
+            }
 .main{
     padding-left: 400px;
-    padding-top: 30px;
+    padding-top: 40px;
     color: white;
     min-height: 100%;
 
@@ -143,12 +167,14 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     height: 100vh;
+    margin-top: -20px;
 }
 
 .location-list h1{
+    text-transform: uppercase;
     font-size: 30px;
-    padding-left: 30px;
-    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-bottom: 40px;
     font-weight: 700;
 }
 
@@ -166,23 +192,30 @@ body {
         padding-bottom: 10px;
         font-weight: 500;
         font-size: 25px;
-        padding-left: 30px;
+        padding-left: 40px;
     }
 .restaurant-line{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     padding-bottom: 3px;
-    padding-left: 30px;
+    padding-left: 40px;
 
 }
 .restaurant-subline{
     display: inline-flex;
     flex: 3;
 }
+    .restaurant-subline h3{
+        text-transform: uppercase;
+        width: 100px;
+    }
     .restaurant-subline h4{
-    padding-left: 10px;
-}
+        padding-left: 10px;
+    }
+    .price-holder{
+        opacity: 0.2;
+    }
     .price{
         float: right;
     }
@@ -190,10 +223,81 @@ body {
     display: flex;
     flex-direction: row;
 }
-.restaurant-image{
-    display: none;
-    height: 100px;
+
+
+.color-red{
+    background-color: #F55D3E;
 }
+.color-yellow{
+    background-color: #F7D624;
+}
+.color-white{
+    background-color: white;
+}
+.color-blue{
+    background-color: #054A91;
+}
+.color-green{
+    background-color: #00A896;
+}
+
+.location-color-red:hover{
+    color: #F55D3E;
+}
+.location-color-yellow:hover{
+    color: #F7D624;
+}
+.location-color-green:hover{
+    color: #00A896;
+}
+.location-color-white:hover{
+    color: #484848;
+}
+
+.recommend-color-blue{
+    border: 2px solid #054A91;
+    color: #054A91;
+}
+.recommend-color-red{
+    border: 2px solid #F55D3E;
+    color: #F55D3E;
+}
+.recommend-color-yellow{
+    border: 2px solid #F7D624;
+    color: #F7D624;
+}
+.recommend-color-green{
+    border: 2px solid #00A896;
+    color: #00A896;
+}
+.recommend-color-white{
+    border: 2px solid #ED1C24;
+    color: #ED1C24;
+}
+.recommend-color-blue{
+    border: 2px solid #054A91;
+    color: #054A91;
+}
+
+.recommend-color-blue:hover{
+    background-color: #054A91;
+}
+.recommend-color-red:hover{
+    background-color: #F55D3E;
+}
+.recommend-color-yellow:hover{
+    background-color: #F7D624;
+}
+.recommend-color-green:hover{
+    background-color: #00A896;
+}
+.recommend-color-white:hover{
+    background-color: #ED1C24;
+}
+.recommend-color-blue:hover{
+    background-color: #054A91;
+}
+
 
 @-webkit-keyframes fadeInUp {
   from {
@@ -272,6 +376,11 @@ body {
   animation-delay: 0.5s;
 }
 
+.animated.delay-1 {
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
@@ -284,7 +393,7 @@ body {
 
 @keyframes fadeIn {
   from {
-    opacity: 0.5;
+    opacity: 0;
   }
 
   to {

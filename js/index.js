@@ -5,6 +5,7 @@ $(window).scroll(function() {
       $body = $('body'),
       $panel = $('.panel');
       $location = $('.location')
+      $recommend = $('.recommend-button')
   
   // Change 33% earlier than scroll position so colour is there when you arrive.
   var scroll = $window.scrollTop() + ($window.height() / 3);
@@ -21,13 +22,19 @@ $(window).scroll(function() {
       $body.removeClass(function (index, css) {
         return (css.match (/(^|\s)color-\S+/g) || []).join(' ');
       });
+
+      // Add class of currently active div
       $location.removeClass(function (index, css) {
         return (css.match (/(^|\s)location-color-\S+/g) || []).join(' ');
       });
+
+      $recommend.removeClass(function (index, css) {
+        return (css.match (/(^|\s)recommend-color-\S+/g) || []).join(' ');
+      });
        
-      // Add class of currently active div
       $body.addClass('color-' + $(this).data('color'));
       $location.addClass('location-color-' + $(this).data('color'));
+      $recommend.addClass('recommend-color-' + $(this).data('color'));
     }
   });    
   
@@ -58,35 +65,53 @@ window.smoothScroll = function(target) {
 }
 
 
-$(function() {
-  $('.location-restaurants').hover(function() {
-    $('.side-description').css('visibility', 'visible');
-  }, function() {
-    // on mouseout, reset the background colour
-    // $('.side-description').css('visibility', 'hidden');
-  });
-});
-$(function() {
-  $('.panel').hover(function() {
-    $('.side-description').css('visibility', 'hidden');
-  }, function() {
-    // on mouseout, reset the background colour
-    // $('.side-description').css('visibility', 'hidden');
-  });
-});
+// $(function() {
+//   $('.location-restaurants').hover(function() {
+//     $('.side-description').css('visibility', 'visible');
+//   }, function() {
+//     // on mouseout, reset the background colour
+//     // $('.side-description').css('visibility', 'hidden');
+//   });
+// });
+
 $(function() {
   $('#atelier-crenn').hover(function() {
     $('#restaurant-name').html('hellooooo');
+    $('#snippet').html('Arguably the worlds only restaurant where, in place of a standard menu, guests receive an original poem, with specific lines of the poem loosely corresponding to the experimental dishes.');
   }, function() {
-    // on mouseout, reset the background colour
   });
 });
 
 $(function() {
   $('#bellota').hover(function() {
     $('#restaurant-name').html('Bellota');
+    $('#snippet').html('You can find tapas restaurants all over SF, but Bellota is one that you cannot miss. Be sure to grab to octopus dish before you leave.');
   }, function() {
-    // on mouseout, reset the background colour
   });
+});
+
+
+$(function() {
+  $('.restaurant-line').hover(function() {
+    $('.sidebar').not('sustain-white').css('display', 'none');
+    $('.side-description').css('display', 'block');
+    
+  })
+});
+
+// $(function() {
+//   $('body').children().not('location-restaurants, side-description, sidebar').select().hover(function() {
+//     $('.sidebar').css('display', 'flex');
+//     $('.side-description').css('display', 'none');
+    
+//   })
+// });
+
+$(function() {
+  $('.hover-hidden').hover(function() {
+    $('.sidebar').css('display', 'flex');
+    $('.side-description').css('display', 'none');
+    
+  })
 });
 

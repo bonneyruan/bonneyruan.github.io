@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <title>bonney ruan</title>
+  <title>CHOW FUN</title>
   <meta charset="UTF-8" />
 
   <!-- load css stylesheets -->
@@ -19,322 +19,348 @@
   <script type='text/javascript' src='js/index.js'></script>
 </head>
 <body>
-  <div class="sidebar animated slideInLeft delay">
+  <!-- <div class="recommend animated fadeIn delay">
+      <button>recommend some chow</button>
+  </div> -->
+  <!-- <div class="sidebar animated slideInLeft delay"> -->
+  <div class="whitebar">
+  </div>
+
+  <div class="sidebar">
     <div>
-      <a class="logo" onclick="smoothScroll(document.getElementById('home'))">CHOW FUN</a>
-      <h2>by Bonney Ruan</h2>  
+      <a class="logo animated fadeIn delay" onclick="smoothScroll(document.getElementById('home'))">CHOW FUN</a>
+      <!-- <img class="logo" onclick="smoothScroll(document.getElementById('home'))" src="css/logo-9.svg"> -->
+      <h2 class="animated fadeIn delay">by Bonney Ruan</h2>  
     </div>
     
-    <div class="locations">
+    <div class="locations animated slideInLeft delay">
       <a class="location" onclick="smoothScroll(document.getElementById('san-francisco'))">San Francisco</a> 
       <a class="location" onclick="smoothScroll(document.getElementById('los-angeles'))">Los Angeles</a>
       <a class="location" onclick="smoothScroll(document.getElementById('berkeley'))">Berkeley</a>
     </div>
-    <div class="recommend">
-      <button>recommend some chow</button>
+    <div class="recommend animated fadeIn delay">
+      <button class="recommend-button">recommend chow</button>
+    </div>
+    <div>
     </div>
   </div>
 
   <div class="sidebar side-description animated fast fadeIn">
     <div>
-      <h1 id="restaurant-name">Atelier Crenn</h1>
-      <h2 id="restaurant-sub">$$$$ French</h2> 
+      <h1 class="animated slideInLeft" id="restaurant-name">Atelier Crenn</h1>
+      <h2 class="animated slideInLeft" id="restaurant-sub">$$$$ French</h2> 
       <!-- <h3>3127 Filmore St, San Francisco, CA 94123</h3>  -->
     </div>
 
-    <hr>
+    <hr class="animated fadeIn delay">
     
-    <div class=snippet>
-      <h2>Arguably the world's only restaurant where, in place of a standard menu, guests receive an original poem, with specific lines of the poem loosely corresponding to the experimental dishes.</h2>
+    <div class="snippet animated fadeInUp delay-1">
+      <h2 id="snippet">Arguably the world's only restaurant where, in place of a standard menu, guests receive an original poem, with specific lines of the poem loosely corresponding to the experimental dishes.</h2>
     </div>
 
-    <div>
-      <h2>Reservations: Highly Recommended</h2>
-      <h2>Dress code: Business Casual</h2>
-      <h2>Parking: Street</h2>
-      <h2>3127 Filmore St, San Francisco, CA 94123</h2>
+    <div class="restaurant-detail-container animated fadeInUp delay-1">
+      <div class="restaurant-detail">
+        <div class="detail-image">
+          <img src="css/icon-reservation.svg">
+        </div>
+        <div class="detail-info">
+          <h2>Highly Recommended</h2>
+        </div>
+      </div>
+      <div class="restaurant-detail">
+        <div class="detail-image">
+          <img src="css/icon-dress.svg">
+        </div>
+        <div class="detail-info">
+          <h2>Business Casual</h2>
+        </div>
+      </div>
+      <div class="restaurant-detail">
+        <div class="detail-image">
+          <img src="css/icon-parking.svg">
+        </div>
+        <div class="detail-info">
+          <h2>Parking</h2>
+        </div>
+      </div>
+      <div class="restaurant-detail">
+        <div class="detail-image">
+          <img src="css/icon-address.svg">
+        </div>
+        <div class="detail-info">
+          <h2>3127 Filmore St, San Francisco, CA 94123</h2>
+        </div>
+      </div>
     </div>
-    <div>
+    <div class="animated fadeInUp delay-1">
       <img src="css/bazaar.jpg">
       <img src="css/bazaar.jpg">
       <img src="css/bazaar.jpg">
     </div>
-    
-
-    
   </div>
 
 
-  <div id="home" class="panel main landing" data-color="white">
+  <div id="home" class="hover-hidden panel main landing" data-color="white">
     <div class="landing-image fadeInUp animated">
     </div>
   </div>
 
   <div id="san-francisco" class="panel main" data-color="red">
+    
     <div class="location-list">
-      <h1>SAN FRANCISCO</h1>
+      <h1 class="hover-hidden">San Francisco</h1>
+      
       <div class="restaurant-base">
         <div class="location-restaurants">
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line" id="atelier-crenn">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+          <div class="sublocation">
+            <h2>Sunset</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Chinese</h3>
+                <h4>| Terra Cotta Warrior</h3>  
+              </div>
+              <h4>$$<span class="price-holder">$$</span></h4>
             </div>
-            <h4>$</h4>
           </div>
-          <div class="restaurant-line" id="bellota">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+          <div class="sublocation">
+            <h2>Mission</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Tapas</h3>
+                <h4>| Lolo</h3>  
+              </div>
+              <h4>$$<span class="price-holder">$$</span></h4>
             </div>
-            <h4>$</h4>
+          </div>
+          <div class="sublocation">
+            <h2>Pacific Heights</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Tapas</h3>
+                <h4>| Flores</h3>  
+              </div>
+              <h4>$$<span class="price-holder">$$</span></h4>
+            </div>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>French</h3>
+                <h4>| Atelier Crenn</h3>  
+              </div>
+              <h4>$$$$<span class="price-holder"></span></h4>
+            </div>
+          </div>
+          <div class="sublocation">
+            <h2>Soma</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Tapas</h3>
+                <h4>| Bellota</h3>  
+              </div>
+              <h4>$<span class="price-holder">$$$</span></h4>
+            </div>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>French</h3>
+                <h4>| In Situ</h3>  
+              </div>
+              <h4>$<span class="price-holder">$$$</span></h4>
+            </div>
           </div>
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
+        <div class="hover-hidden" style="width: 50%">
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-        </div>    
-      </div>
-      <div class="restaurant-image">
-        <img src="css/red.svg">
       </div>
     </div>
-       
-      
-    </div>
+    <div class="hover-hidden" style="flex: 1;width: 100%;">
+    </div>  
   </div>
+
   <div id="los-angeles" class="panel main" data-color="blue">
     <div class="location-list">
-      <h1>LOS ANGELES</h1>
-      <div class="location-restaurants">
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+      <h1 class="hover-hidden">Los Angeles</h1>
+      <div class="restaurant-base">
+        <div class="location-restaurants">
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Chinese |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4>$</h4>
             </div>
-            <h4>$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+            <div class="restaurant-line" id="bellota">
+              <div class="restaurant-subline">
+                <h3>Chinese |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4>$</h4>
             </div>
-            <h4>$</h4>
           </div>
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+          </div>
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+          </div>    
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
+        <div class="hover-hidden" style="width: 50%">
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-        </div>    
       </div>
     </div>
+    <div class="hover-hidden" style="flex: 1;width: 100%;">
+    </div>  
   </div>
+
 
   <div id="berkeley" class="panel main" data-color="green">
     <div class="location-list">
-      <h1>BERKELEY</h1>
-      <div class="location-restaurants">
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+      <h1 class="hover-hidden">Berkeley</h1>
+      <div class="restaurant-base">
+        <div class="location-restaurants">
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Chinese |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4>$</h4>
             </div>
-            <h4>$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Chinese |</h3>
-              <h4>Restaurant</h3>  
+            <div class="restaurant-line" id="bellota">
+              <div class="restaurant-subline">
+                <h3>Chinese |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4>$</h4>
             </div>
-            <h4>$</h4>
           </div>
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+          </div>
+          <div class="sublocation">
+            <h2>Dogpatch</h2>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+            <div class="restaurant-line">
+              <div class="restaurant-subline">
+                <h3>Cuisine |</h3>
+                <h4>Restaurant</h3>  
+              </div>
+              <h4 class="price">$</h4>
+            </div>
+          </div>    
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
+        <div class="hover-hidden" style="width: 50%">
         </div>
-        <div class="sublocation">
-          <h2>Dogpatch</h2>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-          <div class="restaurant-line">
-            <div class="restaurant-subline">
-              <h3>Cuisine |</h3>
-              <h4>Restaurant</h3>  
-            </div>
-            <h4 class="price">$</h4>
-          </div>
-        </div>    
       </div>
     </div>
+    <div class="hover-hidden" style="flex: 1;width: 100%;">
+    </div>  
+  </div>
 
 </body>
 </html>
