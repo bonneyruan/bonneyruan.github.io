@@ -31,22 +31,22 @@ body {
   display: flex;
   flex-flow: column;
 }
-
-.logo{
+#icon-toggle-container{
+    display: none;
+}
+.intro{
     /*background-image: url('logo.svg');
     background-size: contain;
     background-repeat: no-repeat;*/
-    padding-left: 40px;
-    padding-top: -10px;
-    max-width: 50%;
-
-
+    padding-bottom: 40px;
+    /*max-width: 50%;*/
 }
 .whitebar {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: 400px;
+    width: 30%;
+    min-width: 300px;
     height: 100%;
     background-color: white;
     position: fixed;
@@ -60,7 +60,8 @@ body {
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
-    width: 400px;
+    width: 30%;
+    min-width: 300px;
     height: 100%;
     background-color: white;
     position: fixed;
@@ -121,6 +122,9 @@ body {
     display: none;
     
 }
+    #hidden{
+        display: none;
+    }
     .side-description hr{
         border-style: solid;
         border-width: 0.5px;
@@ -155,7 +159,7 @@ body {
                 padding-bottom: 5px;
             }
 .main{
-    padding-left: 400px;
+    padding-left: 30%;
     padding-top: 40px;
     color: white;
     min-height: 100%;
@@ -181,7 +185,9 @@ body {
 .location-restaurants{
     flex-wrap: wrap;
     flex-direction: column;
-    width: 50%;
+    width: 70%;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 .sublocation{
     padding-bottom: 30px;
@@ -192,15 +198,12 @@ body {
         padding-bottom: 10px;
         font-weight: 500;
         font-size: 25px;
-        padding-left: 40px;
     }
 .restaurant-line{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     padding-bottom: 3px;
-    padding-left: 40px;
-
 }
 .restaurant-subline{
     display: inline-flex;
@@ -208,10 +211,12 @@ body {
 }
     .restaurant-subline h3{
         text-transform: uppercase;
-        width: 100px;
+        width: 120px;
     }
     .restaurant-subline h4{
-        padding-left: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-bottom: 2px solid white;
     }
     .price-holder{
         opacity: 0.2;
@@ -224,6 +229,32 @@ body {
     flex-direction: row;
 }
 
+#recommend-chow{
+    display: flex;
+    justify-content: space-around;
+    /*align-items: center;*/
+    color: #484848;
+    font-size: 60px;
+    padding-left: 30%;
+}
+
+#recommend-chow .jumbo-text{
+    width: 70%;
+    padding-left: 40px;
+}
+
+.jumbo-text span{
+    color: #F55D3E;
+    font-weight: 700;
+}
+
+.jumbo-text .email-link{
+    border-bottom: 5px solid #F55D3E;
+    color: #F55D3E;
+    font-weight: 700;
+    text-decoration: none;
+}
+
 
 .color-red{
     background-color: #F55D3E;
@@ -234,6 +265,9 @@ body {
 .color-white{
     background-color: white;
 }
+.color-home{
+    background-color: white;
+}
 .color-blue{
     background-color: #054A91;
 }
@@ -241,6 +275,10 @@ body {
     background-color: #00A896;
 }
 
+
+.location-color-blue:hover{
+    color: #054A91;
+}
 .location-color-red:hover{
     color: #F55D3E;
 }
@@ -253,49 +291,73 @@ body {
 .location-color-white:hover{
     color: #484848;
 }
+.location-color-home:hover{
+    color: #484848;
+}
 
 .recommend-color-blue{
     border: 2px solid #054A91;
     color: #054A91;
+    opacity: 1;
 }
 .recommend-color-red{
     border: 2px solid #F55D3E;
     color: #F55D3E;
+    opacity: 1;
 }
 .recommend-color-yellow{
     border: 2px solid #F7D624;
     color: #F7D624;
+    opacity: 1;
 }
 .recommend-color-green{
     border: 2px solid #00A896;
     color: #00A896;
+    opacity: 1;
 }
 .recommend-color-white{
+    border: 2px solid #F55D3E;
+    color: #ED1C24;
+    opacity: 1;
+}
+.recommend-color-home{
     border: 2px solid #ED1C24;
     color: #ED1C24;
+    opacity: 0.6;
 }
 .recommend-color-blue{
     border: 2px solid #054A91;
     color: #054A91;
+    opacity: 1;
 }
 
 .recommend-color-blue:hover{
     background-color: #054A91;
+    opacity: 1;
 }
 .recommend-color-red:hover{
     background-color: #F55D3E;
+    opacity: 1;
 }
 .recommend-color-yellow:hover{
     background-color: #F7D624;
+    opacity: 1;
 }
 .recommend-color-green:hover{
     background-color: #00A896;
+    opacity: 1;
+}
+.recommend-color-home:hover{
+    background-color: #ED1C24;
+    opacity: 0.6;
 }
 .recommend-color-white:hover{
-    background-color: #ED1C24;
+    background-color: #F55D3E;
+    opacity: 1;
 }
 .recommend-color-blue:hover{
     background-color: #054A91;
+    opacity: 1;
 }
 
 
@@ -406,13 +468,220 @@ body {
   animation-name: fadeIn;
 }
 
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+
 .animated.fast {
   -webkit-animation-duration: 100ms;
   animation-duration: 100ms;
 }
 
+.animated.slow {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
 
+@-webkit-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
 
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInDown {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+}
+
+@-webkit-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media only screen and (max-width: 1000px){
+    .main, #recommend-chow{
+        padding-left: 300px;
+    }
+    .location-restaurants{
+        width: 90%;
+    }
+    #recommend-chow .jumbo-text{
+        font-size: 45px;
+    }
+}
+
+@media only screen and (max-width: 850px){
+    .main, #recommend-chow{
+        padding-left: 300px;
+    }
+    .location-restaurants{
+        width: 90%;
+    }
+    .restaurant-subline>h4{
+        max-width: 50%
+    }
+    .restaurant-subline>h3{
+        width: 100px;
+    }
+    #recommend-chow .jumbo-text{
+        font-size: 35px;
+    }
+}
+
+@media only screen and (max-width: 720px){
+    #recommend-chow .jumbo-text{
+        font-size: 30px;
+    }
+
+}
+
+@media only screen and (max-width: 682px){
+    .whitebar{
+        display: none;
+    }
+    .main, #recommend-chow{
+        padding-left: 0px;
+    }
+    .location-restaurants{
+        width: 100%;
+    }
+    #recommend-chow{
+        display: flex;
+        align-content: space-around;
+        justify-content: center;
+    }
+    .sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    max-height: 70%;
+    background-color: white;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    overflow-x: auto;
+    opacity: 0.95;
+    }
+    #hidden{
+        display: flex;
+    }
+    .side-description{
+        z-index: 1;
+        display: none;
+        opacity: 1;
+    }
+    .sidebar h1{
+        padding-top: 0px;
+    }
+    .static-nav{
+        display: flex;
+        flex-direction: row;
+    }
+    .static-nav .animated, #nav-list{
+        animation-duration: 0s;
+    }
+    .static-nav .fadeIn, #nav-list{
+        animation-name: none;
+    }
+    .static-nav .slideInLeft, #nav-list{
+        animation-name: none;
+    }
+    .intro{
+        flex: 3;
+        padding-bottom: 20px;
+    }
+    .sidebar .logo{
+        height: auto;
+        max-height: 70%;
+        padding-top: 20px;
+        font-size: 20px;
+    }
+    .intro h2{
+        display: none;
+    }
+    #icon-toggle-container{
+        display: block;
+        padding-top: 20px;
+        padding-right: 40px;
+        width: 25px;
+    }
+    #icon-toggle{
+        width: 25px;
+    }
+
+    .recommend{
+        display: none;
+    }
+    .active{
+        display: block;
+    }
+    .active-description{
+        height: 70%;
+    }
+    .locations{
+        display: none;
+        padding-top: 0px;
+        padding-bottom: 20px;
+    }
+    .locations:before{
+        display: flex;
+    }
+}
 /*@media screen and (max-width: 565px) {
     h2, #typed, .typed-cursor {
         font-size: 10px;

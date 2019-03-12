@@ -36,7 +36,23 @@ $(window).scroll(function() {
       $location.addClass('location-color-' + $(this).data('color'));
       $recommend.addClass('recommend-color-' + $(this).data('color'));
     }
-  });    
+  }); 
+
+if($(".side-description").is(':visible')){
+      $(".sidebar").css('display', 'flex'); 
+      $(".side-description").css('display', 'none'); 
+    }  
+
+$(".sidebar").css('height', 'auto');
+
+if($(".locations").is(':visible')){ 
+  console.log('asdfasdf')
+  $(".locations").addClass("fadeOut");
+  setTimeout( function(){
+    $(".locations").css("display"), "none"},1000);
+  // $(".locations").css("display", "none");
+    }  
+
   
 }).scroll();
 
@@ -65,6 +81,23 @@ window.smoothScroll = function(target) {
 }
 
 
+$(function() {
+  $("#icon-toggle-container").click(function () {
+    if($(".side-description").is(':visible') && ($(".sidebar").height() < 100)){
+      $(".sidebar").css('height', '70%'); 
+    }
+    else{
+      $(".sidebar").css('height', 'auto');
+    }
+    // if($(".locations").height() > 0){
+    //   $("locations").addClass("fadeOut"); 
+    // }
+    $(".locations").toggle('active'); 
+    // $("locations").removeClass("fadeOut"); 
+  });
+});
+
+
 // $(function() {
 //   $('.location-restaurants').hover(function() {
 //     $('.side-description').css('visibility', 'visible');
@@ -78,6 +111,9 @@ $(function() {
   $('#atelier-crenn').hover(function() {
     $('#restaurant-name').html('hellooooo');
     $('#snippet').html('Arguably the worlds only restaurant where, in place of a standard menu, guests receive an original poem, with specific lines of the poem loosely corresponding to the experimental dishes.');
+    $('.side-description').animate({
+      scrollTop: "0px"
+    });
   }, function() {
   });
 });
@@ -86,6 +122,9 @@ $(function() {
   $('#bellota').hover(function() {
     $('#restaurant-name').html('Bellota');
     $('#snippet').html('You can find tapas restaurants all over SF, but Bellota is one that you cannot miss. Be sure to grab to octopus dish before you leave.');
+    $('.side-description').animate({
+      scrollTop: "0px"
+    });
   }, function() {
   });
 });
@@ -93,9 +132,10 @@ $(function() {
 
 $(function() {
   $('.restaurant-line').hover(function() {
-    $('.sidebar').not('sustain-white').css('display', 'none');
+    if(('.sidebar').height == 100){
+      $('.sidebar').not('sustain-white').css('display', 'none');
+    }
     $('.side-description').css('display', 'block');
-    
   })
 });
 
@@ -109,7 +149,9 @@ $(function() {
 
 $(function() {
   $('.hover-hidden').hover(function() {
-    $('.sidebar').css('display', 'flex');
+    if(('.sidebar').height == 100){
+      $('.sidebar').css('display', 'flex');  
+    }
     $('.side-description').css('display', 'none');
     
   })

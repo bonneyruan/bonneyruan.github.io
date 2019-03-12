@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
   <title>CHOW FUN</title>
+  <link rel="shortcut icon" type="image/png" href="css/chowfun-favicon.png"/>
+
   <meta charset="UTF-8" />
 
   <!-- load css stylesheets -->
@@ -23,29 +25,48 @@
       <button>recommend some chow</button>
   </div> -->
   <!-- <div class="sidebar animated slideInLeft delay"> -->
+
   <div class="whitebar">
   </div>
 
   <div class="sidebar">
-    <div>
-      <a class="logo animated fadeIn delay" onclick="smoothScroll(document.getElementById('home'))">CHOW FUN</a>
-      <!-- <img class="logo" onclick="smoothScroll(document.getElementById('home'))" src="css/logo-9.svg"> -->
-      <h2 class="animated fadeIn delay">by Bonney Ruan</h2>  
+    <div class="static-nav">
+      
+      <div class="intro">
+        <a class="logo animated fadeIn delay" onclick="smoothScroll(document.getElementById('home'))">CHOW FUN</a>
+        <!-- <img class="logo" onclick="smoothScroll(document.getElementById('home'))" src="css/logo-9.svg"> -->
+        <h2 class="animated fadeIn delay">by Bonney Ruan</h2>  
+      </div>
+      <a id="icon-toggle-container"><img src="css/icon-toggle.png" id="icon-toggle"></a>
     </div>
     
-    <div class="locations animated slideInLeft delay">
-      <a class="location" onclick="smoothScroll(document.getElementById('san-francisco'))">San Francisco</a> 
-      <a class="location" onclick="smoothScroll(document.getElementById('los-angeles'))">Los Angeles</a>
-      <a class="location" onclick="smoothScroll(document.getElementById('berkeley'))">Berkeley</a>
+
+    <div>
+      <div class="locations animated slideInLeft delay" id="nav-list">
+        <a class="location" onclick="smoothScroll(document.getElementById('san-francisco'))">San Francisco</a> 
+        <a class="location" onclick="smoothScroll(document.getElementById('los-angeles'))">Los Angeles</a>
+        <a class="location" onclick="smoothScroll(document.getElementById('berkeley'))">Berkeley</a>
+      </div>  
     </div>
+    
     <div class="recommend animated fadeIn delay">
-      <button class="recommend-button">recommend chow</button>
+      <button class="recommend-button" onclick="smoothScroll(document.getElementById('recommend-chow'))">recommend chow</button>
     </div>
     <div>
     </div>
   </div>
 
   <div class="sidebar side-description animated fast fadeIn">
+    <div class="static-nav" id="hidden">
+      
+      <div class="intro">
+        <a class="logo animated fadeIn delay" onclick="smoothScroll(document.getElementById('home'))">CHOW FUN</a>
+        <!-- <img class="logo" onclick="smoothScroll(document.getElementById('home'))" src="css/logo-9.svg"> -->
+        <h2 class="animated fadeIn delay">by Bonney Ruan</h2>  
+      </div>
+      <a id="icon-toggle-container"><img src="css/icon-toggle.png" id="icon-toggle"></a>
+    </div>
+
     <div>
       <h1 class="animated slideInLeft" id="restaurant-name">Atelier Crenn</h1>
       <h2 class="animated slideInLeft" id="restaurant-sub">$$$$ French</h2> 
@@ -55,7 +76,7 @@
     <hr class="animated fadeIn delay">
     
     <div class="snippet animated fadeInUp delay-1">
-      <h2 id="snippet">Arguably the world's only restaurant where, in place of a standard menu, guests receive an original poem, with specific lines of the poem loosely corresponding to the experimental dishes.</h2>
+      <h2 id="snippet">This is a description of a restaurant that I really like. Hope you enjoy it too!</h2>
     </div>
 
     <div class="restaurant-detail-container animated fadeInUp delay-1">
@@ -64,7 +85,7 @@
           <img src="css/icon-reservation.svg">
         </div>
         <div class="detail-info">
-          <h2>Highly Recommended</h2>
+          <h2>Reservations Recommended</h2>
         </div>
       </div>
       <div class="restaurant-detail">
@@ -80,7 +101,7 @@
           <img src="css/icon-parking.svg">
         </div>
         <div class="detail-info">
-          <h2>Parking</h2>
+          <h2>Street Parking</h2>
         </div>
       </div>
       <div class="restaurant-detail">
@@ -88,7 +109,7 @@
           <img src="css/icon-address.svg">
         </div>
         <div class="detail-info">
-          <h2>3127 Filmore St, San Francisco, CA 94123</h2>
+          <h2>1234 Happiness Lane, Los Angeles, CA 91745</h2>
         </div>
       </div>
     </div>
@@ -100,7 +121,7 @@
   </div>
 
 
-  <div id="home" class="hover-hidden panel main landing" data-color="white">
+  <div id="home" class="hover-hidden panel main landing" data-color="home">
     <div class="landing-image fadeInUp animated">
     </div>
   </div>
@@ -117,17 +138,17 @@
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
                 <h3>Chinese</h3>
-                <h4>| Terra Cotta Warrior</h3>  
+                <h4>Terra Cotta Warrior</h3>  
               </div>
               <h4>$$<span class="price-holder">$$</span></h4>
             </div>
           </div>
           <div class="sublocation">
             <h2>Mission</h2>
-            <div class="restaurant-line" id="atelier-crenn">
+            <div class="restaurant-line" id="bellota">
               <div class="restaurant-subline">
                 <h3>Tapas</h3>
-                <h4>| Lolo</h3>  
+                <h4>Lolo</h3>  
               </div>
               <h4>$$<span class="price-holder">$$</span></h4>
             </div>
@@ -137,14 +158,14 @@
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
                 <h3>Tapas</h3>
-                <h4>| Flores</h3>  
+                <h4>Flores</h3>  
               </div>
               <h4>$$<span class="price-holder">$$</span></h4>
             </div>
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
                 <h3>French</h3>
-                <h4>| Atelier Crenn</h3>  
+                <h4>Atelier Crenn</h3>  
               </div>
               <h4>$$$$<span class="price-holder"></span></h4>
             </div>
@@ -154,20 +175,20 @@
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
                 <h3>Tapas</h3>
-                <h4>| Bellota</h3>  
+                <h4>Bellota</h3>  
               </div>
               <h4>$<span class="price-holder">$$$</span></h4>
             </div>
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
                 <h3>French</h3>
-                <h4>| In Situ</h3>  
+                <h4>In Situ</h3>  
               </div>
               <h4>$<span class="price-holder">$$$</span></h4>
             </div>
           </div>
         </div>
-        <div class="hover-hidden" style="width: 50%">
+        <div class="hover-hidden" style="flex:1">
         </div>
       </div>
     </div>
@@ -184,14 +205,14 @@
             <h2>Dogpatch</h2>
             <div class="restaurant-line" id="atelier-crenn">
               <div class="restaurant-subline">
-                <h3>Chinese |</h3>
+                <h3>Chinese</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4>$</h4>
             </div>
             <div class="restaurant-line" id="bellota">
               <div class="restaurant-subline">
-                <h3>Chinese |</h3>
+                <h3>Chinese</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4>$</h4>
@@ -201,28 +222,28 @@
             <h2>Dogpatch</h2>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
@@ -232,28 +253,28 @@
             <h2>Dogpatch</h2>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
             </div>
             <div class="restaurant-line">
               <div class="restaurant-subline">
-                <h3>Cuisine |</h3>
+                <h3>Cuisine</h3>
                 <h4>Restaurant</h3>  
               </div>
               <h4 class="price">$</h4>
@@ -354,7 +375,7 @@
             </div>
           </div>    
         </div>
-        <div class="hover-hidden" style="width: 50%">
+        <div class="hover-hidden" style="flex: 1">
         </div>
       </div>
     </div>
@@ -362,7 +383,43 @@
     </div>  
   </div>
 
+  <div class="panel main hover-hidden " id="recommend-chow" data-color="white">
+    <div class="jumbo-text">
+      <h1>Have somewhere you love that's not on <span>CHOW FUN</span>? Please send me an email <a class="email-link" href="mailto:someone@example.com">here</a>.</h1>
+    </div>
+    
+  </div>
+
 </body>
 </html>
 
+<!--template-->
+<!-- <div id="san-francisco" class="panel main" data-color="red">
+    
+    <div class="location-list">
+      <h1 class="hover-hidden">San Francisco</h1>
+      
+      <div class="restaurant-base">
+        <div class="location-restaurants">
+
+          <div class="sublocation">
+            <h2>Sunset</h2>
+            <div class="restaurant-line" id="atelier-crenn">
+              <div class="restaurant-subline">
+                <h3>Chinese</h3>
+                <h4>| Terra Cotta Warrior</h3>  
+              </div>
+              <h4>$$<span class="price-holder">$$</span></h4>
+            </div>
+          </div>
+
+        </div>
+        <div class="hover-hidden" style="width: 50%">
+        </div>
+      </div>
+    </div>
+    <div class="hover-hidden" style="flex: 1;width: 100%;">
+    </div>  
+  </div>
+ -->
 
