@@ -588,6 +588,9 @@ body {
 }
 
 @media only screen and (max-width: 682px){
+    *{
+        font-weight: 400;
+    }
     .whitebar{
         display: none;
     }
@@ -597,20 +600,21 @@ body {
     .location-restaurants{
         width: 100%;
     }
+        .location-list h1{
+            padding-top: 50px;
+            font-size: 20px;
+        }
+        .sublocation h2{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .restaurant-line{
+            font-size: 16px;
+        }
     #recommend-chow{
         display: flex;
         align-content: space-around;
         justify-content: center;
-    }
-    .location-list h1{
-        padding-top: 50px;
-        font-size: 20px;
-    }
-    .sublocation h2{
-        font-size: 20px;
-    }
-    .restaurant-line{
-        font-size: 16px;
     }
     .sidebar {
     display: flex;
@@ -629,6 +633,12 @@ body {
     overflow-x: auto;
     opacity: 0.95;
     }
+        .sidebar h1{
+            font-size: 20px;
+        }
+        .sidebar h2{
+            font-size: 16px;
+        }
     #hidden{
         display: flex;
     }
