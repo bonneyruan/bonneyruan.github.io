@@ -616,22 +616,27 @@ body {
         align-content: space-around;
         justify-content: center;
     }
+        #recommend-chow .jumbo-text{
+            padding-left: 0;
+            text-align: center;
+        }
     .sidebar {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: start;
-    width: 100%;
-    height: auto;
-    min-height: 50px;
-    max-height: 70%;
-    background-color: white;
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    overflow-x: auto;
-    opacity: 0.95;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: start;
+        width: 100%;
+        height: auto;
+        min-height: 50px;
+        max-height: 70%;
+        background-color: white;
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        overflow-x: auto;
+        opacity: 0.95;
     }
         .sidebar h1{
             font-size: 20px;

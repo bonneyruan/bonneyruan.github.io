@@ -38,10 +38,10 @@ $(window).scroll(function() {
     }
   }); 
 
-if($(".side-description").is(':visible')){
-      $(".sidebar").css('display', 'flex'); 
-      $(".side-description").css('display', 'none'); 
-    }  
+// if($(".side-description").is(':visible')){
+//       $(".sidebar").css('display', 'flex'); 
+//       $(".side-description").css('display', 'none'); 
+//     }  
 
 // $(".sidebar").css('height', 'auto');
 
