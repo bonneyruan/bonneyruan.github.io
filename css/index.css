@@ -94,10 +94,8 @@ body {
         font-weight: 500;
     }    
     .recommend {
-        position: absolute;
         /*right: 0;
         padding-top: 30px;*/
-        bottom: 0;
         padding-bottom: 40px;
         padding-left: 40px;
         padding-right: 40px;
@@ -133,8 +131,11 @@ body {
     }
 
     .side-description .snippet{
-        padding-top: 30px;
-        padding-bottom: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    #snippet{
+        padding-bottom: 0;
     }
     .side-description img{
         width: 100%;
@@ -575,6 +576,7 @@ body {
     }
     #recommend-chow .jumbo-text{
         font-size: 35px;
+        margin: 0 auto;
     }
 }
 
@@ -599,6 +601,16 @@ body {
         display: flex;
         align-content: space-around;
         justify-content: center;
+    }
+    .location-list h1{
+        padding-top: 50px;
+        font-size: 20px;
+    }
+    .sublocation h2{
+        font-size: 20px;
+    }
+    .restaurant-line{
+        font-size: 16px;
     }
     .sidebar {
     display: flex;
