@@ -70,7 +70,6 @@ $(window).scroll(function() {
       $(".locations").css('display', 'none');   
     }
     // $('.restaurant-name').unbind('mouseenter mouseleave');
-    $('.restaurant-name').unbind('hover');
   }
   
   
@@ -194,6 +193,17 @@ $(function() {
       
     }
     $('.side-description').css('display', 'block');
+  })
+});
+
+//mobile hover
+$(function() {
+  $('.restaurant-name').click(function() {
+    //hide sidebar on desktop
+    if($('.sidebar').height() != $(window).height()){
+      $('.side-description').css('display', 'block');
+    }
+    
   })
 });
 
