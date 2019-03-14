@@ -85,7 +85,7 @@ body {
     .sidebar a, .sidebar h2{
         display: flex;
         align-content: center;
-        font-size: 20px;
+        font-size: 18px;
         padding-left: 40px;
         padding-right: 40px;
         padding-bottom: 10px;
@@ -102,8 +102,8 @@ body {
         padding-right: 40px;
     }
     .recommend-button{
-        border: 2px solid #ED1C24;
-        color: #ED1C24;
+        border: 2px solid #EE6055;
+        color: #EE6055;
         font-size: 15px;
         padding: 3px;
         padding-left: 20px;
@@ -113,7 +113,7 @@ body {
     }
     .recommend-button:hover{
         color: white;
-        background-color: #ED1C24;
+        background-color: #EE6055;
     }
 
 .side-description{
@@ -162,15 +162,24 @@ body {
             .detail-info h2{
                 padding-left: 10px;
                 padding-bottom: 0;
-                font-size: 14px;
+                font-size: 16px;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
             }
+
+    .gallery{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+        .gallery figure{
+            width: 50%;
+        }
 .main{
     padding-left: 30%;
-    padding-top: 40px;
-    padding-bottom: 40px;
     color: white;
     min-height: 100%;
 
@@ -184,19 +193,25 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 #recommend-chow .background-image{
     /*background-image: url("thankyou-bg.svg");*/
     background-image: none;
 }
 
-.location-list h1{
-    text-transform: uppercase;
-    font-size: 34px;
-    padding-left: 40px;
+.location-list{
+    padding-top: 40px;
     padding-bottom: 40px;
-    font-weight: 700;
 }
+    .location-list h1{
+        text-transform: uppercase;
+        font-size: 34px;
+        padding-left: 40px;
+        padding-bottom: 40px;
+        font-weight: 700;
+    }
 
 .location-restaurants{
     flex-wrap: wrap;
@@ -261,13 +276,13 @@ body {
 }
 
 .jumbo-text span{
-    color: #ED1C24;
+    color: #EE6055;
     font-weight: 700;
 }
 
 .jumbo-text .email-link{
-    border-bottom: 5px solid #ED1C24;
-    color: #ED1C24;
+    border-bottom: 5px solid #EE6055;
+    color: #EE6055;
     font-weight: 700;
     text-decoration: none;
 }
@@ -337,13 +352,13 @@ body {
     opacity: 1;
 }
 .recommend-color-white{
-    border: 2px solid #ED1C24;
-    color: #ED1C24;
+    border: 2px solid #EE6055;
+    color: #EE6055;
     opacity: 1;
 }
 .recommend-color-home{
-    border: 2px solid #ED1C24;
-    color: #ED1C24;
+    border: 2px solid #EE6055;
+    color: #EE6055;
     opacity: 0.6;
 }
 .recommend-color-blue{
@@ -369,11 +384,11 @@ body {
     opacity: 1;
 }
 .recommend-color-home:hover{
-    background-color: #ED1C24;
+    background-color: #EE6055;
     opacity: 0.6;
 }
 .recommend-color-white:hover{
-    background-color: #ED1C24;
+    background-color: #EE6055;
     opacity: 1;
 }
 .recommend-color-blue:hover{
