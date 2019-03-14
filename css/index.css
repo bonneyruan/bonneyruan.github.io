@@ -671,6 +671,7 @@ body {
         
     #hidden{
         display: flex;
+        visibility: hidden;
     }
     .side-description{
         z-index: 1;
