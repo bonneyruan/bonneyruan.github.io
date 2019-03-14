@@ -169,14 +169,26 @@ body {
             }
 
     .gallery{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        columns: 2;
+        column-gap: 5px;
         padding-left: 40px;
         padding-right: 40px;
+        padding-bottom: 40px;
     }
         .gallery figure{
-            width: 50%;
+            width: 100%;
+        }
+        .gallery a{
+            display: block;
+            width: 100%;
+            height: auto;
+            padding: 0;
+        }
+        .gallery img{
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 5px;
         }
 .main{
     padding-left: 30%;
@@ -694,6 +706,9 @@ body {
         display: none;
         opacity: 1;
     }
+        .gallery{
+            columns: 3;
+        }
         .detail-image{
             width: 15px;
         }

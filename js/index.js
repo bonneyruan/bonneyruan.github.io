@@ -5,6 +5,7 @@ $(window).on('resize', function() {
   }
   if($(window).width() < 683){
     $('.locations').css('display', 'none');
+    $('.side-nav').css('display', 'flex');
     $('.side-nav').css('height', 'auto');
   }
 });
@@ -49,6 +50,7 @@ $(window).scroll(function() {
     }
   }); 
 
+
 // if($(".side-description").is(':visible')){
 //       $(".sidebar").css('display', 'flex'); 
 //       $(".side-description").css('display', 'none'); 
@@ -69,10 +71,29 @@ $(window).scroll(function() {
     if($('.locations').is(':visible')){
       $(".locations").css('display', 'none');   
     }
-    // $('.restaurant-name').unbind('mouseenter mouseleave');
   }
   
-  
+
+  var scroll_distance = dw_getScrollOffsets();
+  // if(scroll_distance.y > 1000) {
+  //   //show sidebar on desktop
+  //   if($('.side-nav').height() == $(window).height()){
+  //     $('.side-nav').css('display', 'flex'); 
+  //     $('.side-description').css('display', 'none'); 
+  //   }
+  // }
+
+// ||scroll_distance.y > 1000
+// & $('.restaurant-name:hover').length != 0
+  if($('.hover-hidden:hover').length != 0) {
+    //show sidebar on desktop
+    if($('.side-nav').height() == $(window).height()){
+      $('.side-nav').css('display', 'flex'); 
+      $('.side-description').css('display', 'none'); 
+    }
+  }
+
+
 }).scroll();
 
 
@@ -98,6 +119,25 @@ window.smoothScroll = function(target) {
     // start scrolling
     scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
 }
+
+
+function dw_getScrollOffsets() {
+  var doc = document, w = window;
+  var x, y, docEl;
+  
+  if ( typeof w.pageYOffset === 'number' ) {
+      x = w.pageXOffset;
+      y = w.pageYOffset;
+  } else {
+      docEl = (doc.compatMode && doc.compatMode === 'CSS1Compat')?
+              doc.documentElement: doc.body;
+      x = docEl.scrollLeft;
+      y = docEl.scrollTop;
+  }
+  return {x:x, y:y};
+}
+
+
 
 
 // $(function() {
@@ -203,9 +243,21 @@ $(function() {
   })
 });
 
-//hide side description
+// hide side description
+// $(function() {
+//   $('.hover-hidden').hover(function() {
+//     //show sidebar on desktop
+//     if($('.side-nav').height() == $(window).height()){
+//       $('.side-nav').css('display', 'flex'); 
+//       $('.side-description').css('display', 'none'); 
+//     }
+//   })
+// });
+
+
+
 $(function() {
-  $('.hover-hidden').hover(function() {
+  $('#home').hover(function() {
     //show sidebar on desktop
     if($('.side-nav').height() == $(window).height()){
       $('.side-nav').css('display', 'flex'); 
@@ -419,7 +471,7 @@ $(function() {
 };
 
 // execute above function
-initPhotoSwipeFromDOM('.my-gallery');
+initPhotoSwipeFromDOM('.gallery');
 
 });
 
