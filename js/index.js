@@ -69,7 +69,7 @@ $(window).scroll(function() {
     if($('.locations').is(':visible')){
       $(".locations").css('display', 'none');   
     }
-    $('.restaurant-name').unbind('mouseenter mouseleave')
+    $('.restaurant-name').unbind('mouseenter mouseleave');
   }
   
   
