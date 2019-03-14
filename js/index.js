@@ -199,7 +199,6 @@ $(function() {
 //mobile hover
 $(function() {
   $('.restaurant-name').click(function() {
-    alert(1)
     $('.side-description').css('display', 'block');
   })
 });
