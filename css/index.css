@@ -78,7 +78,7 @@ body {
         padding-bottom: 0px;
         /*color: #F7D624;*/
         color: #484848;
-        font-size: 30px;
+        font-size: 34px;
         font-weight: 700;
     }
     .sidebar a, .sidebar h2{
@@ -90,7 +90,7 @@ body {
         padding-bottom: 10px;
         color: #484848;
     }
-    .sidebar .locations a:hover{
+    .sidebar .locations a:hover, .sidebar .locations a:active{
         font-weight: 500;
     }    
     .recommend {
@@ -149,15 +149,22 @@ body {
             display: flex;
             flex-direction: row;
             padding-left: 40px;
+            padding-bottom: 5px;
         }
             .detail-image{
-                width: 20px;
-                padding-bottom: 8px;
+                width: 15px;
+                max-height: 20px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
             }
             .detail-info h2{
                 padding-left: 10px;
-                font-size: 16px;
-                padding-bottom: 5px;
+                padding-bottom: 0;
+                font-size: 14px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
             }
 .main{
     padding-left: 30%;
@@ -178,12 +185,13 @@ body {
     align-items: center;
 }
 #recommend-chow .background-image{
-    background-image: url("thankyou-bg.svg");
+    /*background-image: url("thankyou-bg.svg");*/
+    background-image: none;
 }
 
 .location-list h1{
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 34px;
     padding-left: 40px;
     padding-bottom: 40px;
     font-weight: 700;
@@ -204,13 +212,14 @@ body {
     .sublocation h2{
         padding-bottom: 10px;
         font-weight: 500;
-        font-size: 25px;
+        font-size: 24px;
     }
 .restaurant-line{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     padding-bottom: 3px;
+    font-size: 16px;
 }
 .restaurant-subline{
     display: inline-flex;
@@ -239,15 +248,15 @@ body {
 #recommend-chow{
     display: flex;
     justify-content: space-around;
+    text-align: center;
     /*align-items: center;*/
     color: #484848;
-    font-size: 60px;
+    font-size: 45px;
     padding-left: 30%;
 }
 
 #recommend-chow .jumbo-text{
-    width: 70%;
-    padding-left: 40px;
+    width: 50%;
 }
 
 .jumbo-text span{
@@ -262,7 +271,7 @@ body {
     text-decoration: none;
 }
 
-.jumbo-text .email-link:hover{
+.jumbo-text .email-link:hover, .jumbo-text .email-link:active{
     border-bottom: none;
 }
 
@@ -568,6 +577,7 @@ body {
     }
     #recommend-chow .jumbo-text{
         font-size: 45px;
+        width: 75%;
     }
 }
 
@@ -653,6 +663,7 @@ body {
         }   
         .sidebar h1{
             font-size: 20px;
+            padding-top: 0px;
         }
         .sidebar a, .sidebar h2{
             font-size: 16px;
@@ -666,9 +677,12 @@ body {
         display: none;
         opacity: 1;
     }
-    .sidebar h1{
-        padding-top: 0px;
-    }
+        .detail-image{
+            width: 15px;
+        }
+        .detail-info h2{
+            font-size: 14px;
+        }
     .static-nav{
         display: flex;
         flex-direction: row;
