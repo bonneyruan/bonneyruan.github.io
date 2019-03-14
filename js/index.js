@@ -199,11 +199,8 @@ $(function() {
 //mobile hover
 $(function() {
   $('.restaurant-name').click(function() {
-    //hide sidebar on desktop
-    if($('.sidebar').height() != $(window).height()){
-      $('.side-description').css('display', 'block');
-    }
-    
+    alert(1)
+    $('.side-description').css('display', 'block');
   })
 });
 
