@@ -162,17 +162,23 @@ body {
 .main{
     padding-left: 30%;
     padding-top: 40px;
+    padding-bottom: 40px;
     color: white;
     min-height: 100%;
 
 }
-.landing-image{
-    background-image: url("red-100.svg");
+.background-image{
+    background-image: url("chowfun-bag-bg.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
-    margin-top: -20px;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#recommend-chow .background-image{
+    background-image: url("thankyou-bg.svg");
 }
 
 .location-list h1{
@@ -245,15 +251,19 @@ body {
 }
 
 .jumbo-text span{
-    color: #F55D3E;
+    color: #ED1C24;
     font-weight: 700;
 }
 
 .jumbo-text .email-link{
-    border-bottom: 5px solid #F55D3E;
-    color: #F55D3E;
+    border-bottom: 5px solid #ED1C24;
+    color: #ED1C24;
     font-weight: 700;
     text-decoration: none;
+}
+
+.jumbo-text .email-link:hover{
+    border-bottom: none;
 }
 
 
@@ -317,7 +327,7 @@ body {
     opacity: 1;
 }
 .recommend-color-white{
-    border: 2px solid #F55D3E;
+    border: 2px solid #ED1C24;
     color: #ED1C24;
     opacity: 1;
 }
@@ -353,7 +363,7 @@ body {
     opacity: 0.6;
 }
 .recommend-color-white:hover{
-    background-color: #F55D3E;
+    background-color: #ED1C24;
     opacity: 1;
 }
 .recommend-color-blue:hover{
@@ -635,15 +645,19 @@ body {
         z-index: 2;
         top: 0;
         left: 0;
-        overflow-x: auto;
+        overflow: scroll;
         opacity: 0.95;
     }
+        .sidebar > * {
+            -webkit-transform: translateZ(0px);
+        }   
         .sidebar h1{
             font-size: 20px;
         }
-        .sidebar h2{
+        .sidebar a, .sidebar h2{
             font-size: 16px;
         }
+        
     #hidden{
         display: flex;
     }

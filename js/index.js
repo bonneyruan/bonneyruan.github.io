@@ -1,3 +1,14 @@
+$(window).on('resize', function() {
+  if($(window).width() >= 683){
+    $('.locations').css('display', 'block');
+    $('.sidebar').css('height', '100%');
+  }
+  if($(window).width() < 683){
+    $('.locations').css('display', 'none');
+    $('.sidebar').css('height', 'auto');
+  }
+});
+
 $(window).scroll(function() {
   
   // selectors
@@ -52,7 +63,14 @@ $(window).scroll(function() {
 //     $(".locations").css("display"), "none"},1000);
 //   // $(".locations").css("display", "none");
 //     }  
-
+  if($('.sidebar').height() != $(window).height()){
+    $('.side-description').css('display', 'none'); 
+    $(".sidebar").css('height', 'auto');
+    if($('.locations').is(':visible')){
+      $(".locations").css('display', 'none');   
+    }
+  }
+  
   
 }).scroll();
 
@@ -79,23 +97,6 @@ window.smoothScroll = function(target) {
     // start scrolling
     scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
 }
-
-
-$(function() {
-  $("#icon-toggle-container").click(function () {
-    if($(".side-description").is(':visible') && ($(".sidebar").height() < 100)){
-      $(".sidebar").css('height', '70%'); 
-    }
-    else{
-      $(".sidebar").css('height', 'auto');
-    }
-    // if($(".locations").height() > 0){
-    //   $("locations").addClass("fadeOut"); 
-    // }
-    $(".locations").toggle('active'); 
-    // $("locations").removeClass("fadeOut"); 
-  });
-});
 
 
 // $(function() {
@@ -130,14 +131,7 @@ $(function() {
 });
 
 
-$(function() {
-  $('.restaurant-line').hover(function() {
-    if(('.sidebar').height == 100){
-      $('.sidebar').not('sustain-white').css('display', 'none');
-    }
-    $('.side-description').css('display', 'block');
-  })
-});
+
 
 // $(function() {
 //   $('body').children().not('location-restaurants, side-description, sidebar').select().hover(function() {
@@ -146,14 +140,69 @@ $(function() {
     
 //   })
 // });
+// $(function() {
+//   $('.restaurant-name').hover(function() {
+//     //hide sidebar on desktop
+//     if($('.sidebar').height != (window).height){
+//       $('.side-description').css('display', 'block');
+//     }
+//     $('.side-description').css('display', 'block');
+//   })
+// });
 
 $(function() {
-  $('.hover-hidden').hover(function() {
-    if(('.sidebar').height == 100){
-      $('.sidebar').css('display', 'flex');  
+  $("#icon-toggle-container").click(function () {
+    if($(".sidebar").height() != $(window).height()){
+      if($(".side-description").is(':visible') && $('.locations').is(':hidden')){
+        $(".locations").toggle('active'); 
+        $(".sidebar").css('height', '70%');   
+      }
+      else{
+        $(".locations").toggle('active'); 
+        $(".sidebar").css('height', 'auto');
+      }
+      
     }
-    $('.side-description').css('display', 'none');
     
+    // if($(".locations").height() > 0){
+    //   $("locations").addClass("fadeOut"); 
+    // }
+    
+    // $("locations").removeClass("fadeOut"); 
+  });
+});
+
+
+//hover restaurant name, show side description
+$(function() {
+  $('.restaurant-name').hover(function() {
+    //hide sidebar on desktop
+    if($('.sidebar').height() == $(window).height()){
+      // $('.sidebar').animate({
+      //   opacity: 0
+      // }, 5000, function() {
+      $('.sidebar').not('sustain-white').css('display', 'none');
+      // })
+
+      // setTimeout(function(){
+      //   $('.sidebar').not('sustain-white').css('display', 'none');
+      //   $('.side-description').css('display', 'block');
+      //   $('.intro').removeClass('fadeOut', 'fast').addClass('fadeIn');
+      // }, 500);
+      
+    }
+    $('.side-description').css('display', 'block');
+  })
+});
+
+//hide side description
+$(function() {
+  $('.hover-hidden').hover(function() {
+    //show sidebar on desktop
+    if($('.sidebar').height() == $(window).height()){
+      $('.sidebar').css('display', 'flex'); 
+      $('.side-description').css('display', 'none'); 
+    }
   })
 });
 
