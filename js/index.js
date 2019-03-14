@@ -63,9 +63,9 @@ $(window).scroll(function() {
 //     $(".locations").css("display"), "none"},1000);
 //   // $(".locations").css("display", "none");
 //     }  
-  if($('.sidebar').height() != $(window).height()){
+  if($('.side-nav').height() != $(window).height()){
     $('.side-description').css('display', 'none'); 
-    $(".sidebar").css('height', 'auto');
+    $(".side-nav").css('height', 'auto');
     if($('.locations').is(':visible')){
       $(".locations").css('display', 'none');   
     }
@@ -153,14 +153,14 @@ $(function() {
 
 $(function() {
   $("#icon-toggle-container").click(function () {
-    if($(".sidebar").height() != $(window).height()){
+    if($(".side-nav").height() != $(window).height()){
       if($(".side-description").is(':visible') && $('.locations').is(':hidden')){
         $(".locations").toggle('active'); 
-        $(".sidebar").css('height', '70%');   
+        $(".side-nav").css('height', '70%');   
       }
       else{
         $(".locations").toggle('active'); 
-        $(".sidebar").css('height', 'auto');
+        $(".side-nav").css('height', 'auto');
       }
       
     }
@@ -178,11 +178,11 @@ $(function() {
 $(function() {
   $('.restaurant-name').hover(function() {
     //hide sidebar on desktop
-    if($('.sidebar').height() == $(window).height()){
+    if($('.side-nav').height() == $(window).height()){
       // $('.sidebar').animate({
       //   opacity: 0
       // }, 5000, function() {
-      $('.sidebar').not('sustain-white').css('display', 'none');
+      $('.side-nav').not('sustain-white').css('display', 'none');
       // })
 
       // setTimeout(function(){
@@ -207,8 +207,8 @@ $(function() {
 $(function() {
   $('.hover-hidden').hover(function() {
     //show sidebar on desktop
-    if($('.sidebar').height() == $(window).height()){
-      $('.sidebar').css('display', 'flex'); 
+    if($('.side-nav').height() == $(window).height()){
+      $('.side-nav').css('display', 'flex'); 
       $('.side-description').css('display', 'none'); 
     }
   })
