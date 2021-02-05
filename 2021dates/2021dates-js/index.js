@@ -1,3 +1,9 @@
+
+//remove hash from url
+// history.pushState("", document.title, window.location.pathname + window.location.search);
+
+
+
 var giftsNames = ['Mystery', 'Dolo', 'Brick', 'Wonderland', 'Trapped', 'Cronch', 'Bean', 'Dino', 'Fresh'];
 
 var i;
@@ -42,7 +48,8 @@ function goHome() {
 }
 
 function goToGiftPage(giftName) {
-	location.href = giftName + ".html";
+	// location.href = giftName + ".html#mystery" ;
+	location.href = "memories.html";
 }
 
 function hints (chosenGift) {
@@ -202,13 +209,13 @@ function createGift (name, animationID, bubbleImage) {
 		image.src = bubbleImage;
 
 
-	giftNameH2.appendChild(giftNameText);
-	giftNameContainerDiv.appendChild(giftNameH2);
+	// giftNameH2.appendChild(giftNameText);
+	// giftNameContainerDiv.appendChild(giftNameH2);
 
 	bubblesContainerDiv.appendChild(image);
 
 
-	giftContainerDiv.appendChild(giftNameContainerDiv);
+	// giftContainerDiv.appendChild(giftNameContainerDiv);
 	giftContainerDiv.appendChild(giftImageDiv);
 	// giftContainerDiv.appendChild(bubblesContainerDiv);
 
