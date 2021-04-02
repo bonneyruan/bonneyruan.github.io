@@ -26,7 +26,7 @@ for (var i = 0; i < giftsNumber; ++i) {
 			renderer: 'svg',
 			loop: false,
 			autoplay: false,
-			path: '2021dates/2021dates-js/giftboxanimation.json'
+			path: '2021dates/2021dates-js/giftboxanimation2.json'
 	});
 	  tempLottie.addEventListener('mouseenter', (e) => {
 	  tempAnimation.goToAndPlay(0);
@@ -37,8 +37,8 @@ for (var i = 0; i < giftsNumber; ++i) {
 	gifts[i].addEventListener("click", hints.bind(null, i));
 
 
-	//   tempLottie.addEventListener('mouseleave', (e) => {
-	//   tempAnimation.stop();
+	  // tempLottie.addEventListener('mouseleave', (e) => {
+	  // tempAnimation.stop();
 	// });
 }
 
@@ -48,8 +48,13 @@ function goHome() {
 }
 
 function goToGiftPage(giftName) {
+	location.href = giftName + ".html" ;
+	
+}
+
+function goToTicketsPage(giftName) {
 	// location.href = giftName + ".html#mystery" ;
-	location.href = "memories.html";
+	location.href = "tickets.html#" + giftName;
 }
 
 function hints (chosenGift) {
@@ -77,9 +82,26 @@ function loadCarousel (carouselBackground, chosenGift) {
 	let logoDivImg = document.createElement("img");
 		logoDivImg.src = "2021dates/images/datesLogo.svg";
 
+	let carouselCloseContainer = document.createElement("div");
+		carouselCloseContainer.classList.add("carousel-close-container");
+	let carouselClose = document.createElement("img");
+		carouselClose.src = "2021dates/images/carouselClose.svg";
+		carouselClose.classList.add("carousel-close");
+
 	logoDiv.appendChild(logoDivImg);
 	logoContainerSection.appendChild(logoDiv);
+	carouselCloseContainer.appendChild(carouselClose);
+	logoContainerSection.appendChild(carouselCloseContainer);
 	carouselBackground[0].appendChild(logoContainerSection);
+
+	//logo clickable
+	let closeButton = document.getElementsByClassName("carousel-close")[0];
+	closeButton.addEventListener("click", function() {
+		goHome();
+	});
+
+
+	
 
 	//carousel section 
 	let carouselSection = document.createElement("section");
@@ -88,25 +110,56 @@ function loadCarousel (carouselBackground, chosenGift) {
 	carouselSection.appendChild(carouselDiv);
 	carouselBackground[0].appendChild(carouselSection);
 
+	var giftIndex = chosenGift;
+
+	var animationOpenBoxContainers = []
+	console.log("before for loop");
 	for (var i = 0; i < giftsNumber; ++i) {
+		console.log("in for loop");
+
+		//animationContainers holds IDs to all the divs I wan't the animation in
+		animationOpenBoxContainers[i] = "lottieOpenBox" + i;
 		let carouselCellDiv = document.createElement("div");
 			carouselCellDiv.classList.add("carousel-cell");
 		let carouselContentsContainerDiv = document.createElement("div");
 			carouselContentsContainerDiv.classList.add("carousel-contents-container");
 		let carouselContentsDiv = document.createElement("div");
 			carouselContentsDiv.classList.add("carousel-contents");
-		let carouselAnimation = document.createElement("img");
-			carouselAnimation.src = "2021dates/images/giftbox.svg";
+		// let carouselAnimation = document.createElement("img");
+		// 	carouselAnimation.src = "2021dates/images/giftbox.svg";
+		let carouselAnimation = document.createElement("div");
 			carouselAnimation.classList.add("carousel-animation");
+			// add css animations to still image 
 			carouselAnimation.classList.add("animate__animated");
 			carouselAnimation.classList.add("animate__fadeInDown");
 			carouselAnimation.classList.add("animate__fast");
+			carouselAnimation.setAttribute('id', animationOpenBoxContainers[i]);
+
+
+
+
 
 		carouselContentsDiv.appendChild(carouselAnimation);
 		carouselContentsContainerDiv.appendChild(carouselContentsDiv);
 		carouselCellDiv.appendChild(carouselContentsContainerDiv);
 		carouselDiv.appendChild(carouselCellDiv);
 
+		let tempOpenBoxLottie = document.getElementById(animationOpenBoxContainers[i]);
+
+		let tempOpenBoxAnimation = bodymovin.loadAnimation({
+			container: tempOpenBoxLottie,
+			renderer: 'svg',
+			loop: false,
+			autoplay: false,
+			path: '2021dates/2021dates-js/giftboxanimation2.json'
+		});
+		  tempOpenBoxLottie.addEventListener('click', (e) => {
+		  tempOpenBoxAnimation.goToAndPlay(0);
+		});
+
+		tempOpenBoxAnimation.addEventListener('complete', goToTicketsPage.bind(null, giftsNames[(i+giftIndex)%giftsNames.length]));
+		console.log(giftIndex)
+		console.log(i)
 	}
 	initializeFlickity();
 
@@ -125,13 +178,13 @@ function loadCarousel (carouselBackground, chosenGift) {
 		carouselDescriptionBubbles.classList.add("carousel-bubbles");
 		carouselDescriptionBubbles.src = "2021dates/images/mysterybubbles.svg";
 
+
 	carouselDescriptionH2.appendChild(carouselDescriptionText);
 	carouselDescriptionDiv.appendChild(carouselDescriptionH2);
 	carouselDescriptionDiv.appendChild(carouselDescriptionBubbles);
 	carouselDescriptionSection.appendChild(carouselDescriptionDiv);
 
 	carouselBackground[0].appendChild(carouselDescriptionSection);
-	var giftIndex = chosenGift;
 	var carouselGiftPreviousButton = document.getElementsByClassName("previous");
 	var carouselGiftNextButton = document.getElementsByClassName("next");
 
@@ -142,11 +195,12 @@ function loadCarousel (carouselBackground, chosenGift) {
 	carouselGiftPreviousButton[0].addEventListener("click", changeGift.bind(null, -1));
 	carouselGiftNextButton[0].addEventListener("click", changeGift.bind(null, 1));
 
-	//make all cell animations clickable to go to corresponding pages
-	let carouselAnimationsArray = document.getElementsByClassName("carousel-animation");
-	for (var i = 0; i < giftsNumber; ++i){
-		carouselAnimationsArray[i].addEventListener("click", goToGiftPage.bind(null, giftsNames[(i+giftIndex)%giftsNames.length]));
-	}
+	// make all cell animations clickable to go to corresponding pages
+	// let carouselAnimationsArray = document.getElementsByClassName("carousel-animation");
+	// for (var i = 0; i < giftsNumber; ++i){
+	// 	carouselAnimationsArray[i].addEventListener("click", goToTicketsPage.bind(null, giftsNames[(i+giftIndex)%giftsNames.length]));
+	// }
+
 
 	//logo clickable
 	let logo = document.getElementsByClassName("logo")[0];

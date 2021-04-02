@@ -29,7 +29,7 @@ body {
 	height: 100%;
 	width: 100%;
 	display: block;
-	padding: 20px 20px;
+	padding: 30px 0px;
 	text-align: center;
 	vertical-align: center;
 }
@@ -44,14 +44,17 @@ body {
 	visibility: hidden;
 	/*display: none;*/
 }
+.gift-image:hover {
+	cursor: url(magnifyingglasscursor-white.cur), pointer;
+}
 .gift-container:hover .gift-name{
 	visibility: visible;
 }
 .gift-image {
 	vertical-align: middle;
-	width: 125px;
+	width: 110px;
 	display: inline-block;
-	padding: 10px;
+	
 }
 
 .bubbles-container {
@@ -101,6 +104,16 @@ button:hover{
 	display: block;
 	padding: 60px;
 	z-index: 10;
+}
+
+.carousel-close-container {
+	position: absolute;
+	right: 100px;
+	top: 100px;
+}
+.carousel-close{
+	width: 30px;
+	opacity: 80%;
 }
 .carouselAnimationContainer{
 	text-align: center;
@@ -173,3 +186,67 @@ button:hover{
 	display: none;
 }
 
+/*tickets page*/
+@keyframes bgcolor {
+    0% {
+        background-color: rgba(192,68,63,0.3);
+    }
+
+
+    100% {
+        background-color: rgba(192,68,63,0.9);
+    }
+}
+
+.ticketsBody {
+    -webkit-animation: bgcolor 2s ;
+    animation: bgcolor 2s ;
+    background-color: rgba(192,68,63,0.9);
+}
+
+.ticket-container{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15%;
+	width: 40%;
+}
+
+.tickets-button {
+	border-radius: 50px;
+	text-decoration: none;
+	border: none;
+	color: rgba(192,68,63);
+	background-color: rgba(255,255,255,0.7);
+	font-size: 20px;
+	padding: 20px 40px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.tickets.button-container {
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+.date-stamp-container {
+	font-size: 12px;
+	color: black;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 50%;
+	border: solid 2px black;
+	width: 125px;
+	height: 125px;
+	z-index: 2;
+	position: absolute;
+	right: 40%;
+	top: 40%;
+	padding: 15px;
+}
+
+.invisible {
+	display: none;
+}
+.visible {
+	display: block;
+}
