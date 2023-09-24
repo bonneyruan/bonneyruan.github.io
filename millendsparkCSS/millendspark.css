@@ -104,3 +104,7 @@ svg{
 h3{
 	color:white;
 }
+
+.navpagebutton:hover >.navpagebg{
+	fill: #4d4d4d;
+}
