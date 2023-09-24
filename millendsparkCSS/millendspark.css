@@ -106,5 +106,16 @@ h3{
 }
 
 .navpagebutton:hover >.navpagebg{
-	fill: #4d4d4d;
+	filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.1));
+
+/*	fill: #4d4d4d;*/
+}
+
+.explorebutton:hover {
+	filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.1));
+
+}
+
+.hopscotchnumber:hover{
+	opacity: .6;
 }
