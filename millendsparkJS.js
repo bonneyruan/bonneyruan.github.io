@@ -1,9 +1,13 @@
 $(document).ready(function(){
-  if(sessionStorage.getItem('save') != 1 || sessionStorage.getItem('save') != 2){
-    alert("null");
+  if(sessionStorage.getItem('save') != '1' && sessionStorage.getItem('save') != '2'){
+    alert('empty');
+    sessionStorage.setItem('save', '1');
   }
-  else{
-    alert("filled");
+  if(sessionStorage.getItem('save') == '1'){
+    $('.mini-site-container').toggleClass("zoomed");
+    $('h2').text(function(i,v){
+        return v === 'zoom in' ? 'zoom out' : 'zoom in'
+    })
   }
   $('#zoom-button').click(function() {
     $('.mini-site-container').toggleClass("zoomed");
@@ -31,6 +35,4 @@ $('#spotbg').click(function(event) {
     $('#tryagain').addClass("tryagainfade");
   }
   });
-
-
 });
