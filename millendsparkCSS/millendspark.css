@@ -11,7 +11,7 @@ html, body{
 }
 .description-container{
 	text-align: center;
-	padding-top: 25vh;
+	padding-top: 10vh;
 }
 h1{
 	color: white;
@@ -33,7 +33,7 @@ h2{
 .zoomed{
 	width: 45vh;
 	height: 45vh;
-	padding-top: 5vh;
+	padding-top: 10vh;
 }
 
 .mini-site{
