@@ -135,4 +135,5 @@ h3{
 	max-width: 100%;
 	min-height: 70%;
 	max-height: 70%;
+	overflow: hidden;
 }
