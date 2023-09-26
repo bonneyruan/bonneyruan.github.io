@@ -45,24 +45,30 @@ $('#millendsbutton').click(function() {
   });
 
 $('#whalebutton').click(function() {
+  if($('#correct').hasClass("hidden") && $('#incorrect').hasClass("hidden")){
+    score += 1;
+  }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
   $('#millendslabel').addClass("hidden");
-  score += 1;
   });
 
 $('#doorbutton').click(function() {
+  if($('#correct').hasClass("hidden") && $('#incorrect').hasClass("hidden")){
+    score += 1;
+  }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
   $('#millendslabel').addClass("hidden");
-  score += 1;
   });
 
 $('#greatdanebutton').click(function() {
+  if($('#correct').hasClass("hidden") && $('#incorrect').hasClass("hidden")){
+    score += 1;
+  }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
   $('#millendslabel').addClass("hidden");
-  score += 1;
   $('#scoretext').text(score+" out of 3");
   $('#scoreresults').removeClass("hidden");
   });
