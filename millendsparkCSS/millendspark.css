@@ -119,21 +119,3 @@ h3{
 .hopscotchnumber:hover{
 	opacity: .6;
 }
-
-.historysite{
-	height: 100px;
-	width: 100px;
-	min-width: 100%;
-	max-width: 100%;
-	min-height: 100%;
-	max-height: 100%;
-}
-.iframecontainer{
-	height: 70%;
-	width: 100%;
-	min-width: 100%;
-	max-width: 100%;
-	min-height: 70%;
-	max-height: 70%;
-	overflow: hidden;
-}
