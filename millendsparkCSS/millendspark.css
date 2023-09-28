@@ -131,6 +131,10 @@ h3{
 	overflow-y: scroll;
 }
 
+.labelborderhidden{
+	border-top: none;
+	border-bottom: 0.1rem solid white;
+}
 .noscrollbar {
     overflow-y: scroll;
     scrollbar-width: none; /* Firefox */

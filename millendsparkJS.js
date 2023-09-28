@@ -8,7 +8,7 @@ $(document).ready(function(){
     $('h2').text(function(i,v){
         return v === 'zoom in' ? 'zoom out' : 'zoom in'
     })
-    $('.webpagecontainer').toggleClass("noscrollbar");
+    $('.historysite').toggleClass("labelborderhidden");
   }
   $('#zoom-button').click(function() {
     $('.mini-site-container').toggleClass("zoomed");
@@ -17,7 +17,7 @@ $(document).ready(function(){
     })
     let val = $('.mini-site-container').hasClass("zoomed") ? '1' : '2';
     sessionStorage.setItem('save', val);
-    $('.webpagecontainer').toggleClass("noscrollbar");
+    $('.historysite').toggleClass("labelborderhidden");
     });
 
   $('#spotpark').click(function() {
