@@ -45,7 +45,6 @@ $('#millendsbutton').click(function() {
   }
   $('#incorrect').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
-  $('.otherlabel').addClass("hidden");
   });
 
 $('#whalebutton').click(function() {
@@ -54,7 +53,6 @@ $('#whalebutton').click(function() {
   }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
-  $('#millendslabel').addClass("hidden");
   });
 
 $('#doorbutton').click(function() {
@@ -63,7 +61,6 @@ $('#doorbutton').click(function() {
   }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
-  $('#millendslabel').addClass("hidden");
   });
 
 $('#greatdanebutton').click(function() {
@@ -72,7 +69,6 @@ $('#greatdanebutton').click(function() {
   }
   $('#correct').removeClass("hidden");
   $('#nextbutton').removeClass("hidden");
-  $('#millendslabel').addClass("hidden");
   $('#scoretext').text(score+" out of 3");
   $('#scoreresults').removeClass("hidden");
   });
@@ -80,8 +76,6 @@ $('#greatdanebutton').click(function() {
 $('#nextbutton').click(function() {
   $('#incorrect').addClass("hidden");
   $('#correct').addClass("hidden");
-  $('.otherlabel').removeClass("hidden");
-  $('#millendslabel').removeClass("hidden");
   if($('#whalebutton').hasClass("hidden") && $('#doorbutton').not("hidden")){
     $('#doorbutton').addClass("hidden");
   }
