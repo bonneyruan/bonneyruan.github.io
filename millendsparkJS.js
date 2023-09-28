@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   if(sessionStorage.getItem('save') != '1' && sessionStorage.getItem('save') != '2'){
     sessionStorage.setItem('save', '2');
   }
@@ -7,6 +8,7 @@ $(document).ready(function(){
     $('h2').text(function(i,v){
         return v === 'zoom in' ? 'zoom out' : 'zoom in'
     })
+    $('.webpagecontainer').toggleClass("noscrollbar");
   }
   $('#zoom-button').click(function() {
     $('.mini-site-container').toggleClass("zoomed");
@@ -15,6 +17,7 @@ $(document).ready(function(){
     })
     let val = $('.mini-site-container').hasClass("zoomed") ? '1' : '2';
     sessionStorage.setItem('save', val);
+    $('.webpagecontainer').toggleClass("noscrollbar");
     });
 
   $('#spotpark').click(function() {

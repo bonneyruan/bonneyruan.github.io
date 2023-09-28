@@ -27,8 +27,8 @@ h2{
 	margin: auto;
 	text-align: center;
 	padding-top: 25vh;
-	width: 3px;
-	height: 3px;
+	width: 20px;
+	height: 20px;
 }
 .zoomed{
 	width: 45vh;
@@ -121,11 +121,22 @@ h3{
 }
 
 .historysite{
+	border-top: 0.1rem solid #f1f1f1;
 	width: 100%;
 	height: auto;
 }
 .webpagecontainer{
 	height: 70%;
 	width: 100%;
-	overflow: scroll;
+	overflow-y: scroll;
+}
+
+.noscrollbar {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.noscrollbar::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
