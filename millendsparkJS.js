@@ -84,5 +84,6 @@ $('#nextbutton').click(function() {
   if($('#whalebutton').not("hidden")){
     $('#whalebutton').addClass("hidden");
   }
+  $('#nextbutton').addClass("hidden");
   });
 });

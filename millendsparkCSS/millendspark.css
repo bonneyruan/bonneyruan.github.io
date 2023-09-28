@@ -119,3 +119,13 @@ h3{
 .hopscotchnumber:hover{
 	opacity: .6;
 }
+
+.historysite{
+	width: 100%;
+	height: auto;
+}
+.webpagecontainer{
+	height: 70%;
+	width: 100%;
+	overflow: scroll;
+}
