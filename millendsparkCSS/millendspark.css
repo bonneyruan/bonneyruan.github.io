@@ -27,8 +27,8 @@ h2{
 	margin: auto;
 	text-align: center;
 	padding-top: 25vh;
-	width: 20px;
-	height: 20px;
+	width: 3px;
+	height: 3px;
 }
 .zoomed{
 	width: 45vh;
@@ -143,4 +143,5 @@ h3{
 .noscrollbar::-webkit-scrollbar { /* WebKit */
     width: 0;
     height: 0;
+    display: none;
 }
