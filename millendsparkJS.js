@@ -23,6 +23,7 @@ $(document).ready(function(){
   $('#spotpark').click(function() {
     $('#arrow').removeClass("hidden");
     $("#tryagaintext").text("OVER HERE");
+    $('#tryagain').removeClass("hidden");
     $('#tryagain').removeClass("tryagainfade");
     });
 
