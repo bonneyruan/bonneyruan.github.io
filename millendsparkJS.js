@@ -28,6 +28,7 @@ $(document).ready(function(){
     });
 
 $('#spotbg').click(function(event) {
+  $('#clicktoguess').addClass("hidden");
   if ($('#arrow').hasClass("hidden")) {
     $('#tryagain').removeClass("hidden");
     event.preventDefault();
@@ -88,5 +89,22 @@ $('#nextbutton').click(function() {
 
 $('#maplocation').click(function() {
   $('#mappin').removeClass("hidden");
+  $('#address').removeClass("hidden");
+  $('#placepin').addClass("hidden");
+  $('#tryagain').addClass("hidden");
   });
+
+$('#wherebg').click(function() {
+  $('#placepin').addClass("hidden");
+  $('#tryagain').removeClass("tryagainfade");
+  if ($('#mappin').hasClass("hidden")) {
+    $('#tryagain').removeClass("hidden");
+    event.preventDefault();
+    $('#tryagain').removeClass("tryagainfade");
+    void $('#tryagain').width();
+    $('#tryagain').addClass("tryagainfade");
+  }
+  });
+
+
 });
