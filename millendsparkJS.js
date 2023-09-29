@@ -37,6 +37,7 @@ $('#spotbg').click(function(event) {
   }
   });
 
+
 var score = 0;
 $('#millendsbutton').click(function() {
   if($('#doorbutton').hasClass("hidden")){
@@ -83,5 +84,9 @@ $('#nextbutton').click(function() {
     $('#whalebutton').addClass("hidden");
   }
   $('#nextbutton').addClass("hidden");
+  });
+
+$('#maplocation').click(function() {
+  $('#mappin').removeClass("hidden");
   });
 });
