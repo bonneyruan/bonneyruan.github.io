@@ -25,6 +25,7 @@ $(document).ready(function(){
     $("#tryagaintext").text("OVER HERE");
     $('#tryagain').removeClass("hidden");
     $('#tryagain').removeClass("tryagainfade");
+    $('#clicktoguess').addClass("hidden");
     });
 
 $('#spotbg').click(function(event) {
