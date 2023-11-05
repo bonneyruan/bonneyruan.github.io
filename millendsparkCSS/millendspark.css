@@ -8,7 +8,16 @@ html, body{
 	height: 100%;
 	margin: 0;
 	font-family:'Apple ][','VT323', monospace;
+	caret-color: transparent;
+	cursor: default;
+
+	/*no text highlighting*/
+	user-select: none; // chrome and Opera
+	-moz-user-select: none; // Firefox
+	-webkit-text-select: none; // IOS Safari
+	-webkit-user-select: none; // Safari
 }
+
 .description-container{
 	text-align: center;
 	padding-top: 10vh;
@@ -148,4 +157,9 @@ h3{
     width: 0;
     height: 0;
     display: none;
+}
+
+/*how many*/
+
+.greenfill {
 }

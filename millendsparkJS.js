@@ -107,5 +107,47 @@ $('#wherebg').click(function() {
   }
   });
 
+// how many
+var greenfillsection = -1
+var numbermillion = 0
+$('.greenfill').addClass("hidden");
+$('#morebutton').click(function() {
+  $('#lessbuttonbg').css('opacity', '1');
+  numbermillion += 100;
+  if (numbermillion > 900) {
+    $('#answertext').removeClass("hidden");
+  }
+  $('#hundredmillion').text(numbermillion + " MILLION");
+  $('.greenfill').eq(greenfillsection+1).removeClass("hidden");
+    if (greenfillsection == -1) {
+      $('#zeromillion').addClass("hidden");
+      $('#hundredmillion').removeClass("hidden");
+    }
+    if (greenfillsection < 9) {
+      greenfillsection += 1;
+    }
+  });
+$('#lessbutton').click(function() {
+  if (greenfillsection == 0) {
+      $('#lessbuttonbg').css('opacity', '0.3');
+      $('#zeromillion').removeClass("hidden");
+      $('#hundredmillion').addClass("hidden");
+    }
+  if (numbermillion == 990) {
+    numbermillion -= 90;
+  }
+  else{
+    numbermillion -= 100;
+  }
+  if (numbermillion < 0) {
+    numbermillion = 0;
+  }
+  $('#hundredmillion').text(numbermillion + " MILLION");
+  $('.greenfill').eq(greenfillsection).addClass("hidden");
+    if (greenfillsection > -1) {
+      greenfillsection -= 1;
+    }
+  });
+
 
 });
