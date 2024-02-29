@@ -22,6 +22,10 @@ html, body{
 	text-align: center;
 	padding-top: 10vh;
 }
+.credit-container{
+	text-align: center;
+	padding-top: 10px;
+}
 h1{
 	color: white;
 	font-size: 10px;
