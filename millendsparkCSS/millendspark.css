@@ -25,6 +25,7 @@ html, body{
 .credit-container{
 	text-align: center;
 	padding-top: 10px;
+	display: none;
 }
 /*.socials-container{
 	width: 120px;
