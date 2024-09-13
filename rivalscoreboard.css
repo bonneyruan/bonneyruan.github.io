@@ -3,29 +3,32 @@ body{
 	color: white;
 	font-family: Proxima Nova, sans-serif;
 	text-align: center;
+	overflow: hidden;
 
 }
 form{
 	width: 100%;
 	position: absolute;
-	top:35%;
+	top: 30%;
+	left: 0;
+	text-align: center;
 }
 div{
 	display: inline-block;
 }
 
 #timer{
-	font-size: 145px;
+	font-size: 200px;
 }
 .timerContainer{
-	width: 60%;
+	width: 55%;
 	background-color: inherit;
 	border-width: 0;
 	color: inherit;
 }
 
 #resetButtonContainer{
-	padding-top: 150px;
+	padding-top: 170px;
 }
 #resetButton{
 	border-color: white;
@@ -42,7 +45,8 @@ div{
 .scoreContainer{
 	background-color: #0E0E0E;
 	border-width: 0;
-	font-size: 145px;
+	font-size: 200px;
+	width: 18%;
 }
 #redScore{
 	color: #DA2525;
@@ -51,3 +55,26 @@ div{
 	color: #253FFF;
 }
 
+@media (max-width: 1250px) {
+	form{
+		top: 25%;
+	}
+	#resetButtonContainer{
+		padding-top: 150px;
+	}
+	#timer, .scoreContainer{
+	font-size: 180px;
+	}
+}
+
+@media (max-width: 1000px) {
+	form{
+		top: 25%;
+	}
+	#resetButtonContainer{
+		padding-top: 175px;
+	}
+	#timer, .scoreContainer{
+	font-size: 120px;
+	}
+}

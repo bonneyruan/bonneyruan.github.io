@@ -1,8 +1,13 @@
 "use strict";
 
-let minute = 2;
-let second = 30;
-let millisecond = 0;
+//match time variables
+let matchTimeMinute = 2;
+let matchTimeSecond = 30;
+let matchTimeMillisecond = 1000;
+
+let minute = matchTimeMinute;
+let second = matchTimeSecond;
+let millisecond = matchTimeMillisecond;
 
 let cron;
 
@@ -32,12 +37,12 @@ function pause() {
 }
 
 function reset() {
-  minute = 2;
-  second = 30;
-  millisecond = 0;
+  minute = matchTimeMinute;
+  second = matchTimeSecond;
+  millisecond = matchTimeMillisecond;
   clearInterval(cron);
-  document.querySelectorAll('.minute').forEach(el => el.innerText = "2");
-  document.querySelectorAll('.second').forEach(el => el.innerText = "30");
+  document.querySelectorAll('.minute').forEach(el => el.innerText = matchTimeMinute);
+  document.querySelectorAll('.second').forEach(el => el.innerText = matchTimeSecond);
   document.scoreboardContainer.reset.style.display = 'none';
   document.scoreboardContainer.pause.style.display = 'none';
   document.scoreboardContainer.start.style.display = 'inline-block';
@@ -51,15 +56,14 @@ function reset() {
 }
 
 function timer() {
-  if ((millisecond -= 10) < 0) {
+  if ((millisecond -= 10) < 0 && (minute != 0 || second != 0)) {
     millisecond = 999;
     second--;
   }
-  if (second < 0) {
+  if (second < 0 && minute > 0) {
     second = 59;
     minute--;
   }
-
   document.querySelectorAll('.minute').forEach(el => el.innerText = minute);
   document.querySelectorAll('.second').forEach(el => el.innerText = returnData(second));
 }
@@ -73,9 +77,11 @@ document.scoreboardContainer.blueScore.onclick = () => incrementBlueScore();
 
 function incrementRedScore() {
   redScore++;
+  pause();
   document.getElementById('redScore').innerText = redScore;
 }
 function incrementBlueScore() {
   blueScore++;
+  pause();
   document.getElementById('blueScore').innerText = blueScore;
 }
