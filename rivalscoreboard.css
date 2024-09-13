@@ -1,0 +1,53 @@
+body{
+	background-color: #0E0E0E;
+	color: white;
+	font-family: Proxima Nova, sans-serif;
+	text-align: center;
+
+}
+form{
+	width: 100%;
+	position: absolute;
+	top:35%;
+}
+div{
+	display: inline-block;
+}
+
+#timer{
+	font-size: 125px;
+}
+.timerContainer{
+	width: 60%;
+	background-color: inherit;
+	border-width: 0;
+	color: inherit;
+}
+
+#resetButtonContainer{
+	padding-top: 200px;
+}
+#resetButton{
+	border-color: white;
+	background-color: inherit;
+	color: white;
+	border-radius: 20px;
+	font-size: 20px;
+	font-family: inherit;
+	font-weight: 500;
+	border-width: 2;
+	padding: 10 30 10 30;
+}
+
+.scoreContainer{
+	background-color: #0E0E0E;
+	border-width: 0;
+	font-size: 125px;
+}
+#redScore{
+	color: #DA2525;
+}
+#blueScore{
+	color: #253FFF;
+}
+

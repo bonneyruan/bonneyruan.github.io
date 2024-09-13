@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="rivalscoreboard.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <form name="scoreboardContainer">
+    <!-- red score -->
+    <button type="button" name="redScore" id="redScore" class="scoreContainer">
+      <div id="redScore">0</div></button>
+    <!-- start timer -->
+    <button type="button" name="start" class="timerContainer">
+      <div id="timer">
+        <span class="minute">10</span>:<span class="second">00</span>
+      </div>
+    </button>
+    <!-- pause timer   -->
+    <button type="button" name="pause" class="timerContainer">
+      <div id="timer">
+        <span class="minute">10</span>:<span class="second">00</span>
+      </div>
+    </button>
+    <!-- blue score -->
+    <button type="button" name="blueScore" id="blueScore" class="scoreContainer">
+      <div id="blueScore">0</div></button>
+    <br>
+    <!-- reset button -->
+    <div id="resetButtonContainer">
+      <button type="button" name="reset" id="resetButton">RESET</button>
+    </div>
+  </form>
+</body>
+
+<script type='text/javascript' src="rivalscoreboard.js"></script>
+
+</html>
