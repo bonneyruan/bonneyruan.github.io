@@ -18,10 +18,10 @@ div{
 }
 
 #timer{
-	font-size: 200px;
+	font-size: 175px;
 }
 .timerContainer{
-	width: 55%;
+	width: 700px;
 	background-color: inherit;
 	border-width: 0;
 	color: inherit;
@@ -45,17 +45,21 @@ div{
 .scoreContainer{
 	background-color: #0E0E0E;
 	border-width: 0;
-	font-size: 200px;
-	width: 18%;
+	font-size: 175px;
+	width: 300px;
+	height: 300px;
+	border-radius: 250px;
 }
 #redScore{
-	color: #DA2525;
+	background-color: #DA2525;
+	color: white;
 }
 #blueScore{
-	color: #253FFF;
+	background-color: #253FFF;
+	color: white;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1400px) {
 	form{
 		top: 25%;
 	}
@@ -63,7 +67,14 @@ div{
 		padding-top: 150px;
 	}
 	#timer, .scoreContainer{
-	font-size: 180px;
+	font-size: 125px;
+	}
+	.timerContainer{
+		width: 400px;
+	}
+	.scoreContainer{
+		width: 200px;
+		height: 200px;
 	}
 }
 
@@ -72,9 +83,19 @@ div{
 		top: 25%;
 	}
 	#resetButtonContainer{
-		padding-top: 175px;
+		padding-top: 150px;
 	}
 	#timer, .scoreContainer{
-	font-size: 120px;
+	font-size: 75px;
+	}
+	.timerContainer{
+		width: 300px;
+	}
+	.scoreContainer{
+		width: 150px;
+		height: 150px;
 	}
 }
+
+
+
