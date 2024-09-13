@@ -15,7 +15,7 @@ div{
 }
 
 #timer{
-	font-size: 125px;
+	font-size: 145px;
 }
 .timerContainer{
 	width: 60%;
@@ -25,7 +25,7 @@ div{
 }
 
 #resetButtonContainer{
-	padding-top: 200px;
+	padding-top: 150px;
 }
 #resetButton{
 	border-color: white;
@@ -42,7 +42,7 @@ div{
 .scoreContainer{
 	background-color: #0E0E0E;
 	border-width: 0;
-	font-size: 125px;
+	font-size: 145px;
 }
 #redScore{
 	color: #DA2525;

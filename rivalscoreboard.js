@@ -1,6 +1,6 @@
 "use strict";
 
-let minute = 10;
+let minute = 2;
 let second = 0;
 let millisecond = 0;
 
@@ -32,11 +32,11 @@ function pause() {
 }
 
 function reset() {
-  minute = 10;
+  minute = 2;
   second = 0;
   millisecond = 0;
   clearInterval(cron);
-  document.querySelectorAll('.minute').forEach(el => el.innerText = "10");
+  document.querySelectorAll('.minute').forEach(el => el.innerText = "2");
   document.querySelectorAll('.second').forEach(el => el.innerText = "00");
   document.scoreboardContainer.reset.style.display = 'none';
   document.scoreboardContainer.pause.style.display = 'none';
@@ -60,7 +60,7 @@ function timer() {
     minute--;
   }
 
-  document.querySelectorAll('.minute').forEach(el => el.innerText = returnData(minute));
+  document.querySelectorAll('.minute').forEach(el => el.innerText = minute);
   document.querySelectorAll('.second').forEach(el => el.innerText = returnData(second));
 }
 
