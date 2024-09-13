@@ -1,7 +1,7 @@
 "use strict";
 
 let minute = 2;
-let second = 0;
+let second = 30;
 let millisecond = 0;
 
 let cron;
@@ -33,11 +33,11 @@ function pause() {
 
 function reset() {
   minute = 2;
-  second = 0;
+  second = 30;
   millisecond = 0;
   clearInterval(cron);
   document.querySelectorAll('.minute').forEach(el => el.innerText = "2");
-  document.querySelectorAll('.second').forEach(el => el.innerText = "00");
+  document.querySelectorAll('.second').forEach(el => el.innerText = "30");
   document.scoreboardContainer.reset.style.display = 'none';
   document.scoreboardContainer.pause.style.display = 'none';
   document.scoreboardContainer.start.style.display = 'inline-block';
