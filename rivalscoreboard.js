@@ -85,3 +85,17 @@ function incrementBlueScore() {
   pause();
   document.getElementById('blueScore').innerText = blueScore;
 }
+
+document.addEventListener("keypress", function(event) {
+  if (event.keyCode == 32) {
+      pause();
+  }
+});
+
+document.addEventListener("keypress", function(event) {
+  if (event.key == "Enter") {
+      start();
+  }
+});
+
+

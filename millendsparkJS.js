@@ -18,15 +18,25 @@ $(document).ready(function(){
     let val = $('.mini-site-container').hasClass("zoomed") ? '1' : '2';
     sessionStorage.setItem('save', val);
     $('.historysite').toggleClass("labelborderhidden");
-    });
+  });
 
-  $('#spotpark').click(function() {
-    $('#arrow').removeClass("hidden");
-    $("#tryagaintext").text("OVER HERE");
-    $('#tryagain').removeClass("hidden");
-    $('#tryagain').removeClass("tryagainfade");
-    $('#clicktoguess').addClass("hidden");
-    });
+  $('.mini-site-container').click(function() {
+    if (!$(".mini-site-container").hasClass("zoomed")) {
+      $(".mini-site-container").addClass("zoomed");
+      let val = $('.mini-site-container').hasClass("zoomed") ? '1' : '2';
+      sessionStorage.setItem('save', val);
+      $('.historysite').addClass("labelborderhidden");
+      $('h2').text('zoom out');
+    }
+  });
+
+$('#spotpark').click(function() {
+  $('#arrow').removeClass("hidden");
+  $("#tryagaintext").text("OVER HERE");
+  $('#tryagain').removeClass("hidden");
+  $('#tryagain').removeClass("tryagainfade");
+  $('#clicktoguess').addClass("hidden");
+  });
 
 $('#spotbg').click(function(event) {
   $('#clicktoguess').addClass("hidden");
@@ -148,6 +158,4 @@ $('#lessbutton').click(function() {
       greenfillsection -= 1;
     }
   });
-
-
 });

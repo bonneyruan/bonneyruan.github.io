@@ -18,6 +18,13 @@ html, body{
 	-webkit-user-select: none; // Safari
 }
 
+.mini-site-container{
+	cursor: zoom-in;
+}
+.zoomed{
+	cursor: pointer;
+} 
+
 .description-container{
 	text-align: center;
 	padding-top: 10vh;
