@@ -19,6 +19,24 @@
     --button-active-text: #ffffff;
     --cloud-fill-bg: #000000;
     --tree-fill-bg: #000000;
+    
+    /* Window dimensions - can be overridden in media queries */
+    --window-width: 600px;
+    --window-height: 400px;
+    --window-aspect-ratio: 3 / 2;
+    
+    /* Spacing constants */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    
+    /* Animation constants */
+    --horizon-offset-px: 25px;
+    --horizon-offset-percent: 10%;
+    --particle-start-offset: 50px;
+    --tree-gap: 10px;
+    --floor-margin: 30px;
 }
 
 body.light-mode {
@@ -93,8 +111,8 @@ body {
 }
 
 .weather-window {
-    width: 600px;
-    height: 400px;
+    width: var(--window-width);
+    height: var(--window-height);
     background-color: var(--bg-color);
     position: relative;
     overflow: hidden;
@@ -133,7 +151,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(10% + 0.5rem);
+    height: calc(var(--horizon-offset-percent) + var(--spacing-sm));
     background-color: var(--bg-color);
     z-index: 1;
     pointer-events: none;
@@ -141,7 +159,7 @@ body {
 
 .horizon-line {
     position: absolute;
-    bottom: 10%;
+    bottom: var(--horizon-offset-percent);
     z-index: 2;
     pointer-events: none;
     color: var(--text-color);
@@ -156,13 +174,13 @@ body {
 
 .horizon-line-left {
     left: 0;
-    width: calc(50% - 10px); /* Leave gap in center for tree */
+    width: calc(50% - var(--tree-gap));
     text-align: left;
 }
 
 .horizon-line-right {
     right: 0;
-    width: calc(50% - 10px); /* Leave gap in center for tree */
+    width: calc(50% - var(--tree-gap));
     text-align: right;
 }
 
@@ -782,20 +800,27 @@ body {
     top: var(--start-y, 0px);
 }
 
-@keyframes blow {
-    from {
-        transform: translateX(0) translateY(0);
-        opacity: 0;
+/* Mobile responsive dimension overrides */
+@media screen and (max-width: 768px) {
+    :root {
+        --window-width: min(100vw - 2rem, 600px);
+        --window-height: auto;
+        --horizon-offset-px: 15px;
+        --particle-start-offset: 30px;
+        --tree-gap: 8px;
+        --floor-margin: 20px;
     }
-    15% {
-        opacity: 0.8;
+    
+    .weather-window {
+        aspect-ratio: var(--window-aspect-ratio);
     }
-    85% {
-        opacity: 0.8;
-    }
-    to {
-        transform: translateX(calc(var(--end-x, 600px) - var(--start-x, 0px))) 
-                    translateY(calc(var(--end-y, 0px) - var(--start-y, 0px)));
-        opacity: 0;
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --horizon-offset-px: 12px;
+        --particle-start-offset: 25px;
+        --tree-gap: 6px;
+        --floor-margin: 15px;
     }
 }

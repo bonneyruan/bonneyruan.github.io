@@ -119,6 +119,51 @@ const windowFrame = {
     bottom: '└─────────────────────────────────────────────────────────┘'
 };
 
+// Centralized dimension constants and utilities
+const DIMENSIONS = {
+    WINDOW: {
+        DEFAULT_WIDTH: 600,
+        DEFAULT_HEIGHT: 400,
+        ASPECT_RATIO: 3/2
+    },
+    SPACING: {
+        HORIZON_OFFSET_PERCENT: 0.1, // 10% from bottom
+        HORIZON_OFFSET_PX: 25, // Pixel offset for particles
+        SNOW_HORIZON_OFFSET_PX: 18, // Pixel offset for snow
+        PARTICLE_START_OFFSET: 50, // Starting offset above container
+        TREE_GAP: 10, // Gap for tree in horizon line
+        FLOOR_MARGIN: 30 // Margin from floor for particles
+    },
+    // Get actual window dimensions dynamically
+    getWindowWidth() {
+        const container = document.getElementById('weatherAnimation');
+        return container?.offsetWidth || this.WINDOW.DEFAULT_WIDTH;
+    },
+    getWindowHeight() {
+        const container = document.getElementById('weatherAnimation');
+        return container?.offsetHeight || this.WINDOW.DEFAULT_HEIGHT;
+    },
+    // Get responsive spacing values
+    getHorizonOffset() {
+        const height = this.getWindowHeight();
+        return height * this.SPACING.HORIZON_OFFSET_PERCENT;
+    },
+    getHorizonY() {
+        const height = this.getWindowHeight();
+        return height * (1 - this.SPACING.HORIZON_OFFSET_PERCENT);
+    },
+    // Check if mobile
+    isMobile() {
+        return window.innerWidth < 768;
+    },
+    // Get scale factor for responsive sizing
+    getScaleFactor() {
+        const baseWidth = this.WINDOW.DEFAULT_WIDTH;
+        const currentWidth = this.getWindowWidth();
+        return Math.min(1, currentWidth / baseWidth);
+    }
+};
+
 let animationInterval = null;
 let rainInterval = null; // Separate interval for rain animation
 let snowInterval = null; // Separate interval for snow animation
@@ -1132,7 +1177,7 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
     if (clearContainer) {
         container.innerHTML = '';
     }
-    const containerHeight = container.offsetHeight || 400;
+    const containerHeight = DIMENSIONS.getWindowHeight();
     
     // Get precipitation intensity from actual weather data
     // Open-Meteo provides precipitation in mm, check both 1h and 3h values
@@ -1237,18 +1282,18 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
         }
         drop.style.left = Math.random() * 100 + '%';
         // Start from random position above the container
-        const startY = -(Math.random() * 100 + 50); // -50 to -150px
+        const startY = -(Math.random() * 100 + DIMENSIONS.SPACING.PARTICLE_START_OFFSET);
         drop.style.top = startY + 'px';
         
         // Calculate stop position: can hit horizon line (90% from top) to bottom (100% from top)
         // Horizon line is at bottom: 10%, which means its top edge is at containerHeight * 0.9
         // The line itself is 1px tall, so it occupies that space
         // Bottom is at 100% from top = containerHeight
-        const horizonY = containerHeight * 0.9; // 90% from top (top edge of horizon line)
+        const horizonY = DIMENSIONS.getHorizonY(); // Get horizon Y position dynamically
         const bottomY = containerHeight; // 100% from top (bottom)
         // Allow rain to hit and cover the horizon line - start stopping well above the line
         // Range from well above horizon line (to cover it) to bottom
-        const horizonOffset = 25; // Allow particles to reach 25px above horizon to ensure they hit and cover the line
+        const horizonOffset = DIMENSIONS.SPACING.HORIZON_OFFSET_PX; // Allow particles to reach above horizon to ensure they hit and cover the line
         const stopY = (horizonY - horizonOffset) + Math.random() * (bottomY - (horizonY - horizonOffset));
         
         // Calculate distance to fall (from start position to stop position)
@@ -1387,7 +1432,7 @@ function createSnowAnimation(weatherData = null, clearContainer = true) {
     if (clearContainer) {
         container.innerHTML = '';
     }
-    const containerHeight = container.offsetHeight || 400;
+    const containerHeight = DIMENSIONS.getWindowHeight();
     
     // Get snow intensity from actual weather data
     // Open-Meteo provides precipitation in mm, check both 1h and 3h values
@@ -1466,9 +1511,9 @@ function createSnowAnimation(weatherData = null, clearContainer = true) {
         // Horizon line is at bottom: 10%, which means its top edge is at containerHeight * 0.9
         // The line itself is 1px tall, so it occupies that space
         // Bottom is at 100% from top = containerHeight
-        const horizonY = containerHeight * 0.9; // 90% from top (top edge of horizon line)
+        const horizonY = DIMENSIONS.getHorizonY(); // Get horizon Y position dynamically
         const bottomY = containerHeight; // 100% from top (bottom)
-        const horizonOffset = 18; // Allow particles to reach 30px above horizon to ensure they hit and cover the line
+        const horizonOffset = DIMENSIONS.SPACING.SNOW_HORIZON_OFFSET_PX; // Allow particles to reach above horizon to ensure they hit and cover the line
         
         // For snow, allow it to hit and cover the horizon line
         // Some snowflakes should specifically target the horizon line to accumulate
@@ -1605,7 +1650,7 @@ function createCloudAnimation(weatherData = null, clearContainer = true) {
     if (clearContainer) {
         container.innerHTML = '';
     }
-    const containerWidth = container.offsetWidth || 600;
+    const containerWidth = DIMENSIONS.getWindowWidth();
     
     // Get wind speed (default to 0 m/s if not available - will move very slowly)
     const windSpeed = weatherData?.wind?.speed ?? 0;
@@ -2224,7 +2269,7 @@ function createHailAnimation(weatherData = null, clearContainer = false) {
     const container = document.getElementById('weatherAnimation');
     // Don't clear container - hail overlays on existing animations
     
-    const containerHeight = container.offsetHeight || 400;
+    const containerHeight = DIMENSIONS.getWindowHeight();
     
     // Get weather code to determine hail intensity
     const weatherCode = weatherData?.weather_code ?? 96;
@@ -2247,10 +2292,10 @@ function createHailAnimation(weatherData = null, clearContainer = false) {
         hail.className = 'hail-stone';
         hail.textContent = '•'; // Use bullet point for hail
         hail.style.left = Math.random() * 100 + '%';
-        const startY = -(Math.random() * 100 + 50);
+        const startY = -(Math.random() * 100 + DIMENSIONS.SPACING.PARTICLE_START_OFFSET);
         hail.style.top = startY + 'px';
         
-        const horizonY = containerHeight * 0.9;
+        const horizonY = DIMENSIONS.getHorizonY();
         const bottomY = containerHeight;
         const stopY = horizonY + Math.random() * (bottomY - horizonY);
         
@@ -3187,11 +3232,11 @@ function createHorizonLine() {
     
     // Get the weather window container to calculate proper width
     const weatherWindow = document.getElementById('weatherWindow');
-    const containerWidth = weatherWindow ? weatherWindow.offsetWidth : 600;
+    const containerWidth = DIMENSIONS.getWindowWidth();
     
     // Calculate character count for each line (50% minus gap for tree)
     // Assuming ~10px per character (monospace font at 1rem)
-    const lineWidth = (containerWidth / 2) - 10; // Leave 10px gap for tree
+    const lineWidth = (containerWidth / 2) - DIMENSIONS.SPACING.TREE_GAP; // Leave gap for tree
     const charsPerLine = Math.ceil(lineWidth / 10);
     
     // Generate left horizon line with natural variation
@@ -3232,7 +3277,7 @@ function createHorizonLine() {
 
 // Create side borders
 function createSideBorders() {
-    const windowHeight = 400; // Match weather-window height
+    const windowHeight = DIMENSIONS.getWindowHeight(); // Get dynamic window height
     const lineHeight = 1.2; // Match CSS line-height
     const fontSize = 16; // Match CSS font-size (1rem = 16px)
     const lines = Math.floor(windowHeight / (fontSize * lineHeight));
