@@ -126,6 +126,7 @@ let fogInterval = null; // Separate interval for fog animation
 let cloudInterval = null; // Separate interval for clouds when used with rain/snow
 let windInterval = null; // Separate interval for wind animation
 let lightningInterval = null; // Interval for lightning flashes
+let hailInterval = null; // Interval for hail animation
 let treeAnimationInterval = null; // Interval for tree animation
 let originalTreeLines = null; // Store original tree structure
 let currentLocationCoords = null; // Store current location coordinates for sun calculations
@@ -423,19 +424,89 @@ async function getWeather(lat, lon) {
             description = 'fog';
         } else if (weatherCode >= 51 && weatherCode <= 67) {
             weatherMain = 'Rain';
-            description = weatherCode <= 55 ? 'drizzle' : weatherCode <= 61 ? 'light rain' : weatherCode <= 65 ? 'moderate rain' : 'heavy rain';
+            // Drizzle codes (51-55)
+            if (weatherCode === 51) {
+                description = 'light drizzle';
+            } else if (weatherCode === 52) {
+                description = 'moderate drizzle';
+            } else if (weatherCode === 53) {
+                description = 'dense drizzle';
+            } else if (weatherCode === 54) {
+                description = 'light freezing drizzle';
+            } else if (weatherCode === 55) {
+                description = 'dense freezing drizzle';
+            }
+            // Freezing drizzle codes (56-57)
+            else if (weatherCode === 56) {
+                description = 'light freezing drizzle';
+            } else if (weatherCode === 57) {
+                description = 'dense freezing drizzle';
+            }
+            // Rain codes (61-65)
+            else if (weatherCode === 61) {
+                description = 'slight rain';
+            } else if (weatherCode === 63) {
+                description = 'moderate rain';
+            } else if (weatherCode === 65) {
+                description = 'heavy rain';
+            }
+            // Freezing rain codes (66-67)
+            else if (weatherCode === 66) {
+                description = 'light freezing rain';
+            } else if (weatherCode === 67) {
+                description = 'heavy freezing rain';
+            } else {
+                // Fallback for any unhandled codes in this range
+                description = weatherCode <= 55 ? 'drizzle' : weatherCode <= 61 ? 'light rain' : weatherCode <= 65 ? 'moderate rain' : 'heavy rain';
+            }
         } else if (weatherCode >= 71 && weatherCode <= 77) {
             weatherMain = 'Snow';
-            description = weatherCode <= 75 ? 'light snow' : weatherCode === 77 ? 'snow grains' : 'moderate snow';
+            if (weatherCode === 71) {
+                description = 'slight snow';
+            } else if (weatherCode === 73) {
+                description = 'moderate snow';
+            } else if (weatherCode === 75) {
+                description = 'heavy snow';
+            } else if (weatherCode === 77) {
+                description = 'snow grains';
+            } else {
+                description = weatherCode <= 75 ? 'light snow' : 'moderate snow';
+            }
         } else if (weatherCode >= 80 && weatherCode <= 82) {
             weatherMain = 'Rain';
-            description = 'rain shower';
+            if (weatherCode === 80) {
+                description = 'slight rain shower';
+            } else if (weatherCode === 81) {
+                description = 'moderate rain shower';
+            } else if (weatherCode === 82) {
+                description = 'violent rain shower';
+            } else {
+                description = 'rain shower';
+            }
         } else if (weatherCode >= 85 && weatherCode <= 86) {
             weatherMain = 'Snow';
-            description = 'snow shower';
+            if (weatherCode === 85) {
+                description = 'slight snow shower';
+            } else if (weatherCode === 86) {
+                description = 'heavy snow shower';
+            } else {
+                description = 'snow shower';
+            }
         } else if (weatherCode >= 95 && weatherCode <= 99) {
             weatherMain = 'Thunderstorm';
-            description = 'thunderstorm';
+            if (weatherCode === 95) {
+                description = 'thunderstorm';
+            } else if (weatherCode === 96) {
+                description = 'thunderstorm with slight hail';
+            } else if (weatherCode === 97) {
+                description = 'thunderstorm with moderate hail';
+            } else if (weatherCode === 98) {
+                description = 'thunderstorm with sandstorm';
+            } else if (weatherCode === 99) {
+                description = 'thunderstorm with heavy hail';
+            } else {
+                description = 'thunderstorm';
+            }
         }
         
         // Get precipitation from current data (mm) - this is the actual current precipitation
@@ -453,6 +524,7 @@ async function getWeather(lat, lon) {
                 main: weatherMain,
                 description: description
             }],
+            weather_code: weatherCode, // Store original weather code for lightning calculations
             main: {
                 temp: current.temperature_2m,
                 feels_like: current.temperature_2m, // Open-Meteo doesn't provide feels_like, use temp
@@ -504,6 +576,7 @@ async function getWeather(lat, lon) {
             name: DEFAULT_LOCATION.name,
             coord: { lat: lat, lon: lon },
             weather: [weatherType],
+            weather_code: 0, // Default clear sky code for mock data
             main: { temp: 18, feels_like: 17 },
             wind: { speed: 5, deg: 270 } // Default to West
         };
@@ -1067,21 +1140,75 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
     const rainVolume = weatherData?.rain?.['1h'] ?? weatherData?.rain?.['3h'] ?? 
                        (weatherData?.current?.precipitation ?? 0);
     
-    // Only show rain if there's actual precipitation data
-    // Map rain volume to intensity: 0-0.5mm = very light, 0.5-1mm = light, 1-5mm = moderate, 5+ = heavy
-    let intensity = 0;
-    if (rainVolume > 0) {
-        if (rainVolume < 0.5) {
-            intensity = 0.2; // Very light rain
-        } else if (rainVolume < 1) {
-            intensity = 0.3; // Light rain
-        } else if (rainVolume < 5) {
-            intensity = 0.6; // Moderate rain
+    // Check weather code for different rain types and intensity levels
+    const weatherCode = weatherData?.weather_code;
+    const isFreezing = weatherCode === 66 || weatherCode === 67 || 
+                       weatherCode === 56 || weatherCode === 57;
+    const isDrizzle = weatherCode >= 51 && weatherCode <= 55;
+    const isFreezingDrizzle = weatherCode === 56 || weatherCode === 57;
+    const isRainShower = weatherCode >= 80 && weatherCode <= 82;
+    
+    // Determine base intensity from weather code (before precipitation adjustment)
+    let codeIntensity = 0.5; // Default moderate
+    if (isDrizzle) {
+        // Drizzle codes: 51=light, 52=moderate, 53=dense
+        if (weatherCode === 51) {
+            codeIntensity = 0.2; // Light drizzle
+        } else if (weatherCode === 52) {
+            codeIntensity = 0.3; // Moderate drizzle
+        } else if (weatherCode === 53) {
+            codeIntensity = 0.4; // Dense drizzle
         } else {
-            intensity = 1.0; // Heavy rain
+            codeIntensity = 0.25; // Freezing drizzle variants (54-55)
+        }
+    } else if (isRainShower) {
+        // Rain shower codes: 80=slight, 81=moderate, 82=violent
+        if (weatherCode === 80) {
+            codeIntensity = 0.4; // Slight rain shower
+        } else if (weatherCode === 81) {
+            codeIntensity = 0.7; // Moderate rain shower
+        } else if (weatherCode === 82) {
+            codeIntensity = 1.2; // Violent rain shower (more intense than regular heavy)
+        }
+    } else if (weatherCode >= 61 && weatherCode <= 67) {
+        // Regular rain codes: 61=slight, 63=moderate, 65=heavy
+        // Freezing rain: 66=light, 67=heavy
+        if (weatherCode === 61 || weatherCode === 66) {
+            codeIntensity = 0.4; // Slight/light rain
+        } else if (weatherCode === 63) {
+            codeIntensity = 0.7; // Moderate rain
+        } else if (weatherCode === 65 || weatherCode === 67) {
+            codeIntensity = 1.0; // Heavy rain
         }
     }
-    // If rainVolume is 0 or undefined, intensity stays 0 (no rain animation)
+    
+    // Combine code intensity with precipitation volume
+    // Use the higher of the two to ensure code-based intensity is respected
+    let volumeIntensity = 0;
+    if (rainVolume > 0) {
+        if (rainVolume < 0.5) {
+            volumeIntensity = 0.2;
+        } else if (rainVolume < 1) {
+            volumeIntensity = 0.3;
+        } else if (rainVolume < 5) {
+            volumeIntensity = 0.6;
+        } else {
+            volumeIntensity = 1.0;
+        }
+    }
+    
+    // Use the maximum of code intensity and volume intensity, but weight code intensity more
+    let intensity = Math.max(codeIntensity, volumeIntensity * 0.7 + codeIntensity * 0.3);
+    
+    // Adjust intensity for drizzle (make it lighter overall)
+    if (isDrizzle) {
+        intensity = intensity * 0.6; // Drizzle is lighter
+    }
+    
+    // Adjust intensity for freezing drizzle (lighter than freezing rain)
+    if (isFreezingDrizzle) {
+        intensity = intensity * 0.6; // Freezing drizzle is lighter than freezing rain
+    }
     
     // Calculate spawn interval based on intensity (lower = more frequent)
     // Light: 150ms, Moderate: 80ms, Heavy: 40ms
@@ -1092,7 +1219,22 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
     function createRainDrop() {
         const drop = document.createElement('div');
         drop.className = 'rain-drop';
-        drop.textContent = 'I';
+        
+        // Choose character based on rain type
+        if (isFreezing) {
+            if (isFreezingDrizzle) {
+                drop.textContent = '·'; // Small dot for freezing drizzle (lighter)
+                drop.classList.add('freezing-drizzle-drop'); // Separate class for styling
+            } else {
+                drop.textContent = '◊'; // White diamond for freezing rain
+                drop.classList.add('freezing-drop');
+            }
+        } else if (isDrizzle) {
+            drop.textContent = '·'; // Small dot for drizzle
+            drop.classList.add('drizzle-drop');
+        } else {
+            drop.textContent = 'I'; // Regular rain
+        }
         drop.style.left = Math.random() * 100 + '%';
         // Start from random position above the container
         const startY = -(Math.random() * 100 + 50); // -50 to -150px
@@ -1128,10 +1270,32 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
             // Get the final Y position (the element is already positioned by the fall animation)
             const finalY = stopY - startY;
             
-            // Randomly choose between dot and tilde for splash effect
-            const splashChar = Math.random() < 0.5 ? '.' : '~';
-            drop.textContent = splashChar;
-            drop.classList.add('rain-splash');
+            // Use different impact effects for freezing vs normal rain
+            let impactChar;
+            if (isFreezing) {
+                // Freezing rain impact: mix of sparkles (ice crystal formation) and glaze marks (ice coating)
+                const useSparkle = Math.random() < 0.5; // 50/50 split
+                if (useSparkle) {
+                    // Ice crystal formation - sparkle
+                    impactChar = Math.random() < 0.5 ? '✦' : '✧';
+                } else {
+                    // Ice glaze mark - horizontal line
+                    impactChar = Math.random() < 0.5 ? '─' : '━';
+                }
+                drop.textContent = impactChar;
+                drop.classList.add('ice-impact'); // New class for ice impact styling
+            } else {
+                // Normal rain splash
+                impactChar = Math.random() < 0.5 ? '.' : '~';
+                drop.textContent = impactChar;
+                drop.classList.add('rain-splash');
+            }
+            // Keep freezing classes for additional styling
+            if (isFreezingDrizzle) {
+                drop.classList.add('freezing-drizzle-drop');
+            } else if (isFreezing) {
+                drop.classList.add('freezing-drop');
+            }
             
             // Set the end position for the splash animation
             drop.style.setProperty('--end-y', `${finalY}px`);
@@ -1152,15 +1316,64 @@ function createRainAnimation(weatherData = null, clearContainer = true) {
             setTimeout(() => createRainDrop(), i * 50);
         }
         
-        // Continue creating raindrops continuously based on intensity
-        // Use separate rainInterval so it doesn't get cleared by other animations
-        if (rainInterval) clearInterval(rainInterval);
-        rainInterval = setInterval(() => {
-            // Create multiple drops per interval based on intensity
-            for (let i = 0; i < dropsPerSpawn; i++) {
-                createRainDrop();
+        // Rain showers have bursty/intermittent pattern
+        if (isRainShower) {
+            let isBurstPhase = true; // Start with a burst
+            let burstCount = 0;
+            let phaseStartTime = Date.now();
+            
+            function createShowerPattern() {
+                const now = Date.now();
+                const timeInPhase = now - phaseStartTime;
+                
+                if (isBurstPhase) {
+                    // Burst phase - heavy rain (2-3 seconds)
+                    // Make burst intensity vary by shower type: 82 (violent) is more intense
+                    let burstMultiplier = 1.5; // Default burst multiplier
+                    if (weatherCode === 82) {
+                        burstMultiplier = 2.0; // Violent shower - much heavier bursts
+                    } else if (weatherCode === 81) {
+                        burstMultiplier = 1.7; // Moderate shower - heavier bursts
+                    } else {
+                        burstMultiplier = 1.3; // Slight shower - lighter bursts
+                    }
+                    const burstIntensity = intensity * burstMultiplier;
+                    const burstDrops = Math.floor(1 + burstIntensity * 4);
+                    for (let i = 0; i < burstDrops; i++) {
+                        createRainDrop();
+                    }
+                    
+                    // Switch to light phase after 2-3 seconds
+                    if (timeInPhase > (2000 + Math.random() * 1000)) {
+                        isBurstPhase = false;
+                        phaseStartTime = now;
+                    }
+                } else {
+                    // Light phase - occasional drops (3-4 seconds)
+                    if (Math.random() < 0.2) { // 20% chance of a drop
+                        createRainDrop();
+                    }
+                    
+                    // Switch back to burst phase after 3-4 seconds
+                    if (timeInPhase > (3000 + Math.random() * 1000)) {
+                        isBurstPhase = true;
+                        phaseStartTime = now;
+                    }
+                }
             }
-        }, spawnInterval);
+            
+            if (rainInterval) clearInterval(rainInterval);
+            rainInterval = setInterval(createShowerPattern, 100); // Check frequently
+        } else {
+            // Regular rain - continuous pattern
+            if (rainInterval) clearInterval(rainInterval);
+            rainInterval = setInterval(() => {
+                // Create multiple drops per interval based on intensity
+                for (let i = 0; i < dropsPerSpawn; i++) {
+                    createRainDrop();
+                }
+            }, spawnInterval);
+        }
     } else {
         // No rain - clear any existing rain animation
         if (rainInterval) clearInterval(rainInterval);
@@ -1186,21 +1399,53 @@ function createSnowAnimation(weatherData = null, clearContainer = true) {
     // Temperature is in Celsius from the API
     const temperature = weatherData?.main?.temp ?? 0;
     
-    // Only show snow if there's actual precipitation data
-    // Map snow volume to intensity: 0-0.5mm = very light, 0.5-1mm = light, 1-5mm = moderate, 5+ = heavy
-    let intensity = 0;
-    if (snowVolume > 0) {
-        if (snowVolume < 0.5) {
-            intensity = 0.2; // Very light snow
-        } else if (snowVolume < 1) {
-            intensity = 0.3; // Light snow
-        } else if (snowVolume < 5) {
-            intensity = 0.6; // Moderate snow
-        } else {
-            intensity = 1.0; // Heavy snow
+    // Check if this is a snow shower (codes 85-86)
+    const weatherCode = weatherData?.weather_code;
+    const isSnowShower = weatherCode >= 85 && weatherCode <= 86;
+    
+    // Determine base intensity from weather code (before precipitation adjustment)
+    let codeIntensity = 0.5; // Default moderate
+    if (isSnowShower) {
+        // Snow shower codes: 85=slight, 86=heavy
+        if (weatherCode === 85) {
+            codeIntensity = 0.4; // Slight snow shower
+        } else if (weatherCode === 86) {
+            codeIntensity = 1.0; // Heavy snow shower
+        }
+    } else if (weatherCode >= 71 && weatherCode <= 77) {
+        // Regular snow codes: 71=slight, 73=moderate, 75=heavy, 77=snow grains
+        if (weatherCode === 71) {
+            codeIntensity = 0.3; // Slight snow
+        } else if (weatherCode === 73) {
+            codeIntensity = 0.6; // Moderate snow
+        } else if (weatherCode === 75) {
+            codeIntensity = 1.0; // Heavy snow
+        } else if (weatherCode === 77) {
+            codeIntensity = 0.4; // Snow grains (lighter)
         }
     }
-    // If snowVolume is 0 or undefined, intensity stays 0 (no snow animation)
+    
+    // Combine code intensity with precipitation volume
+    let volumeIntensity = 0;
+    if (snowVolume > 0) {
+        if (snowVolume < 0.5) {
+            volumeIntensity = 0.2;
+        } else if (snowVolume < 1) {
+            volumeIntensity = 0.3;
+        } else if (snowVolume < 5) {
+            volumeIntensity = 0.6;
+        } else {
+            volumeIntensity = 1.0;
+        }
+    }
+    
+    // Use the maximum of code intensity and volume intensity, but weight code intensity more
+    let intensity = Math.max(codeIntensity, volumeIntensity * 0.7 + codeIntensity * 0.3);
+    
+    // If snowVolume is 0 or undefined and code intensity is also 0, intensity stays 0 (no snow animation)
+    if (intensity === 0 && (snowVolume === 0 || snowVolume === undefined)) {
+        intensity = 0;
+    }
     
     // Calculate spawn interval based on intensity (lower = more frequent)
     // Light: 300ms, Moderate: 200ms, Heavy: 100ms
@@ -1281,15 +1526,62 @@ function createSnowAnimation(weatherData = null, clearContainer = true) {
             setTimeout(() => createSnowflake(), i * 100);
         }
         
-        // Continue creating snowflakes continuously based on intensity
-        // Use separate snowInterval so it doesn't get cleared by other animations
-        if (snowInterval) clearInterval(snowInterval);
-        snowInterval = setInterval(() => {
-            // Create multiple flakes per interval based on intensity
-            for (let i = 0; i < flakesPerSpawn; i++) {
-                createSnowflake();
+        // Snow showers have bursty/intermittent pattern
+        if (isSnowShower) {
+            let isBurstPhase = true; // Start with a burst
+            let phaseStartTime = Date.now();
+            
+            function createShowerPattern() {
+                const now = Date.now();
+                const timeInPhase = now - phaseStartTime;
+                
+                if (isBurstPhase) {
+                    // Burst phase - heavy snow (2-3 seconds)
+                    // Make burst intensity vary by shower type: 86 (heavy) is more intense
+                    let burstMultiplier = 1.5; // Default burst multiplier
+                    if (weatherCode === 86) {
+                        burstMultiplier = 2.0; // Heavy snow shower - much heavier bursts
+                    } else {
+                        burstMultiplier = 1.3; // Slight snow shower - lighter bursts
+                    }
+                    const burstIntensity = intensity * burstMultiplier;
+                    const burstFlakes = Math.floor(1 + burstIntensity * 3);
+                    for (let i = 0; i < burstFlakes; i++) {
+                        createSnowflake();
+                    }
+                    
+                    // Switch to light phase after 2-3 seconds
+                    if (timeInPhase > (2000 + Math.random() * 1000)) {
+                        isBurstPhase = false;
+                        phaseStartTime = now;
+                    }
+                } else {
+                    // Light phase - occasional flakes (3-4 seconds)
+                    if (Math.random() < 0.2) { // 20% chance of a flake
+                        createSnowflake();
+                    }
+                    
+                    // Switch back to burst phase after 3-4 seconds
+                    if (timeInPhase > (3000 + Math.random() * 1000)) {
+                        isBurstPhase = true;
+                        phaseStartTime = now;
+                    }
+                }
             }
-        }, spawnInterval);
+            
+            if (snowInterval) clearInterval(snowInterval);
+            snowInterval = setInterval(createShowerPattern, 150); // Check frequently
+        } else {
+            // Regular snow - continuous pattern
+            // Use separate snowInterval so it doesn't get cleared by other animations
+            if (snowInterval) clearInterval(snowInterval);
+            snowInterval = setInterval(() => {
+                // Create multiple flakes per interval based on intensity
+                for (let i = 0; i < flakesPerSpawn; i++) {
+                    createSnowflake();
+                }
+            }, spawnInterval);
+        }
     } else {
         // No snow - clear any existing snow animation
         if (snowInterval) clearInterval(snowInterval);
@@ -1837,24 +2129,171 @@ function createThunderstormAnimation(weatherData = null, clearContainer = true) 
     // Rain + lightning flashes (thunderstorms usually have heavy rain)
     createRainAnimation(weatherData, false); // Don't clear container, we already did or want overlapping
     
-    // Store the rain interval before creating lightning
-    const rainInterval = animationInterval;
+    // Calculate lightning frequency based on weather data
+    // Get rain intensity (same calculation as rain animation)
+    const rainVolume = weatherData?.rain?.['1h'] ?? weatherData?.rain?.['3h'] ?? 
+                       (weatherData?.current?.precipitation ?? 0);
     
-    function flashLightning() {
-        container.style.backgroundColor = '#ffffff';
-        setTimeout(() => {
-            container.style.backgroundColor = '#000000';
-        }, 100);
+    let rainIntensity = 0;
+    if (rainVolume > 0) {
+        if (rainVolume < 0.5) {
+            rainIntensity = 0.2;
+        } else if (rainVolume < 1) {
+            rainIntensity = 0.3;
+        } else if (rainVolume < 5) {
+            rainIntensity = 0.6;
+        } else {
+            rainIntensity = 1.0;
+        }
     }
     
-    // Lightning flashes (don't overwrite rain interval)
-    if (lightningInterval) clearInterval(lightningInterval);
-    lightningInterval = setInterval(() => {
-        flashLightning();
-    }, 2000);
+    // Get wind speed (stronger storms = more lightning)
+    const windSpeed = weatherData?.wind?.speed ?? 0;
+    const windIntensity = Math.min(windSpeed / 20, 1); // Normalize to 0-1 (20 m/s = max)
+    
+    // Get weather code to determine storm severity
+    // Weather codes 95-99 = thunderstorms
+    // 95 = thunderstorm
+    // 96-99 = thunderstorm with hail (more intense)
+    const weatherCode = weatherData?.weather_code ?? 95; // Default to 95 if not available
+    const isSevereThunderstorm = weatherCode >= 96; // Hail = more intense
+    const codeSeverity = isSevereThunderstorm ? 1.0 : (weatherCode === 95 ? 0.8 : 0.6);
+    
+    // Combine rain, wind, and weather code intensity for overall storm intensity
+    const stormIntensity = Math.max(rainIntensity, windIntensity * 0.7, codeSeverity * 0.8);
+    
+    // Base lightning frequency on storm intensity
+    // More intense storms = more frequent lightning
+    // Light storm: 12-32 seconds between flashes
+    // Moderate storm: 8-20 seconds
+    // Heavy storm: 4-12 seconds
+    const minInterval = 12000 - (stormIntensity * 8000); // 12000ms to 4000ms
+    const maxInterval = 32000 - (stormIntensity * 12000); // 32000ms to 20000ms
+    
+    function flashLightning() {
+        // Vary flash duration - some quick, some longer
+        // Quick flashes: 50-100ms, Longer flashes: 100-200ms
+        const flashDuration = Math.random() < 0.7 ? 
+            Math.random() * 50 + 50 :  // 70% chance: quick flash (50-100ms)
+            Math.random() * 100 + 100; // 30% chance: longer flash (100-200ms)
+        
+        // Vary flash intensity slightly (brightness)
+        const brightness = Math.random() * 0.2 + 0.8; // 80-100% brightness
+        const flashColor = `rgba(255, 255, 255, ${brightness})`;
+        
+        container.style.setProperty('background-color', flashColor, 'important');
+        
+        setTimeout(() => {
+            container.style.setProperty('background-color', 'transparent', 'important');
+            
+            // Occasionally do a double flash (10% chance) - lightning can flash multiple times
+            // More likely in severe storms
+            const doubleFlashChance = isSevereThunderstorm ? 0.15 : 0.1;
+            if (Math.random() < doubleFlashChance && stormIntensity > 0.5) {
+                setTimeout(() => {
+                    const secondFlashDuration = Math.random() * 50 + 30; // Quick second flash
+                    container.style.setProperty('background-color', flashColor, 'important');
+                    setTimeout(() => {
+                        container.style.setProperty('background-color', 'transparent', 'important');
+                    }, secondFlashDuration);
+                }, Math.random() * 200 + 100); // 100-300ms after first flash
+            }
+        }, flashDuration);
+    }
+    
+    // Schedule next lightning flash with random interval
+    function scheduleNextFlash() {
+        const nextInterval = Math.random() * (maxInterval - minInterval) + minInterval;
+        
+        if (lightningInterval) clearTimeout(lightningInterval);
+        lightningInterval = setTimeout(() => {
+            flashLightning();
+            scheduleNextFlash(); // Schedule the next one
+        }, nextInterval);
+    }
+    
+    // Start the first flash after a short delay
+    scheduleNextFlash();
     
     // Keep both intervals running - rain continues, lightning flashes
     // Note: animationInterval is used by rain, lightning runs separately
+}
+
+// Create hail animation (overlays on top of rain/thunderstorm)
+function createHailAnimation(weatherData = null, clearContainer = false) {
+    const container = document.getElementById('weatherAnimation');
+    // Don't clear container - hail overlays on existing animations
+    
+    const containerHeight = container.offsetHeight || 400;
+    
+    // Get weather code to determine hail intensity
+    const weatherCode = weatherData?.weather_code ?? 96;
+    let hailIntensity = 0.5; // Default moderate
+    
+    if (weatherCode === 96) {
+        hailIntensity = 0.4; // Slight hail
+    } else if (weatherCode === 97) {
+        hailIntensity = 0.6; // Moderate hail
+    } else if (weatherCode === 99) {
+        hailIntensity = 1.0; // Heavy hail
+    }
+    
+    // Hail falls faster and is more sporadic than rain
+    const spawnInterval = Math.max(80, 200 - (hailIntensity * 120)); // 80-200ms
+    const particlesPerSpawn = Math.floor(1 + hailIntensity * 3); // 1-4 particles
+    
+    function createHailStone() {
+        const hail = document.createElement('div');
+        hail.className = 'hail-stone';
+        hail.textContent = '•'; // Use bullet point for hail
+        hail.style.left = Math.random() * 100 + '%';
+        const startY = -(Math.random() * 100 + 50);
+        hail.style.top = startY + 'px';
+        
+        const horizonY = containerHeight * 0.9;
+        const bottomY = containerHeight;
+        const stopY = horizonY + Math.random() * (bottomY - horizonY);
+        
+        hail.style.setProperty('--start-y', `${startY}px`);
+        hail.style.setProperty('--stop-y', `${stopY}px`);
+        
+        // Hail falls faster than rain
+        const fallDuration = (0.3 + Math.random() * 0.2) * (1 - hailIntensity * 0.3); // 0.2-0.5s, faster for heavy hail
+        
+        hail.style.animation = `hailFall ${fallDuration}s linear forwards`;
+        hail.style.animationDelay = Math.random() * 0.1 + 's';
+        
+        container.appendChild(hail);
+        
+        // Remove after animation
+        setTimeout(() => hail.remove(), fallDuration * 1000 + 100);
+    }
+    
+    // Create initial hail stones
+    const initialHail = Math.floor(10 * hailIntensity);
+    for (let i = 0; i < initialHail; i++) {
+        setTimeout(() => createHailStone(), i * 50);
+    }
+    
+    // Continue spawning hail
+    if (hailInterval) clearInterval(hailInterval);
+    hailInterval = setInterval(() => {
+        for (let i = 0; i < particlesPerSpawn; i++) {
+            createHailStone();
+        }
+    }, spawnInterval);
+}
+
+// Create freezing rain effect (visual indicator for freezing conditions)
+function createFreezingRainEffect(weatherData = null, clearContainer = false) {
+    const container = document.getElementById('weatherAnimation');
+    
+    // Freezing rain creates a subtle visual indicator
+    // Add a class that CSS can style for freezing conditions
+    container.classList.add('freezing-rain');
+    
+    // Could add ice particle animations here in the future
+    // For now, the visual distinction comes from the class
 }
 
 // Convert Celsius to Fahrenheit
@@ -2252,8 +2691,12 @@ function displayWeather(weatherData, manualWeatherType = null) {
         animationInterval = null;
     }
     if (lightningInterval) {
-        clearInterval(lightningInterval);
+        clearTimeout(lightningInterval);
         lightningInterval = null;
+    }
+    if (hailInterval) {
+        clearInterval(hailInterval);
+        hailInterval = null;
     }
     if (sunPositionInterval) {
         clearInterval(sunPositionInterval);
@@ -2265,8 +2708,11 @@ function displayWeather(weatherData, manualWeatherType = null) {
     }
     // Stop tree animation
     stopTreeAnimation();
-    document.getElementById('weatherAnimation').innerHTML = '';
-    document.getElementById('weatherAnimation').style.backgroundColor = 'transparent';
+    const weatherAnimationContainer = document.getElementById('weatherAnimation');
+    weatherAnimationContainer.innerHTML = '';
+    weatherAnimationContainer.style.backgroundColor = 'transparent';
+    // Remove any effect classes
+    weatherAnimationContainer.classList.remove('freezing-rain');
     
     // Update tree animation based on actual wind speed from weather data
     const treeBackground = document.querySelector('.tree-background');
@@ -2330,16 +2776,35 @@ function displayWeather(weatherData, manualWeatherType = null) {
     // Track which animations are being shown to allow overlapping
     let hasAnyAnimation = false;
     
+    // Get weather code for additional effect layering
+    const weatherCode = weatherData?.weather_code;
+    
     // Show rain animation if there's actual rain
     if (hasRain && !hasThunderstorm) {
         createRainAnimation(weatherData, !hasAnyAnimation);
         hasAnyAnimation = true;
+        
+        // Check for freezing rain codes (66-67) and add freezing effect
+        if (weatherCode === 66 || weatherCode === 67) {
+            createFreezingRainEffect(weatherData, false);
+        }
     }
     
     // Show thunderstorm (includes rain + lightning)
     if (hasThunderstorm) {
         createThunderstormAnimation(weatherData, !hasAnyAnimation);
         hasAnyAnimation = true;
+        
+        // Check for hail in thunderstorm (codes 96, 97, 99) and layer hail on top
+        if (weatherCode === 96 || weatherCode === 97 || weatherCode === 99) {
+            createHailAnimation(weatherData, false); // Layer hail on top
+        }
+        
+        // Check for sandstorm in thunderstorm (code 98)
+        // Could add sandstorm effect here in the future
+        // if (weatherCode === 98) {
+        //     createSandstormEffect(weatherData, false);
+        // }
     }
     
     // Show snow animation if there's actual snow
@@ -2463,6 +2928,7 @@ function setWeatherType(weatherType) {
     const mockWeatherData = {
         name: 'San Francisco, USA',
         weather: [{ main: weatherType === 'thunderstorm' ? 'Thunderstorm' : weatherType.charAt(0).toUpperCase() + weatherType.slice(1), description: weatherType }],
+        weather_code: weatherType === 'thunderstorm' ? 95 : weatherType === 'rain' ? 61 : weatherType === 'snow' ? 71 : weatherType === 'clouds' ? 2 : weatherType === 'fog' ? 45 : 0,
         main: { temp: 18, feels_like: 17 },
         wind: { 
             speed: windSpeed,
@@ -2471,11 +2937,189 @@ function setWeatherType(weatherType) {
         clouds: {
             all: weatherType === 'clouds' ? 80 : weatherType === 'rain' || weatherType === 'snow' || weatherType === 'thunderstorm' ? 60 : 20
         },
-        rain: weatherType === 'rain' ? { '1h': 2.5 } : null,
+        rain: weatherType === 'rain' || weatherType === 'thunderstorm' ? { '1h': 2.5 } : null,
         snow: weatherType === 'snow' ? { '1h': 1.5 } : null
     };
     
     displayWeather(mockWeatherData, weatherType);
+}
+
+// Test weather code - generate mock weather data from a weather code
+function testWeatherCode(weatherCode) {
+    const code = parseInt(weatherCode);
+    if (isNaN(code) || code < 0 || code > 99) {
+        alert('Please enter a valid weather code between 0 and 99');
+        return;
+    }
+    
+    // Map weather code to weather condition (same logic as getWeather)
+    let weatherMain = 'Clear';
+    let description = 'clear sky';
+    
+    if (code >= 0 && code <= 3) {
+        if (code === 0) {
+            weatherMain = 'Clear';
+            description = 'clear sky';
+        } else if (code === 1) {
+            weatherMain = 'Clear';
+            description = 'mainly clear';
+        } else if (code === 2) {
+            weatherMain = 'Clouds';
+            description = 'partly cloudy';
+        } else {
+            weatherMain = 'Clouds';
+            description = 'overcast';
+        }
+    } else if (code >= 45 && code <= 48) {
+        weatherMain = 'Fog';
+        description = 'fog';
+    } else if (code >= 51 && code <= 67) {
+        weatherMain = 'Rain';
+        if (code === 51) {
+            description = 'light drizzle';
+        } else if (code === 52) {
+            description = 'moderate drizzle';
+        } else if (code === 53) {
+            description = 'dense drizzle';
+        } else if (code === 54) {
+            description = 'light freezing drizzle';
+        } else if (code === 55) {
+            description = 'dense freezing drizzle';
+        } else if (code === 56) {
+            description = 'light freezing drizzle';
+        } else if (code === 57) {
+            description = 'dense freezing drizzle';
+        } else if (code === 61) {
+            description = 'slight rain';
+        } else if (code === 63) {
+            description = 'moderate rain';
+        } else if (code === 65) {
+            description = 'heavy rain';
+        } else if (code === 66) {
+            description = 'light freezing rain';
+        } else if (code === 67) {
+            description = 'heavy freezing rain';
+        } else {
+            description = code <= 55 ? 'drizzle' : code <= 61 ? 'light rain' : code <= 65 ? 'moderate rain' : 'heavy rain';
+        }
+    } else if (code >= 71 && code <= 77) {
+        weatherMain = 'Snow';
+        if (code === 71) {
+            description = 'slight snow';
+        } else if (code === 73) {
+            description = 'moderate snow';
+        } else if (code === 75) {
+            description = 'heavy snow';
+        } else if (code === 77) {
+            description = 'snow grains';
+        } else {
+            description = code <= 75 ? 'light snow' : 'moderate snow';
+        }
+    } else if (code >= 80 && code <= 82) {
+        weatherMain = 'Rain';
+        if (code === 80) {
+            description = 'slight rain shower';
+        } else if (code === 81) {
+            description = 'moderate rain shower';
+        } else if (code === 82) {
+            description = 'violent rain shower';
+        } else {
+            description = 'rain shower';
+        }
+    } else if (code >= 85 && code <= 86) {
+        weatherMain = 'Snow';
+        if (code === 85) {
+            description = 'slight snow shower';
+        } else if (code === 86) {
+            description = 'heavy snow shower';
+        } else {
+            description = 'snow shower';
+        }
+    } else if (code >= 95 && code <= 99) {
+        weatherMain = 'Thunderstorm';
+        if (code === 95) {
+            description = 'thunderstorm';
+        } else if (code === 96) {
+            description = 'thunderstorm with slight hail';
+        } else if (code === 97) {
+            description = 'thunderstorm with moderate hail';
+        } else if (code === 98) {
+            description = 'thunderstorm with sandstorm';
+        } else if (code === 99) {
+            description = 'thunderstorm with heavy hail';
+        } else {
+            description = 'thunderstorm';
+        }
+    }
+    
+    // Determine appropriate values based on weather type
+    let windSpeed = 3;
+    let cloudCover = 20;
+    let rain = null;
+    let snow = null;
+    
+    if (code >= 95 && code <= 99) {
+        // Thunderstorm
+        windSpeed = 15;
+        cloudCover = 80;
+        rain = { '1h': 5.0 }; // Heavy rain for thunderstorms
+    } else if (code >= 80 && code <= 82) {
+        // Rain showers
+        windSpeed = 8;
+        cloudCover = 70;
+        rain = { '1h': code === 82 ? 4.0 : code === 81 ? 2.5 : 1.5 };
+    } else if (code >= 51 && code <= 67) {
+        // Rain/Drizzle
+        windSpeed = 6;
+        cloudCover = 60;
+        if (code <= 55) {
+            rain = { '1h': 0.5 }; // Light drizzle
+        } else if (code <= 57) {
+            rain = { '1h': 0.8 }; // Freezing drizzle
+        } else if (code <= 65) {
+            rain = { '1h': code === 65 ? 3.0 : code === 63 ? 2.0 : 1.0 };
+        } else {
+            rain = { '1h': code === 67 ? 2.5 : 1.5 }; // Freezing rain
+        }
+    } else if (code >= 85 && code <= 86) {
+        // Snow showers
+        windSpeed = 7;
+        cloudCover = 70;
+        snow = { '1h': code === 86 ? 2.0 : 1.0 };
+    } else if (code >= 71 && code <= 77) {
+        // Snow
+        windSpeed = 5;
+        cloudCover = 60;
+        snow = { '1h': code === 75 ? 2.5 : code === 73 ? 1.5 : 0.8 };
+    } else if (code >= 45 && code <= 48) {
+        // Fog
+        windSpeed = 1;
+        cloudCover = 100;
+    } else if (code >= 2 && code <= 3) {
+        // Clouds
+        windSpeed = 4;
+        cloudCover = code === 3 ? 100 : 50;
+    } else {
+        // Clear
+        windSpeed = 2;
+        cloudCover = code === 1 ? 25 : 0;
+    }
+    
+    const mockWeatherData = {
+        name: 'Test Location',
+        weather: [{ main: weatherMain, description: description }],
+        weather_code: code,
+        main: { temp: 18, feels_like: 17, humidity: code >= 45 && code <= 48 ? 95 : 60 },
+        wind: { speed: windSpeed, deg: 270 },
+        clouds: { all: cloudCover },
+        rain: rain,
+        snow: snow,
+        visibility: code >= 45 && code <= 48 ? 500 : undefined,
+        coord: { lat: 37.7749, lon: -122.4194 }, // San Francisco coordinates
+        current: { precipitation: rain ? rain['1h'] : (snow ? snow['1h'] : 0) }
+    };
+    
+    displayWeather(mockWeatherData, null);
 }
 
 // Manually set moon phase
@@ -2818,12 +3462,20 @@ async function init() {
             
             // Set initial state
             const container = document.querySelector('.container');
+            const devToolsContainer = document.getElementById('devToolsContainer');
+            
             if (devModeOn) {
                 container.classList.remove('dev-mode-off');
                 devToggleBtn.classList.add('active');
+                if (devToolsContainer) {
+                    devToolsContainer.style.display = 'flex';
+                }
             } else {
                 container.classList.add('dev-mode-off');
                 devToggleBtn.classList.remove('active');
+                if (devToolsContainer) {
+                    devToolsContainer.style.display = 'none';
+                }
             }
             
             // Toggle on click
@@ -2834,17 +3486,44 @@ async function init() {
                     container.classList.remove('dev-mode-off');
                     devToggleBtn.classList.add('active');
                     localStorage.setItem('devMode', 'true');
+                    if (devToolsContainer) {
+                        devToolsContainer.style.display = 'flex';
+                    }
                 } else {
                     // Turn dev mode off
                     container.classList.add('dev-mode-off');
                     devToggleBtn.classList.remove('active');
                     localStorage.setItem('devMode', 'false');
+                    if (devToolsContainer) {
+                        devToolsContainer.style.display = 'none';
+                    }
                 }
                 // Refresh display to update sun/moon info visibility
                 if (lastWeatherData) {
                     updateTemperatureDisplay(lastWeatherData);
                 }
             });
+            
+            // Set up dev tools (weather code input)
+            const weatherCodeInput = document.getElementById('weatherCodeInput');
+            const testWeatherCodeBtn = document.getElementById('testWeatherCodeBtn');
+            
+            // Handle test weather code button
+            if (testWeatherCodeBtn && weatherCodeInput) {
+                const handleTestWeatherCode = () => {
+                    const code = weatherCodeInput.value.trim();
+                    if (code) {
+                        testWeatherCode(code);
+                    }
+                };
+                
+                testWeatherCodeBtn.addEventListener('click', handleTestWeatherCode);
+                weatherCodeInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleTestWeatherCode();
+                    }
+                });
+            }
         }
         
         // Get location (will use San Francisco as default if geolocation fails)
