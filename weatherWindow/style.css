@@ -1,0 +1,662 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --border-color: #ffffff;
+    --input-bg: #000000;
+    --input-text: #ffffff;
+    --input-placeholder: #888888;
+    --button-bg: #000000;
+    --button-text: #ffffff;
+    --button-hover-bg: #ffffff;
+    --button-hover-text: #000000;
+    --button-active-bg: #888888;
+    --button-active-text: #ffffff;
+    --cloud-fill-bg: #000000;
+    --tree-fill-bg: #000000;
+}
+
+body.light-mode {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --border-color: #000000;
+    --input-bg: #ffffff;
+    --input-text: #000000;
+    --input-placeholder: #666666;
+    --button-bg: #ffffff;
+    --button-text: #000000;
+    --button-hover-bg: #000000;
+    --button-hover-text: #ffffff;
+    --button-active-bg: #666666;
+    --button-active-text: #ffffff;
+    --cloud-fill-bg: #ffffff;
+    --tree-fill-bg: #ffffff;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ascii-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.frame-top,
+.frame-bottom {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1;
+    margin: 0;
+    white-space: pre;
+    font-family: 'Courier New', monospace;
+}
+
+.window-content {
+    display: flex;
+    align-items: stretch;
+}
+
+.frame-left,
+.frame-right {
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.2;
+    margin: 0;
+    white-space: pre;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0;
+}
+
+.weather-window {
+    width: 600px;
+    height: 400px;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+
+.weather-display {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    white-space: pre;
+    background-color: transparent;
+    pointer-events: none;
+    max-width: 70%;
+    max-height: 40%;
+    transition: top 0.5s ease, left 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* Center loading and error messages (when not sun or moon) */
+.weather-display:not(.sun):not(.moon) {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center;
+}
+
+.ground-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(10% + 0.5rem);
+    background-color: var(--bg-color);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.horizon-line {
+    position: absolute;
+    bottom: 10%;
+    z-index: 2;
+    pointer-events: none;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1;
+    white-space: pre;
+    overflow: visible;
+    background-color: transparent;
+}
+
+.horizon-line-left {
+    left: 0;
+    width: calc(50% - 10px); /* Leave gap in center for tree */
+    text-align: left;
+}
+
+.horizon-line-right {
+    right: 0;
+    width: calc(50% - 10px); /* Leave gap in center for tree */
+    text-align: right;
+}
+
+.tree-background {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    line-height: 1;
+    white-space: pre;
+    white-space: pre-wrap;
+    opacity: 0.9 !important;
+    z-index: 1 !important;
+    text-align: center;
+    pointer-events: none;
+    visibility: visible !important;
+    display: block !important;
+    width: 100%;
+    height: auto;
+}
+
+.tree-background pre {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    white-space: pre;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+}
+
+.weather-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background-color: transparent !important;
+}
+
+.info-panel {
+    text-align: center;
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.location,
+.weather-info {
+    margin: 0;
+    white-space: pre;
+    font-family: 'Courier New', monospace;
+}
+
+.location {
+    margin-bottom: 0.5rem;
+}
+
+.weather-info {
+    opacity: 0.8;
+}
+
+.location-input-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-label {
+    margin: 0;
+    white-space: pre;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.location-input {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    min-width: 200px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.location-input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.location-input:focus {
+    border-color: var(--border-color);
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.submit-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.submit-button:active {
+    background-color: var(--button-active-bg);
+    color: var(--button-active-text);
+}
+
+.change-location-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.change-location-btn:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.change-location-btn:active {
+    background-color: var(--button-active-bg);
+    color: var(--button-active-text);
+}
+
+.toggles-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* vertically align both toggles with each other */
+    width: 600px;
+    margin-top: 0.25rem; /* small gap above the window */
+    margin-bottom: 0;
+}
+
+.temperature-toggle-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.theme-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.temperature-toggle,
+.theme-toggle {
+    display: flex;
+    border: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    height: 2.5rem;
+    align-items: stretch;
+}
+
+.temperature-option,
+.theme-option {
+    padding: 0.5rem 1rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    transition: all 0.3s ease;
+    user-select: none;
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+}
+
+.temperature-option:last-child,
+.theme-option:last-child {
+    border-right: none;
+}
+
+.temperature-option.active,
+.theme-option.active {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.temperature-option:hover:not(.active),
+.theme-option:hover:not(.active) {
+    opacity: 0.7;
+}
+
+.weather-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.weather-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 70px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.weather-btn:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.weather-btn:active {
+    background-color: var(--button-active-bg);
+    color: var(--button-active-text);
+}
+
+.weather-btn.active {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.moon-phase-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.moon-phase-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 70px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.moon-phase-btn:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.moon-phase-btn:active {
+    background-color: var(--button-active-bg);
+    color: var(--button-active-text);
+}
+
+.moon-phase-btn.active {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+/* Dev toggle button - normal flow positioning */
+.dev-toggle-btn {
+    display: block;
+    margin: 1rem auto 0;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.6rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.6;
+    transition: opacity 0.2s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.dev-toggle-btn:hover {
+    opacity: 1;
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.dev-toggle-btn.active {
+    opacity: 1;
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+/* Hide buttons when dev mode is off */
+.dev-mode-off .weather-buttons,
+.dev-mode-off .moon-phase-buttons {
+    display: none;
+}
+
+/* Rain animation */
+.rain-drop {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.65rem;
+    animation: fall linear;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(var(--end-y, 500px));
+        opacity: 1;
+    }
+}
+
+@keyframes splash {
+    0% {
+        transform: translateY(var(--end-y, 500px)) scale(0.3);
+        opacity: 0.6;
+    }
+    30% {
+        transform: translateY(var(--end-y, 500px)) scale(1);
+        opacity: 1;
+    }
+    60% {
+        transform: translateY(var(--end-y, 500px)) scale(0.8);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(var(--end-y, 500px)) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.rain-splash {
+    font-size: 0.65rem;
+}
+
+/* Snow animation */
+.snowflake {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.65rem;
+    animation: snowfall linear;
+}
+
+@keyframes snowfall {
+    from {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(var(--end-y, 500px)) translateX(var(--end-x, 50px));
+        opacity: 0.9; /* Keep more visible when stopped */
+    }
+}
+
+/* Cloud animation */
+.cloud {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.65rem;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1.2;
+    animation: drift linear;
+    background-color: transparent;
+}
+
+/* Fog animation */
+.fog-wisp {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.65rem;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1.1;
+    animation: drift linear;
+    background-color: transparent;
+}
+
+.cloud-fill {
+    background-color: var(--cloud-fill-bg);
+    color: var(--cloud-fill-bg);
+}
+
+.tree-fill {
+    background-color: var(--tree-fill-bg);
+    color: var(--tree-fill-bg);
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(800px);
+    }
+}
+
+/* Sun animation */
+.sun {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Moon styling */
+.moon {
+    opacity: 0.9;
+}
+
+/* Move moon behind tree */
+.weather-display.moon,
+.moon-display {
+    z-index: 0;
+}
+
+/* Move sun behind tree */
+.weather-display.sun {
+    z-index: 0;
+}
+
+/* Wind effect */
+.wind-particle {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.65rem;
+    animation: blow linear;
+    left: var(--start-x, 0px);
+    top: var(--start-y, 0px);
+}
+
+@keyframes blow {
+    from {
+        transform: translateX(0) translateY(0);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    85% {
+        opacity: 0.8;
+    }
+    to {
+        transform: translateX(calc(var(--end-x, 600px) - var(--start-x, 0px))) 
+                    translateY(calc(var(--end-y, 0px) - var(--start-y, 0px)));
+        opacity: 0;
+    }
+}
