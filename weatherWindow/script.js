@@ -131,6 +131,7 @@ let originalTreeLines = null; // Store original tree structure
 let currentLocationCoords = null; // Store current location coordinates for sun calculations
 let sunPositionInterval = null; // Interval for updating sun position
 let moonPositionInterval = null; // Interval for updating moon position
+let timeUpdateInterval = null; // Interval for updating time display every minute
 let currentTemperatureUnit = 'C'; // 'C' for Celsius, 'F' for Fahrenheit
 let currentCountryCode = null; // Store current country code for default unit
 
@@ -1950,20 +1951,23 @@ function updateTemperatureDisplay(weatherData) {
     if (utcOffsetSeconds !== null && utcOffsetSeconds !== undefined) {
         const utcHours = now.getUTCHours();
         const utcMinutes = now.getUTCMinutes();
-        const utcSeconds = now.getUTCSeconds();
-        const utcTime = utcHours + utcMinutes / 60 + utcSeconds / 3600;
+        const utcTime = utcHours + utcMinutes / 60;
         const utcOffsetHours = utcOffsetSeconds / 3600;
         const localTime = (utcTime + utcOffsetHours) % 24;
         const localHours = Math.floor(localTime);
         const localMinutes = Math.floor((localTime - localHours) * 60);
-        const localSeconds = Math.floor(((localTime - localHours) * 60 - localMinutes) * 60);
-        localTimeStr = `${String(localHours).padStart(2, '0')}:${String(localMinutes).padStart(2, '0')}:${String(localSeconds).padStart(2, '0')}`;
+        // Convert to 12-hour AM/PM format without seconds
+        const displayHours = localHours === 0 ? 12 : localHours > 12 ? localHours - 12 : localHours;
+        const ampm = localHours >= 12 ? 'PM' : 'AM';
+        localTimeStr = `${displayHours}:${String(localMinutes).padStart(2, '0')} ${ampm}`;
     } else {
         // Fallback to browser time
         const hours = now.getHours();
         const minutes = now.getMinutes();
-        const seconds = now.getSeconds();
-        localTimeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        // Convert to 12-hour AM/PM format without seconds
+        const displayHours = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        localTimeStr = `${displayHours}:${String(minutes).padStart(2, '0')} ${ampm}`;
     }
     
     // Calculate sun and moon positions
@@ -1987,20 +1991,24 @@ function updateTemperatureDisplay(weatherData) {
     
     // Build info text with all relevant variables - only show non-zero values
     let infoText = `${description.toUpperCase()}\n`;
+    // Local time
+    infoText += `${localTimeStr}\n`;
     infoText += `Temperature: ${temp}${unit}\n`;
     infoText += `Feels like: ${feelsLike}${unit}\n`;
     
-    // Local time
-    infoText += `Time: ${localTimeStr}\n`;
     
-    // Sun position (always show if sun is visible or in twilight)
-    if (sunPos.altitude >= -6) {
+    // Check if dev mode is off - if so, hide sun and moon info
+    const container = document.querySelector('.container');
+    const isDevModeOff = container && container.classList.contains('dev-mode-off');
+    
+    // Sun position (only show if dev mode is on and sun is visible or in twilight)
+    if (!isDevModeOff && sunPos.altitude >= -6) {
         infoText += `Sun Altitude: ${sunPos.altitude.toFixed(1)}°\n`;
         infoText += `Sun Azimuth: ${sunPos.azimuth.toFixed(1)}°\n`;
     }
     
-    // Moon position (always show if moon is visible or in twilight)
-    if (moonPos.altitude >= -6 && moonPos.phase !== 'new') {
+    // Moon position (only show if dev mode is on and moon is visible or in twilight)
+    if (!isDevModeOff && moonPos.altitude >= -6 && moonPos.phase !== 'new') {
         infoText += `Moon Altitude: ${moonPos.altitude.toFixed(1)}°\n`;
         infoText += `Moon Azimuth: ${moonPos.azimuth.toFixed(1)}°\n`;
         infoText += `Moon Phase: ${moonPos.phase}\n`;
@@ -2027,8 +2035,12 @@ function updateTemperatureDisplay(weatherData) {
     }
     
     // Additional info - only show if non-zero
+    // Show humidity if dev mode is on OR if it's relevant to animations (humidity > 80% affects fog)
     if (humidity !== null && humidity !== undefined && humidity > 0) {
-        infoText += `Humidity: ${humidity}%\n`;
+        const isRelevantToAnimations = humidity > 80; // High humidity affects fog density
+        if (!isDevModeOff || isRelevantToAnimations) {
+            infoText += `Humidity: ${humidity}%\n`;
+        }
     }
     if (cloudCover !== null && cloudCover !== undefined && cloudCover > 0) {
         infoText += `Cloud Cover: ${cloudCover}%\n`;
@@ -2083,6 +2095,14 @@ function displayWeather(weatherData, manualWeatherType = null) {
     
     // Update weather info (ASCII art style) with selected unit
     updateTemperatureDisplay(weatherData);
+    
+    // Update time display every minute (without fetching weather data)
+    if (timeUpdateInterval) clearInterval(timeUpdateInterval);
+    timeUpdateInterval = setInterval(() => {
+        if (lastWeatherData) {
+            updateTemperatureDisplay(lastWeatherData);
+        }
+    }, 60000); // Update every minute
     
     // Remove sun and moon classes if they exist first
     display.classList.remove('sun');
@@ -2635,6 +2655,7 @@ async function handleLocationSubmit() {
         
         // Update weather every 10 minutes
         if (updateInterval) clearInterval(updateInterval);
+        if (timeUpdateInterval) clearInterval(timeUpdateInterval);
         updateInterval = setInterval(async () => {
             const weatherData = await getWeather(currentLocation.lat, currentLocation.lon);
             displayWeather(weatherData);
@@ -2819,6 +2840,10 @@ async function init() {
                     devToggleBtn.classList.remove('active');
                     localStorage.setItem('devMode', 'false');
                 }
+                // Refresh display to update sun/moon info visibility
+                if (lastWeatherData) {
+                    updateTemperatureDisplay(lastWeatherData);
+                }
             });
         }
         
@@ -2866,6 +2891,7 @@ async function init() {
             }
             
             // Update weather every 10 minutes
+            if (timeUpdateInterval) clearInterval(timeUpdateInterval);
             updateInterval = setInterval(async () => {
                 const weatherData = await getWeather(currentLocation.lat, currentLocation.lon);
                 // Preserve location name if using default
@@ -2891,6 +2917,7 @@ async function init() {
             weatherData.name = DEFAULT_LOCATION.name;
             displayWeather(weatherData);
             
+            if (timeUpdateInterval) clearInterval(timeUpdateInterval);
             updateInterval = setInterval(async () => {
                 const weatherData = await getWeather(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lon);
                 weatherData.name = DEFAULT_LOCATION.name;
