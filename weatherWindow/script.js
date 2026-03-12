@@ -863,22 +863,10 @@ function shouldShowMoon(moonPos, sunPos) {
     // New moon is invisible
     if (moonPos.phase === 'new') return false;
     
-    // During bright daylight (sun > 30° altitude), only show bright moon phases
-    // Full moon and gibbous phases are bright enough to be visible even in bright daylight
-    if (sunPos.altitude > 30) {
-        const brightPhases = ['full', 'waxingGibbous', 'waningGibbous'];
-        return brightPhases.includes(moonPos.phase);
-    }
+    // Only show moon at nighttime (when sun is below horizon)
+    if (sunPos.altitude >= 0) return false;
     
-    // During moderate daylight (sun 10-30°), show quarter phases and brighter
-    // Crescent moons are too dim to see in moderate daylight
-    if (sunPos.altitude > 10) {
-        const visiblePhases = ['full', 'waxingGibbous', 'waningGibbous', 'firstQuarter', 'lastQuarter'];
-        return visiblePhases.includes(moonPos.phase);
-    }
-    
-    // During low sun (dawn/dusk, sun < 10°) or nighttime, all phases are visible
-    // Crescent moons are visible during twilight and night
+    // During nighttime, all phases are visible (except new moon, already checked)
     return true;
 }
 
@@ -2382,24 +2370,8 @@ function setTemperatureUnit(unit, updateDisplay = true) {
     });
     
     // Update display if weather data is available
-    if (updateDisplay) {
-        const display = document.getElementById('weatherDisplay');
-        if (display && display.textContent && display.textContent.trim() !== '') {
-            // Re-display weather with new unit
-            const info = document.getElementById('weatherInfo');
-            if (info && info.textContent) {
-                // Extract temperature from info text and update
-                const lines = info.textContent.split('\n');
-                if (lines.length >= 3) {
-                    const description = lines[0];
-                    // Re-fetch and display with new unit
-                    // We'll need to store the last weather data
-                    if (lastWeatherData) {
-                        updateTemperatureDisplay(lastWeatherData);
-                    }
-                }
-            }
-        }
+    if (updateDisplay && lastWeatherData) {
+        updateTemperatureDisplay(lastWeatherData);
     }
 }
 
@@ -3448,7 +3420,8 @@ async function init() {
             const options = temperatureToggle.querySelectorAll('.temperature-option');
             options.forEach(option => {
                 option.addEventListener('click', (e) => {
-                    const unit = e.target.dataset.unit;
+                    // Use currentTarget to ensure we get the element with dataset, not a text node
+                    const unit = e.currentTarget.dataset.unit || option.dataset.unit;
                     if (unit && unit !== currentTemperatureUnit) {
                         setTemperatureUnit(unit, true);
                     }
