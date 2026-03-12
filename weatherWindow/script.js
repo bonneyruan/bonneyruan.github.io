@@ -18,50 +18,21 @@ const asciiArt = {
     `,
     moon: {
         new: `
-      ....    
-      .::::::::.    
-  :::::::::::
-   :::::::::::: 
-  ':::::::::'
-        '':::''      `, 
-        waxingCrescent: `
-      ....    
-      .:::::.  .    
-  ::::::::.  :
-   :::::::::  : 
-  ':::::::  '
-   ''::. ' `,
-        firstQuarter: `
-      ....    
-      .::::    .    
-  ::::::     :
-   ::::::     : 
-  ':::::     '
-   ':::... ' 
-      `,
-        waxingGibbous: `
-      ....    
-      .::'     .    
-  ::::      :
-   ::::       : 
-  ':::.     '
-   '':::'' `,
-        full: `
        ....    
        '        '    
    :           :
     :           : 
    '          '
    '..___..'
-      `,
-        waningGibbous: `
+      `, 
+        waxingCrescent: `
       ....    
-      .     '::.    
-  :      ::::
-   :       :::: 
-  '     .:::'
-   '':::'' `,
-        lastQuarter: `
+      .  .:::::.    
+  :  .::::::::
+   :  ::::::::: 
+  '  :::::::'
+   ' .::'' `,
+        firstQuarter: `
       ....    
       .    ::::.    
   :     ::::::
@@ -69,13 +40,42 @@ const asciiArt = {
   '     :::::'
    ' ...:::' 
       `,
+        waxingGibbous: `
+      ....    
+      .     '::.    
+  :      ::::
+   :       :::: 
+  '     .:::'
+   '':::'' `,
+        full: `
+      ....    
+      .::::::::.    
+  :::::::::::
+   :::::::::::: 
+  ':::::::::'
+        '':::''      `,
+        waningGibbous: `
+      ....    
+      .::'     .    
+  ::::      :
+   ::::       : 
+  ':::.     '
+   '':::'' `,
+        lastQuarter: `
+      ....    
+      .::::    .    
+  ::::::     :
+   ::::::     : 
+  ':::::     '
+   ':::... ' 
+      `,
         waningCrescent: `
       ....    
-      .  .:::::.    
-  :  .::::::::
-   :  ::::::::: 
-  '  :::::::'
-   ' .::'' `
+      .:::::.  .    
+  ::::::::.  :
+   :::::::::  : 
+  ':::::::  '
+   ''::. ' `
     },
     clouds: `
        .--.     .--.
@@ -1054,7 +1054,8 @@ function positionSun(weatherData) {
         const utcMinutes = now.getUTCMinutes();
         const utcTime = utcHours + utcMinutes / 60;
         const utcOffsetHours = utcOffsetSeconds / 3600;
-        localHour = (utcTime + utcOffsetHours) % 24;
+        // Ensure localHour is always positive by adding 24 before modulo
+        localHour = ((utcTime + utcOffsetHours) % 24 + 24) % 24;
     } else {
         localHour = now.getHours(); // Fallback to browser time
     }
@@ -2437,7 +2438,8 @@ function updateTemperatureDisplay(weatherData) {
         const utcMinutes = now.getUTCMinutes();
         const utcTime = utcHours + utcMinutes / 60;
         const utcOffsetHours = utcOffsetSeconds / 3600;
-        const localTime = (utcTime + utcOffsetHours) % 24;
+        // Ensure localTime is always positive by adding 24 before modulo
+        const localTime = ((utcTime + utcOffsetHours) % 24 + 24) % 24;
         const localHours = Math.floor(localTime);
         const localMinutes = Math.floor((localTime - localHours) * 60);
         // Convert to 12-hour AM/PM format without seconds
@@ -3715,8 +3717,8 @@ function animateTree(intensity = 'gentle') {
     if (!originalLines) return;
     
     let time = 0;
-    const speed = intensity === 'storm' ? 0.15 : intensity === 'strong' ? 0.1 : 0.05;
-    const maxOffset = intensity === 'storm' ? 3 : intensity === 'strong' ? 2 : 1;
+    const speed = intensity === 'storm' ? 0.12 : intensity === 'strong' ? 0.08 : 0.04;
+    const maxOffset = intensity === 'storm' ? 1.5 : intensity === 'strong' ? 0.8 : 0.3;
     
     function update() {
         time += speed;
@@ -3728,7 +3730,7 @@ function animateTree(intensity = 'gentle') {
         const animatedLines = originalLines.map((line, index) => {
             // Top rows sway more, bottom rows (trunk) sway less
             const rowFactor = index < originalLines.length - 3 ? 
-                (1 - (index / originalLines.length) * 0.3) : 0.2;
+                (1 - (index / originalLines.length) * 0.5) : 0.15;
             const offset = Math.round(baseOffset * rowFactor);
             return shiftTreeLine(line, offset);
         });
