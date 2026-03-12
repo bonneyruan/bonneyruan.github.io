@@ -12,9 +12,12 @@ const weatherConditions = {
 // ASCII art for different weather conditions
 const asciiArt = {
     clear: `    
-           \\ | /
-           ──(  )──
-           / | \\
+          \\ .|. /
+          :::::::::
+          ──:::::::::::──
+          ::::::::::
+          ':::::::'
+          / .|. \\
     `,
     moon: {
         new: `
@@ -2437,7 +2440,8 @@ function updateTemperatureDisplay(weatherData) {
         const utcMinutes = now.getUTCMinutes();
         const utcTime = utcHours + utcMinutes / 60;
         const utcOffsetHours = utcOffsetSeconds / 3600;
-        const localTime = (utcTime + utcOffsetHours) % 24;
+        // Handle negative values correctly by wrapping around 24 hours
+        const localTime = ((utcTime + utcOffsetHours) % 24 + 24) % 24;
         const localHours = Math.floor(localTime);
         const localMinutes = Math.floor((localTime - localHours) * 60);
         // Convert to 12-hour AM/PM format without seconds
