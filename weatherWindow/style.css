@@ -19,6 +19,24 @@
     --button-active-text: #ffffff;
     --cloud-fill-bg: #000000;
     --tree-fill-bg: #000000;
+    
+    /* Window dimensions - can be overridden in media queries */
+    --window-width: 600px;
+    --window-height: 400px;
+    --window-aspect-ratio: 3 / 2;
+    
+    /* Spacing constants */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    
+    /* Animation constants */
+    --horizon-offset-px: 25px;
+    --horizon-offset-percent: 10%;
+    --particle-start-offset: 50px;
+    --tree-gap: 10px;
+    --floor-margin: 30px;
 }
 
 body.light-mode {
@@ -93,8 +111,8 @@ body {
 }
 
 .weather-window {
-    width: 600px;
-    height: 400px;
+    width: var(--window-width);
+    height: var(--window-height);
     background-color: var(--bg-color);
     position: relative;
     overflow: hidden;
@@ -133,7 +151,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(10% + 0.5rem);
+    height: calc(var(--horizon-offset-percent) + var(--spacing-sm));
     background-color: var(--bg-color);
     z-index: 1;
     pointer-events: none;
@@ -141,7 +159,7 @@ body {
 
 .horizon-line {
     position: absolute;
-    bottom: 10%;
+    bottom: var(--horizon-offset-percent);
     z-index: 2;
     pointer-events: none;
     color: var(--text-color);
@@ -156,13 +174,13 @@ body {
 
 .horizon-line-left {
     left: 0;
-    width: calc(50% - 10px); /* Leave gap in center for tree */
+    width: calc(50% - var(--tree-gap));
     text-align: left;
 }
 
 .horizon-line-right {
     right: 0;
-    width: calc(50% - 10px); /* Leave gap in center for tree */
+    width: calc(50% - var(--tree-gap));
     text-align: right;
 }
 
@@ -495,8 +513,85 @@ body {
 
 /* Hide buttons when dev mode is off */
 .dev-mode-off .weather-buttons,
-.dev-mode-off .moon-phase-buttons {
+.dev-mode-off .moon-phase-buttons,
+.dev-mode-off .dev-tools-container {
     display: none;
+}
+
+/* Dev tools container */
+.dev-tools-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dev-tools-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.dev-label {
+    margin: 0;
+    white-space: pre;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    color: var(--text-color);
+}
+
+.dev-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dev-input {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    min-width: 100px;
+    width: 80px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.dev-input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.dev-input:focus {
+    border-color: var(--border-color);
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.dev-submit-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.dev-submit-button:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.dev-submit-button:active {
+    background-color: var(--button-active-bg);
+    color: var(--button-active-text);
 }
 
 /* Rain animation */
@@ -540,6 +635,68 @@ body {
 .rain-splash {
     font-size: 0.65rem;
 }
+
+/* Drizzle - smaller, lighter drops */
+.rain-drop.drizzle-drop {
+    font-size: 0.5rem; /* Smaller than regular rain */
+    opacity: 0.7; /* Lighter appearance */
+}
+
+/* Freezing drizzle - small dot with subtle glow */
+.rain-drop.freezing-drizzle-drop {
+    font-size: 0.5rem; /* Smaller than freezing rain */
+    opacity: 0.8;
+    color: var(--text-color);
+    text-shadow: 
+        0 0 1px rgba(255, 255, 255, 0.4), 
+        0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Freezing rain - white diamond with subtle glow */
+.rain-drop.freezing-drop {
+    color: var(--text-color); /* Use default text color */
+    text-shadow: 
+        0 0 2px rgba(255, 255, 255, 0.5), 
+        0 0 4px rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    opacity: 0.95;
+}
+
+/* Ice impact effects - sparkles and glaze marks */
+.ice-impact {
+    color: var(--text-color); /* Use default text color */
+    text-shadow: 
+        0 0 2px rgba(255, 255, 255, 0.4), 
+        0 0 4px rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    /* Sparkles and glaze marks share base styling, individual characters will vary naturally */
+}
+
+/* Hail animation */
+.hail-stone {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: bold;
+    animation: hailFall linear;
+    z-index: 10; /* Above rain */
+}
+
+@keyframes hailFall {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(var(--stop-y, 500px));
+        opacity: 0.8;
+    }
+}
+
+/* Freezing rain effect - subtle visual indicator */
+/* Could add subtle overlay or particle effects here in the future */
+/* For now, the distinction is mainly in the description */
+/* .freezing-rain { } */
 
 /* Snow animation */
 .snowflake {
@@ -643,20 +800,27 @@ body {
     top: var(--start-y, 0px);
 }
 
-@keyframes blow {
-    from {
-        transform: translateX(0) translateY(0);
-        opacity: 0;
+/* Mobile responsive dimension overrides */
+@media screen and (max-width: 768px) {
+    :root {
+        --window-width: min(100vw - 2rem, 600px);
+        --window-height: auto;
+        --horizon-offset-px: 15px;
+        --particle-start-offset: 30px;
+        --tree-gap: 8px;
+        --floor-margin: 20px;
     }
-    15% {
-        opacity: 0.8;
+    
+    .weather-window {
+        aspect-ratio: var(--window-aspect-ratio);
     }
-    85% {
-        opacity: 0.8;
-    }
-    to {
-        transform: translateX(calc(var(--end-x, 600px) - var(--start-x, 0px))) 
-                    translateY(calc(var(--end-y, 0px) - var(--start-y, 0px)));
-        opacity: 0;
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --horizon-offset-px: 12px;
+        --particle-start-offset: 25px;
+        --tree-gap: 6px;
+        --floor-margin: 15px;
     }
 }
