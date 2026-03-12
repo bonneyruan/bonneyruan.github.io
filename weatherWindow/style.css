@@ -67,7 +67,6 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
-    -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -77,36 +76,8 @@ body {
     gap: 2rem;
     width: 100%;
     max-width: 100%;
-    padding: 0;
-}
-
-/* Desktop: maintain centered layout */
-@media screen and (min-width: 769px) {
-    .container {
-        width: auto;
-        max-width: none;
-    }
-    
-    .ascii-frame {
-        width: auto;
-        max-width: none;
-    }
-    
-    .frame-top,
-    .frame-bottom {
-        width: auto;
-        max-width: none;
-    }
-    
-    .window-content {
-        width: auto;
-        max-width: none;
-    }
-    
-    .info-panel {
-        width: auto;
-        max-width: none;
-    }
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .ascii-frame {
@@ -115,37 +86,26 @@ body {
     align-items: center;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-}
-
-/* Desktop: maintain natural width */
-@media screen and (min-width: 769px) {
-    .ascii-frame {
-        width: auto;
-        max-width: none;
-    }
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .frame-top,
 .frame-bottom {
     color: var(--text-color);
-    font-size: 1.1rem;
+    font-size: clamp(0.7rem, 1.1rem, 1.1rem);
     line-height: 1;
-    margin: 0;
+    margin: 0 auto;
+    padding: 0;
     white-space: pre;
     font-family: 'Courier New', monospace;
+    /* Width will be set dynamically by JavaScript to match window width */
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-}
-
-/* Desktop: maintain natural width */
-@media screen and (min-width: 769px) {
-    .frame-top,
-    .frame-bottom {
-        width: auto;
-        max-width: none;
-    }
+    overflow: hidden;
+    text-align: left;
+    box-sizing: border-box;
+    display: block;
 }
 
 .window-content {
@@ -153,14 +113,9 @@ body {
     align-items: stretch;
     width: 100%;
     max-width: 100%;
-}
-
-/* Desktop: maintain natural width */
-@media screen and (min-width: 769px) {
-    .window-content {
-        width: auto;
-        max-width: none;
-    }
+    overflow: hidden;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .frame-left,
@@ -169,22 +124,27 @@ body {
     font-size: 1rem;
     line-height: 1.2;
     margin: 0;
+    padding: 0;
     white-space: pre;
     font-family: 'Courier New', monospace;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 0;
+    align-items: flex-start;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    align-self: stretch;
 }
 
 .weather-window {
     width: var(--window-width);
-    height: var(--window-height);
+    aspect-ratio: var(--window-aspect-ratio);
     max-width: 100%;
     background-color: var(--bg-color);
     position: relative;
     overflow: hidden;
     border: none;
+    flex-shrink: 0;
 }
 
 .weather-display {
@@ -196,7 +156,7 @@ body {
     text-align: center;
     color: var(--text-color);
     font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 0.9rem, 0.9rem);
     line-height: 1.4;
     white-space: pre;
     background-color: transparent;
@@ -233,22 +193,25 @@ body {
     color: var(--text-color);
     opacity: 0.7;
     font-family: 'Courier New', monospace;
-    font-size: 1rem;
+    font-size: clamp(0.6rem, 1rem, 1rem);
     line-height: 1;
     white-space: pre;
-    overflow: visible;
+    overflow: hidden;
     background-color: transparent;
+    max-width: calc(50% - var(--tree-gap, 10px));
 }
 
 .horizon-line-left {
     left: 0;
-    width: calc(50% - var(--tree-gap));
+    width: calc(50% - var(--tree-gap, 10px));
+    max-width: calc(50% - var(--tree-gap, 10px));
     text-align: left;
 }
 
 .horizon-line-right {
     right: 0;
-    width: calc(50% - var(--tree-gap));
+    width: calc(50% - var(--tree-gap, 10px));
+    max-width: calc(50% - var(--tree-gap, 10px));
     text-align: right;
 }
 
@@ -299,16 +262,6 @@ body {
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
     line-height: 1.6;
-    width: 100%;
-    max-width: 100%;
-}
-
-/* Desktop: maintain natural width */
-@media screen and (min-width: 769px) {
-    .info-panel {
-        width: auto;
-        max-width: none;
-    }
 }
 
 .location,
@@ -421,12 +374,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center; /* vertically align both toggles with each other */
-    width: 100%;
-    max-width: 600px;
+    width: var(--window-width, 600px);
+    max-width: 100%;
     margin-top: 0.25rem; /* small gap above the window */
     margin-bottom: 0;
-    padding: 0 1rem;
-    gap: 1rem;
 }
 
 .temperature-toggle-container {
@@ -456,8 +407,6 @@ body {
     transition: border-color 0.3s ease;
     height: 2.5rem;
     align-items: stretch;
-    min-width: 0;
-    flex-shrink: 1;
 }
 
 .temperature-option,
@@ -473,8 +422,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.5rem;
-    touch-action: manipulation;
+    min-width: 3rem;
 }
 
 .temperature-option:last-child,
@@ -884,210 +832,220 @@ body {
     top: var(--start-y, 0px);
 }
 
-/* Mobile responsive dimension overrides */
+/* Responsive design - Hybrid approach */
+/* Large screens: Ensure window doesn't exceed container and scales down when needed */
+@media screen and (min-width: 769px) {
+    :root {
+        --window-width: min(600px, calc(100vw - 4rem));
+    }
+    
+    .weather-window {
+        max-width: 100%;
+    }
+}
+
+/* Medium screens: Scale down proportionally */
 @media screen and (max-width: 768px) {
     :root {
         --window-width: min(100vw - 2rem, 600px);
         --window-height: auto;
-        --horizon-offset-percent: 15%; /* Lower horizon to show more tree */
         --horizon-offset-px: 15px;
         --particle-start-offset: 30px;
         --tree-gap: 8px;
         --floor-margin: 20px;
     }
     
-    .container {
-        padding: 1rem;
-        gap: 1.5rem;
-    }
-    
     .weather-window {
         aspect-ratio: var(--window-aspect-ratio);
     }
     
-    .toggles-row {
-        padding: 0 0.5rem;
-        gap: 0.5rem;
-    }
-    
-    .temperature-toggle,
-    .theme-toggle {
-        height: 2.75rem;
-        font-size: 0.95rem;
-    }
-    
-    .temperature-option,
-    .theme-option {
-        padding: 0.5rem 0.75rem;
-        min-width: 2.25rem;
-    }
-    
     .frame-top,
     .frame-bottom {
-        font-size: 0.9rem;
-        overflow-x: auto;
-        max-width: 100%;
+        font-size: clamp(0.6rem, 0.9rem, 1.1rem);
     }
     
     .frame-left,
     .frame-right {
+        font-size: clamp(0.5rem, 0.8rem, 1rem);
+    }
+    
+    /* Smaller toggle buttons on mobile */
+    .temperature-toggle,
+    .theme-toggle {
         font-size: 0.85rem;
+        height: 2rem;
     }
     
-    .weather-display {
-        font-size: 0.85rem;
-    }
-    
-    .info-panel {
-        font-size: 0.85rem;
-        padding: 0 0.5rem;
-    }
-    
-    .weather-btn,
-    .moon-phase-btn {
-        padding: 0.5rem 0.9rem;
-        font-size: 0.75rem;
-        min-width: 65px;
-        min-height: 44px; /* Better touch target */
-    }
-    
-    .change-location-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-        min-height: 44px;
-    }
-    
-    .location-input {
-        min-width: 180px;
-        font-size: 0.85rem;
-        padding: 0.6rem 0.85rem;
-    }
-    
-    .submit-button {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-        min-height: 44px;
-    }
-    
-    .dev-toggle-btn {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.7rem;
-        min-height: 44px;
+    .temperature-option,
+    .theme-option {
+        padding: 0.4rem 0.75rem;
+        min-width: 2.5rem;
     }
 }
 
+/* Small screens: Continue scaling but prepare for overflow */
+@media screen and (max-width: 600px) {
+    :root {
+        --window-width: min(100vw - 1.5rem, 500px);
+    }
+    
+    .container {
+        gap: 1.5rem;
+        padding: 0 0.75rem;
+    }
+    
+    .frame-top,
+    .frame-bottom {
+        font-size: clamp(0.5rem, 0.75rem, 0.9rem);
+    }
+    
+    /* Hide side frames on small screens */
+    .frame-left,
+    .frame-right {
+        display: none !important;
+    }
+    
+    .weather-display {
+        font-size: clamp(0.7rem, 0.85rem, 0.9rem);
+    }
+    
+    /* Even smaller toggle buttons on small screens */
+    .temperature-toggle,
+    .theme-toggle {
+        font-size: 0.75rem;
+        height: 1.75rem;
+    }
+    
+    .temperature-option,
+    .theme-option {
+        padding: 0.35rem 0.6rem;
+        min-width: 2.25rem;
+    }
+}
+
+/* Very small screens: Switch to overflow hidden, maintain minimum readable size */
 @media screen and (max-width: 480px) {
     :root {
-        --horizon-offset-percent: 18%; /* Even lower on very small screens */
+        --window-width: min(100vw - 1rem, 350px);
+        --window-min-width: 300px;
         --horizon-offset-px: 12px;
         --particle-start-offset: 25px;
         --tree-gap: 6px;
         --floor-margin: 15px;
     }
     
-    .tree-background {
-        bottom: 2px; /* Slightly adjust tree position for very small screens */
-    }
-    
     .container {
-        padding: 0.75rem;
         gap: 1rem;
+        padding: 0 0.5rem;
     }
     
-    .toggles-row {
-        padding: 0 0.25rem;
-        gap: 0.25rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .temperature-toggle-container,
-    .theme-toggle-container {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-    
-    .temperature-toggle,
-    .theme-toggle {
-        height: 3rem;
-        font-size: 0.9rem;
+    .ascii-frame {
+        overflow: hidden;
         width: 100%;
     }
     
-    .temperature-option,
-    .theme-option {
-        padding: 0.5rem 0.5rem;
-        min-width: 2rem;
+    .window-content {
+        overflow: hidden;
+        justify-content: center;
+    }
+    
+    /* Hide side frames on very small screens to focus on center content */
+    .frame-left,
+    .frame-right {
+        display: none !important;
     }
     
     .frame-top,
     .frame-bottom {
-        font-size: 0.75rem;
+        font-size: clamp(0.45rem, 0.65rem, 0.8rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
-    .frame-left,
-    .frame-right {
-        font-size: 0.7rem;
+    .weather-window {
+        width: var(--window-width);
+        min-width: var(--window-min-width, 300px);
+        aspect-ratio: var(--window-aspect-ratio);
     }
     
     .weather-display {
-        font-size: 0.75rem;
+        font-size: clamp(0.65rem, 0.8rem, 0.9rem);
         max-width: 85%;
     }
     
+    .tree-background {
+        font-size: clamp(0.5rem, 0.6rem, 0.65rem);
+    }
+    
     .info-panel {
-        font-size: 0.8rem;
+        font-size: clamp(0.8rem, 0.85rem, 0.9rem);
+    }
+    
+    /* Smaller toggle buttons on very small screens */
+    .temperature-toggle,
+    .theme-toggle {
+        font-size: 0.7rem;
+        height: 1.6rem;
+    }
+    
+    .temperature-option,
+    .theme-option {
+        padding: 0.3rem 0.5rem;
+        min-width: 2rem;
+    }
+}
+
+/* Extra small screens: Further adjustments */
+@media screen and (max-width: 360px) {
+    :root {
+        --window-width: min(100vw - 0.5rem, 320px);
+        --window-min-width: 280px;
+        --horizon-offset-px: 10px;
+        --particle-start-offset: 20px;
+        --tree-gap: 5px;
+        --floor-margin: 12px;
+    }
+    
+    .container {
+        gap: 0.75rem;
         padding: 0 0.25rem;
     }
     
-    .weather-buttons,
-    .moon-phase-buttons {
-        gap: 0.4rem;
+    .frame-top,
+    .frame-bottom {
+        font-size: clamp(0.4rem, 0.55rem, 0.7rem);
+    }
+    
+    .weather-display {
+        font-size: clamp(0.6rem, 0.75rem, 0.85rem);
+        max-width: 90%;
+    }
+    
+    .tree-background {
+        font-size: clamp(0.45rem, 0.55rem, 0.6rem);
+    }
+    
+    .info-panel {
+        font-size: clamp(0.75rem, 0.85rem, 0.9rem);
     }
     
     .weather-btn,
     .moon-phase-btn {
-        padding: 0.5rem 0.7rem;
-        font-size: 0.7rem;
+        font-size: clamp(0.7rem, 0.75rem, 0.8rem);
+        padding: 0.3rem 0.6rem;
         min-width: 60px;
-        min-height: 44px;
     }
     
-    .change-location-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.75rem;
-        width: 100%;
-        max-width: 300px;
+    /* Smallest toggle buttons on extra small screens */
+    .temperature-toggle,
+    .theme-toggle {
+        font-size: 0.65rem;
+        height: 1.5rem;
     }
     
-    .location-input {
-        min-width: 150px;
-        width: 100%;
-        max-width: 250px;
-    }
-    
-    .input-wrapper {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .submit-button {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .dev-input-wrapper {
-        flex-direction: column;
-        width: 100%;
-        max-width: 250px;
-    }
-    
-    .dev-input {
-        width: 100%;
-    }
-    
-    .dev-submit-button {
-        width: 100%;
+    .temperature-option,
+    .theme-option {
+        padding: 0.25rem 0.45rem;
+        min-width: 1.75rem;
     }
 }

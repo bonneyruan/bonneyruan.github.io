@@ -1692,7 +1692,12 @@ function createCloudAnimation(weatherData = null, clearContainer = true) {
      .(████). .(████).
        '--'     '--'
         `.replace(/█/g, '<span class="cloud-fill"> </span>');
-        cloud.style.top = Math.random() * 200 + 'px';
+        // Position clouds in upper portion of window (top 20-50% of window height)
+        // This ensures they're visible and not too low on smaller screens
+        const containerHeight = DIMENSIONS.getWindowHeight();
+        const maxCloudTop = containerHeight * 0.5; // Max 50% from top
+        const minCloudTop = containerHeight * 0.2; // Min 20% from top
+        cloud.style.top = (minCloudTop + Math.random() * (maxCloudTop - minCloudTop)) + 'px';
         
         // Random duration variation (80% to 120% of base)
         const duration = baseCloudDuration * (0.8 + Math.random() * 0.4);
@@ -3211,10 +3216,21 @@ function createHorizonLine() {
     const weatherWindow = document.getElementById('weatherWindow');
     const containerWidth = DIMENSIONS.getWindowWidth();
     
+    // Calculate actual character width based on current font size
+    // Create a temporary element to measure character width
+    const tempEl = document.createElement('span');
+    tempEl.style.fontFamily = 'Courier New, monospace';
+    tempEl.style.fontSize = window.getComputedStyle(leftLine).fontSize;
+    tempEl.style.position = 'absolute';
+    tempEl.style.visibility = 'hidden';
+    tempEl.textContent = '─';
+    document.body.appendChild(tempEl);
+    const charWidth = tempEl.offsetWidth;
+    document.body.removeChild(tempEl);
+    
     // Calculate character count for each line (50% minus gap for tree)
-    // Assuming ~10px per character (monospace font at 1rem)
     const lineWidth = (containerWidth / 2) - DIMENSIONS.SPACING.TREE_GAP; // Leave gap for tree
-    const charsPerLine = Math.ceil(lineWidth / 10);
+    const charsPerLine = Math.max(1, Math.floor(lineWidth / charWidth));
     
     // Generate left horizon line with natural variation
     let leftText = '';
@@ -3252,23 +3268,204 @@ function createHorizonLine() {
     rightLine.textContent = rightText;
 }
 
+// Create top and bottom frame borders
+function createFrameBorders() {
+    const frameTop = document.querySelector('.frame-top');
+    const frameBottom = document.querySelector('.frame-bottom');
+    if (!frameTop || !frameBottom) return;
+    
+    // Get the weather window and side borders
+    const weatherWindow = document.getElementById('weatherWindow');
+    const frameLeft = document.getElementById('frameLeft');
+    const frameRight = document.getElementById('frameRight');
+    
+    if (!weatherWindow) return;
+    
+    // Force a reflow to ensure accurate measurements
+    weatherWindow.offsetHeight;
+    
+    // Get the actual width of the weather window
+    const windowWidth = weatherWindow.offsetWidth;
+    
+    if (windowWidth <= 0) {
+        // Fallback: try again after a short delay
+        setTimeout(createFrameBorders, 50);
+        return;
+    }
+    
+    // Calculate side border widths if they're visible
+    let sideBorderWidth = 0;
+    const shouldShowSideBorders = window.innerWidth > 600;
+    if (shouldShowSideBorders && frameLeft && frameRight) {
+        // Check if side borders are actually displayed
+        const leftDisplay = window.getComputedStyle(frameLeft).display;
+        const rightDisplay = window.getComputedStyle(frameRight).display;
+        
+        if (leftDisplay !== 'none' && rightDisplay !== 'none') {
+            // Force multiple reflows to ensure side borders are fully rendered
+            frameLeft.offsetHeight;
+            frameRight.offsetHeight;
+            frameLeft.offsetWidth;
+            frameRight.offsetWidth;
+            
+            // Use actual rendered widths of both borders (most accurate)
+            // Measure each border separately to account for any differences
+            const leftWidth = frameLeft.offsetWidth || 0;
+            const rightWidth = frameRight.offsetWidth || 0;
+            
+            if (leftWidth > 0 && rightWidth > 0) {
+                // Use the sum of actual widths
+                sideBorderWidth = leftWidth + rightWidth;
+            } else {
+                // Fallback: calculate from character width if offsetWidth is not available
+                const leftStyle = window.getComputedStyle(frameLeft);
+                const tempEl = document.createElement('span');
+                tempEl.style.fontFamily = 'Courier New, monospace';
+                tempEl.style.fontSize = leftStyle.fontSize;
+                tempEl.style.position = 'absolute';
+                tempEl.style.visibility = 'hidden';
+                tempEl.style.whiteSpace = 'pre';
+                tempEl.textContent = '│';
+                document.body.appendChild(tempEl);
+                const sideCharWidth = tempEl.offsetWidth;
+                document.body.removeChild(tempEl);
+                
+                if (sideCharWidth > 0) {
+                    sideBorderWidth = sideCharWidth * 2; // Both left and right
+                }
+            }
+        }
+    }
+    
+    // Total width = weather window width + side borders (if visible)
+    const totalWidth = windowWidth + sideBorderWidth;
+    
+    // Calculate character width based on current font size
+    const tempEl = document.createElement('span');
+    tempEl.style.fontFamily = 'Courier New, monospace';
+    tempEl.style.fontSize = window.getComputedStyle(frameTop).fontSize;
+    tempEl.style.position = 'absolute';
+    tempEl.style.visibility = 'hidden';
+    tempEl.style.whiteSpace = 'pre';
+    tempEl.textContent = '─';
+    document.body.appendChild(tempEl);
+    const charWidth = tempEl.offsetWidth;
+    document.body.removeChild(tempEl);
+    
+    if (charWidth <= 0) return; // Safety check
+    
+    // Calculate number of characters needed (minus 2 for corner characters)
+    // The corners (┌ and ┐) take up space, so we subtract 2 character widths
+    // Use Math.round for better accuracy instead of Math.floor
+    const numChars = Math.max(1, Math.round((totalWidth / charWidth) - 2));
+    
+    // Generate frame borders
+    const topBorder = '┌' + '─'.repeat(numChars) + '┐';
+    const bottomBorder = '└' + '─'.repeat(numChars) + '┘';
+    
+    frameTop.textContent = topBorder;
+    frameBottom.textContent = bottomBorder;
+    
+    // Calculate the actual rendered width of the border text
+    // This accounts for any rounding differences
+    const tempBorderEl = document.createElement('pre');
+    tempBorderEl.style.fontFamily = 'Courier New, monospace';
+    tempBorderEl.style.fontSize = window.getComputedStyle(frameTop).fontSize;
+    tempBorderEl.style.position = 'absolute';
+    tempBorderEl.style.visibility = 'hidden';
+    tempBorderEl.style.whiteSpace = 'pre';
+    tempBorderEl.textContent = topBorder;
+    document.body.appendChild(tempBorderEl);
+    const actualBorderWidth = tempBorderEl.offsetWidth;
+    document.body.removeChild(tempBorderEl);
+    
+    // Set width to match the actual rendered width (most accurate)
+    // This ensures the top/bottom borders align perfectly with the side borders
+    if (actualBorderWidth > 0) {
+        frameTop.style.width = actualBorderWidth + 'px';
+        frameBottom.style.width = actualBorderWidth + 'px';
+    } else {
+        // Fallback to calculated width
+        frameTop.style.width = totalWidth + 'px';
+        frameBottom.style.width = totalWidth + 'px';
+    }
+}
+
 // Create side borders
 function createSideBorders() {
-    const windowHeight = DIMENSIONS.getWindowHeight(); // Get dynamic window height
-    const lineHeight = 1.2; // Match CSS line-height
-    const fontSize = 16; // Match CSS font-size (1rem = 16px)
-    const lines = Math.floor(windowHeight / (fontSize * lineHeight));
+    // Check if we should show side borders based on screen size
+    const shouldShowSideBorders = window.innerWidth > 600;
     
     const leftBorder = document.getElementById('frameLeft');
     const rightBorder = document.getElementById('frameRight');
+    const weatherWindow = document.getElementById('weatherWindow');
     
+    if (!leftBorder || !rightBorder || !weatherWindow) return;
+    
+    // Hide side borders on small screens
+    if (!shouldShowSideBorders) {
+        leftBorder.style.display = 'none';
+        rightBorder.style.display = 'none';
+        return;
+    }
+    
+    // Show side borders on larger screens
+    leftBorder.style.display = 'flex';
+    rightBorder.style.display = 'flex';
+    
+    // Force a reflow to ensure accurate measurements
+    weatherWindow.offsetHeight;
+    
+    // Get the actual height of the weather window
+    // The side borders should match this height exactly to align with top/bottom corners
+    const windowHeight = weatherWindow.offsetHeight;
+    
+    if (windowHeight <= 0) {
+        // Fallback: try again after a short delay
+        setTimeout(createSideBorders, 50);
+        return;
+    }
+    
+    // Get the computed font size and line height for side borders
+    const sideBorderStyle = window.getComputedStyle(leftBorder);
+    const fontSize = parseFloat(sideBorderStyle.fontSize);
+    const lineHeightValue = sideBorderStyle.lineHeight;
+    
+    // Parse line-height (could be a number, percentage, or "normal")
+    let lineHeight;
+    if (lineHeightValue === 'normal') {
+        lineHeight = fontSize * 1.2;
+    } else if (lineHeightValue.includes('%')) {
+        lineHeight = fontSize * (parseFloat(lineHeightValue) / 100);
+    } else {
+        lineHeight = parseFloat(lineHeightValue) || fontSize * 1.2;
+    }
+    
+    // Calculate the exact number of lines needed to fill the height
+    // We need enough lines to span from the top corner to the bottom corner
+    const lines = Math.max(1, Math.ceil(windowHeight / lineHeight));
+    
+    // Generate border text - each line is a pipe character
+    // Add newlines between characters to create vertical lines
     let borderText = '';
     for (let i = 0; i < lines; i++) {
-        borderText += '│\n';
+        borderText += '│';
+        if (i < lines - 1) {
+            borderText += '\n';
+        }
     }
     
     leftBorder.textContent = borderText;
     rightBorder.textContent = borderText;
+    
+    // Set explicit height to match the weather window exactly
+    // This ensures the side borders align perfectly with top (┌┐) and bottom (└┘) corners
+    leftBorder.style.height = windowHeight + 'px';
+    rightBorder.style.height = windowHeight + 'px';
+    leftBorder.style.minHeight = windowHeight + 'px';
+    rightBorder.style.minHeight = windowHeight + 'px';
+    leftBorder.style.maxHeight = windowHeight + 'px';
+    rightBorder.style.maxHeight = windowHeight + 'px';
 }
 
 // Handle manual location submission
@@ -3368,17 +3565,53 @@ function checkAPIKey() {
     return true; // Open-Meteo is always available, no API key needed
 }
 
+// Handle window resize to recalculate frame elements
+let resizeTimeout;
+function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        // Force a reflow to ensure dimensions are updated
+        const weatherWindow = document.getElementById('weatherWindow');
+        if (weatherWindow) {
+            weatherWindow.offsetHeight; // Force reflow
+        }
+        // Update side borders first, then frame borders (which depend on side borders)
+        createSideBorders();
+        createFrameBorders();
+        createHorizonLine();
+    }, 150); // Debounce resize events
+}
+
 // Initialize
 async function init() {
     try {
         // Store original tree structure
         getOriginalTreeLines();
         
-        // Create side borders first
-        createSideBorders();
+        // Wait for DOM to be fully rendered before creating frames
+        // Use multiple requestAnimationFrame calls to ensure layout is calculated
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                // Create side borders first (affects width calculation for frame borders)
+                createSideBorders();
+                
+                // Create frame borders (depends on side borders being created)
+                createFrameBorders();
+                
+                // Create natural horizon line
+                createHorizonLine();
+                
+                // Recalculate after a brief delay to ensure all styles are applied
+                setTimeout(() => {
+                    createSideBorders();
+                    createFrameBorders();
+                    createHorizonLine();
+                }, 100);
+            });
+        });
         
-        // Create natural horizon line
-        createHorizonLine();
+        // Set up resize handler
+        window.addEventListener('resize', handleResize);
         
         // Note: Using default location (San Francisco) if API key not set
         
