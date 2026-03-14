@@ -29,6 +29,7 @@
       position: relative;
       margin: 0;
       min-height: 100vh;
+      -webkit-text-size-adjust: 100%;
       background-color: var(--paper);
       background-image:
         linear-gradient(var(--paper), var(--paper)),
@@ -159,10 +160,11 @@
     .asterisk-note {
       display: flex;
       align-items: center;
+      box-sizing: border-box;
       color: var(--muted);
       font-size: 0.95rem;
       height: var(--row);
-      line-height: 1.35;
+      line-height: 1.2;
     }
 
     .spacer {
@@ -252,8 +254,8 @@
       }
 
       .asterisk-note {
-        align-items: flex-start;
-        padding-top: 0;
+        display: block;
+        padding-top: 8px;
       }
     }
   </style>
