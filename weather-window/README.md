@@ -1,5 +1,8 @@
 # Weather Window
 
+This folder is the canonical home for the Weather Window project's supporting source.
+The public entry page remains at `/weatherwindow.html`, which loads its assets from here.
+
 A black and white ASCII art weather display website. Features an animated ASCII art window that shows the weather in your location with weather-specific animations.
 
 ## Features
@@ -17,19 +20,8 @@ A black and white ASCII art weather display website. Features an animated ASCII 
 
 ## Setup
 
-1. **Get a Free API Key** (Optional but recommended):
-   - Visit [OpenWeatherMap](https://openweathermap.org/api)
-   - Sign up for a free account
-   - Get your API key from the dashboard
-
-2. **Configure API Key**:
-   - Open `script.js`
-   - Find the line: `const API_KEY = 'YOUR_API_KEY_HERE';`
-   - Replace `'YOUR_API_KEY_HERE'` with your actual API key
-   - If you don't add an API key, the site will use mock/demo data
-
-3. **Run the Website**:
-   - Simply open `weatherWindow.html` in your web browser (located in the parent directory)
+1. **Run the Website**:
+   - Simply open `weatherwindow.html` in your web browser (located in the parent directory)
    - Or use a local server:
      ```bash
      # Using Python
@@ -39,6 +31,11 @@ A black and white ASCII art weather display website. Features an animated ASCII 
      npx http-server
      ```
    - Then visit `http://localhost:8000` in your browser
+
+2. **Data Sources**:
+   - Weather data and geocoding are fetched from Open-Meteo.
+   - The modular source lives in files like `app.js`, `weather-data.js`, `scene-state.js`, and `scene-renderer.js`.
+   - `app-standalone.js` is the bundled browser entry used by `weatherwindow.html`.
 
 ## Usage
 
@@ -56,4 +53,4 @@ A black and white ASCII art weather display website. Features an animated ASCII 
 
 - The website uses a black background (#000000) and white text (#ffffff) for a true black and white aesthetic
 - All visual elements (except text) are rendered using ASCII art characters
-- Weather data is fetched from OpenWeatherMap API (free tier available)
+- Weather data and geocoding are fetched from Open-Meteo

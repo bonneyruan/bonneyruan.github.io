@@ -7,10 +7,10 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="weatherWindow/style.css?v=1">
+    <link rel="stylesheet" href="weather-window/style.css?v=3">
 </head>
 <body>
-    <div class="container">
+    <div class="container app-shell">
         <div class="toggles-row">
             <div class="temperature-toggle-container">
                 <div id="temperatureToggle" class="temperature-toggle" title="Toggle between Celsius and Fahrenheit">
@@ -25,15 +25,26 @@
                 </div>
             </div>
         </div>
-        <div class="ascii-frame">
-            <pre class="frame-top">┌─────────────────────────────────────────────────────────┐</pre>
-            <div class="window-content">
-                <div class="frame-left" id="frameLeft"></div>
+
+        <section class="scene-stage" aria-label="Weather Window scene">
+            <div class="window-shell simple-window-frame">
+                <div class="frame-left" id="frameLeft" aria-hidden="true"></div>
+                <div class="frame-right" id="frameRight" aria-hidden="true"></div>
+
                 <div class="weather-window" id="weatherWindow">
+                    <div class="scene-layer sky-layer" id="skyLayer" aria-hidden="true">
+                        <div class="celestial-display sun-display" id="sunDisplay"></div>
+                        <div class="celestial-display moon-display" id="moonDisplay"></div>
+                    </div>
+                    <div class="scene-layer distant-layer legacy-architecture-layer" id="distantLayer" aria-hidden="true"></div>
+                    <div class="scene-layer midground-layer legacy-architecture-layer" id="midgroundLayer" aria-hidden="true"></div>
+
                     <div class="ground-fill"></div>
                     <div class="horizon-line horizon-line-left" id="horizonLineLeft"></div>
                     <div class="horizon-line horizon-line-right" id="horizonLineRight"></div>
-                    <div class="tree-background">
+                    <div class="tree-base-mask" aria-hidden="true"></div>
+
+                    <div class="tree-background" id="foregroundLayer">
                         <pre>          (<span class="tree-fill"></span>)          
          (<span class="tree-fill"> </span>)         
         (<span class="tree-fill">  </span>)        
@@ -56,46 +67,29 @@
            |||           
            |||           </pre>
                     </div>
+
                     <div class="weather-display" id="weatherDisplay">
                         <pre class="loading">Loading weather...</pre>
                     </div>
-                    <div class="weather-display moon-display" id="moonDisplay"></div>
                     <div class="weather-animation" id="weatherAnimation"></div>
                 </div>
-                <div class="frame-right" id="frameRight"></div>
             </div>
-            <pre class="frame-bottom">└─────────────────────────────────────────────────────────┘</pre>
-        </div>
+        </section>
+
         <div class="info-panel">
             <pre class="location" id="location">Detecting location...</pre>
             <pre class="weather-info" id="weatherInfo"></pre>
-            <div class="weather-buttons">
-                <button class="weather-btn" data-weather="clear">Clear</button>
-                <button class="weather-btn" data-weather="rain">Rain</button>
-                <button class="weather-btn" data-weather="snow">Snow</button>
-                <button class="weather-btn" data-weather="clouds">Clouds</button>
-                <button class="weather-btn" data-weather="fog">Fog</button>
-                <button class="weather-btn" data-weather="thunderstorm">Storm</button>
-                <button class="weather-btn" data-weather="wind">Wind</button>
-            </div>
-            <div class="moon-phase-buttons">
-                <button class="moon-phase-btn" data-phase="new">New</button>
-                <button class="moon-phase-btn" data-phase="waxingCrescent">Waxing Crescent</button>
-                <button class="moon-phase-btn" data-phase="firstQuarter">First Quarter</button>
-                <button class="moon-phase-btn" data-phase="waxingGibbous">Waxing Gibbous</button>
-                <button class="moon-phase-btn" data-phase="full">Full</button>
-                <button class="moon-phase-btn" data-phase="waningGibbous">Waning Gibbous</button>
-                <button class="moon-phase-btn" data-phase="lastQuarter">Last Quarter</button>
-                <button class="moon-phase-btn" data-phase="waningCrescent">Waning Crescent</button>
-            </div>
-            <button id="changeLocationBtn" class="change-location-btn">Change Location</button>
-            <button id="devToggleBtn" class="dev-toggle-btn" title="Toggle developer controls">DEV</button>
+
             <div class="location-input-container" id="locationInputContainer" style="display: none;">
                 <div class="input-wrapper">
                     <input type="text" id="locationInput" class="location-input" placeholder="City, Country" />
                     <button id="submitLocation" class="submit-button">Submit</button>
                 </div>
             </div>
+
+            <button id="changeLocationBtn" class="change-location-btn">Change Location</button>
+            <button id="devToggleBtn" class="dev-toggle-btn" title="Toggle developer controls">DEV</button>
+
             <div class="dev-tools-container" id="devToolsContainer" style="display: none;">
                 <div class="dev-tools-section">
                     <label for="weatherCodeInput" class="dev-label">Test Weather Code:</label>
@@ -105,8 +99,28 @@
                     </div>
                 </div>
             </div>
+
+            <div class="weather-buttons">
+                <button class="weather-btn" data-weather="clear">Clear</button>
+                <button class="weather-btn" data-weather="rain">Rain</button>
+                <button class="weather-btn" data-weather="snow">Snow</button>
+                <button class="weather-btn" data-weather="clouds">Clouds</button>
+                <button class="weather-btn" data-weather="fog">Fog</button>
+                <button class="weather-btn" data-weather="thunderstorm">Storm</button>
+                <button class="weather-btn" data-weather="wind">Wind</button>
+            </div>
         </div>
     </div>
-    <script src="weatherWindow/script.js?v=1"></script>
+
+    <script src="weather-window/weather-data-runtime.js?v=1"></script>
+    <script src="weather-window/weather-service-runtime.js?v=1"></script>
+    <script src="weather-window/scene-layout-runtime.js?v=1"></script>
+    <script src="weather-window/scene-state-runtime.js?v=1"></script>
+    <script src="weather-window/scene-renderer-runtime.js?v=1"></script>
+    <script src="weather-window/effects-runtime.js?v=1"></script>
+    <script src="weather-window/ui-runtime.js?v=1"></script>
+    <script src="weather-window/app-controls-runtime.js?v=1"></script>
+    <script src="weather-window/script.js?v=3"></script>
+    <script src="weather-window/app-runtime.js?v=1"></script>
 </body>
 </html>
