@@ -15,10 +15,19 @@
       --muted: #6a645f;
       --rule: rgba(87, 136, 255, 0.28);
       --margin: rgba(226, 74, 74, 0.45);
+      --page-height: 100vh;
+      /* Shared vertical rhythm for each ruled notebook band. */
       --row: 48px;
-      --header-space: 168px;
+      /* Blank header area above the first blue rule. */
+      --header-space: clamp(128px, 18vh, 168px);
       --gutter: 26px;
       --page-edge: 16px;
+    }
+
+    @supports (height: 100dvh) {
+      :root {
+        --page-height: 100dvh;
+      }
     }
 
     * {
@@ -28,7 +37,7 @@
     body {
       position: relative;
       margin: 0;
-      min-height: 100vh;
+      min-height: var(--page-height);
       -webkit-text-size-adjust: 100%;
       background-color: var(--paper);
       background-image:
@@ -60,9 +69,9 @@
 
     main {
       width: min(100%, 640px);
-      min-height: 100vh;
+      min-height: var(--page-height);
       margin: 0 auto;
-      padding: 0 20px 0 calc(var(--gutter) + 2px);
+      padding: 0 20px calc(var(--row) / 2) calc(var(--gutter) + 2px);
       display: flex;
       flex-direction: column;
     }
@@ -79,6 +88,7 @@
       line-height: 1.05;
     }
 
+    /* Header borrows one band so the name can sit against the first rule cleanly. */
     .header {
       height: calc(var(--header-space) + var(--row));
       display: flex;
@@ -183,10 +193,6 @@
       font-size: 0.95rem;
     }
 
-    .spacer {
-      flex: 1 1 auto;
-    }
-
     .footer-link {
       color: #7a726c;
       text-decoration: none;
@@ -200,12 +206,21 @@
       outline: none;
     }
 
+    /* On short desktop screens, push the footer rows toward the bottom compositionally. */
+    .footer-stack {
+      margin-top: auto;
+    }
+
+    .footer-band {
+      display: none;
+    }
+
     @media (max-width: 560px) {
       :root {
         --gutter: 28px;
         --page-edge: calc(50vw - 146px);
         --row: 64px;
-        --header-space: 184px;
+        --header-space: clamp(112px, 20vh, 160px);
       }
 
       a,
@@ -301,9 +316,13 @@
         gap: 2px;
       }
 
-      .spacer {
-        flex: 0 0 auto;
-        height: calc(var(--row) * 2);
+      /* Mobile keeps the footer on whole-band increments to avoid partial-band drift. */
+      .footer-stack {
+        margin-top: calc(var(--row) * 2);
+      }
+
+      .footer-band {
+        display: flex;
       }
 
     }
@@ -362,20 +381,22 @@
       </li>
     </ul>
 
-    <div class="spacer" aria-hidden="true"></div>
-    <div class="plain-item asterisk-note">
-      <span class="item-copy">
-        <span class="left">
-          <span class="label">* I make stuff &amp; I love lists</span>
+    <div class="footer-stack">
+      <div class="plain-item asterisk-note">
+        <span class="item-copy">
+          <span class="left">
+            <span class="label">* I make stuff &amp; I love lists</span>
+          </span>
         </span>
-      </span>
-    </div>
-    <div class="plain-item">
-      <span class="item-copy">
-        <span class="left">
-          <a class="footer-link" href="https://www.instagram.com/cafebonney" target="_blank" rel="noopener noreferrer">instagram</a>
+      </div>
+      <div class="plain-item">
+        <span class="item-copy">
+          <span class="left">
+            <a class="footer-link" href="https://www.instagram.com/cafebonney" target="_blank" rel="noopener noreferrer">instagram</a>
+          </span>
         </span>
-      </span>
+      </div>
+      <div class="plain-item footer-band" aria-hidden="true"></div>
     </div>
   </main>
 </body>
