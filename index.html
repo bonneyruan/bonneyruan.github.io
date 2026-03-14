@@ -144,11 +144,27 @@
     }
 
     .mark {
+      position: relative;
       flex: 0 0 auto;
-      width: 1rem;
+      width: 0.95rem;
+      height: 0.95rem;
+      border: 1.5px solid currentColor;
       color: var(--ink);
-      font-size: 0.9rem;
+      font-size: 0;
       line-height: 1;
+    }
+
+    .mark.done::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -0.3rem;
+      width: 1.12rem;
+      height: 1.12rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M2.8 10.5 7 14 16.2 3.8' fill='none' stroke='%2334312e' stroke-width='1.35' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
     }
     .note {
       flex: 0 0 auto;
@@ -158,22 +174,30 @@
     }
 
     .asterisk-note {
-      display: flex;
-      align-items: center;
       box-sizing: border-box;
-      color: var(--muted);
+      color: #7a726c;
       font-size: 0.95rem;
-      height: var(--row);
-      line-height: 1.2;
+    }
+
+    .asterisk-note .label {
+      font-size: 0.95rem;
     }
 
     .spacer {
       flex: 1 1 auto;
     }
 
-    .bottom-band {
-      height: var(--row);
-      flex: 0 0 auto;
+    .footer-link {
+      color: #7a726c;
+      text-decoration: none;
+    }
+
+    .footer-link:hover,
+    .footer-link:focus-visible {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      outline: none;
     }
 
     @media (max-width: 560px) {
@@ -200,6 +224,11 @@
       .left {
         gap: 8px;
         width: 100%;
+        align-items: flex-end;
+      }
+
+      .mark {
+        margin-bottom: 0.12rem;
       }
 
       .item-copy {
@@ -245,6 +274,14 @@
         font-size: 0.9rem;
       }
 
+      .asterisk-note .label {
+        font-size: 0.9rem;
+      }
+
+      .footer-link {
+        font-size: 0.9rem;
+      }
+
       .intro,
       a,
       .plain-item {
@@ -253,10 +290,22 @@
         padding: 0;
       }
 
-      .asterisk-note {
-        display: block;
-        padding-top: 8px;
+      .plain-item.asterisk-note {
+        justify-content: center;
+        padding-top: 0;
       }
+
+      .asterisk-note .item-copy {
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .spacer {
+        flex: 0 0 auto;
+        height: calc(var(--row) * 2);
+      }
+
     }
   </style>
 </head>
@@ -271,7 +320,7 @@
         <a href="weatherwindow.html">
           <span class="item-copy">
             <span class="left">
-              <span class="mark" aria-hidden="true">○</span>
+              <span class="mark" aria-hidden="true"></span>
               <span class="label">Weather Window</span>
             </span>
             <span class="note">ascii weather visualizer</span>
@@ -282,7 +331,7 @@
         <a href="https://slam.co" target="_blank" rel="noopener noreferrer">
           <span class="item-copy">
             <span class="left">
-              <span class="mark" aria-hidden="true">○</span>
+              <span class="mark" aria-hidden="true"></span>
               <span class="label">Design at SLAM&amp;CO</span>
             </span>
             <span class="note">product r&amp;d</span>
@@ -293,7 +342,7 @@
         <a href="https://cafebonney.com" target="_blank" rel="noopener noreferrer">
           <span class="item-copy">
             <span class="left">
-              <span class="mark" aria-hidden="true">●</span>
+              <span class="mark done" aria-hidden="true"></span>
               <span class="label">Cafe Bonney</span>
             </span>
             <span class="note">whimsical home goods</span>
@@ -304,7 +353,7 @@
         <a href="millends.html">
           <span class="item-copy">
             <span class="left">
-              <span class="mark" aria-hidden="true">●</span>
+              <span class="mark done" aria-hidden="true"></span>
               <span class="label">Mill Ends Park</span>
             </span>
             <span class="note">world's smallest website</span>
@@ -314,8 +363,20 @@
     </ul>
 
     <div class="spacer" aria-hidden="true"></div>
-    <p class="asterisk-note">* I make stuff and lists</p>
-    <div class="bottom-band" aria-hidden="true"></div>
+    <div class="plain-item asterisk-note">
+      <span class="item-copy">
+        <span class="left">
+          <span class="label">* I make stuff &amp; I love lists</span>
+        </span>
+      </span>
+    </div>
+    <div class="plain-item">
+      <span class="item-copy">
+        <span class="left">
+          <a class="footer-link" href="https://www.instagram.com/cafebonney" target="_blank" rel="noopener noreferrer">instagram</a>
+        </span>
+      </span>
+    </div>
   </main>
 </body>
 </html>
