@@ -217,7 +217,23 @@
       justify-content: flex-end;
     }
 
+    .footer-instagram {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-instagram .item-copy {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
     .footer-gap--mobile {
+      display: none;
+    }
+
+    .footer-gap--mobile-before-note {
       display: none;
     }
 
@@ -310,10 +326,18 @@
         align-items: center;
       }
 
+      .footer-gap--mobile-before-note {
+        display: flex;
+      }
+
       .corner-smiley {
         width: 34px;
         height: 34px;
-        margin-right: 16px;
+        margin-right: 0;
+      }
+
+      .footer-band {
+        display: none;
       }
     }
   </style>
@@ -378,31 +402,30 @@
     <div class="notebook-row notebook-row--empty footer-gap--mobile" aria-hidden="true"></div>
     <div class="notebook-row notebook-row--empty footer-gap--mobile" aria-hidden="true"></div>
     <div class="desktop-fill desktop-fill--before-footer" aria-hidden="true"></div>
+    <div class="notebook-row notebook-row--empty footer-gap--mobile-before-note" aria-hidden="true"></div>
     <div class="notebook-row">
       <div class="plain-item asterisk-note">
         <span class="item-copy">
           <span class="left">
-            <span class="label">* I make stuff &amp; I love lists</span>
+            <span class="label">* I make stuff and love lists</span>
           </span>
         </span>
       </div>
     </div>
-    <div class="notebook-row">
+    <div class="notebook-row footer-instagram">
       <div class="plain-item">
         <span class="item-copy">
           <span class="left">
             <a class="footer-link" href="https://www.instagram.com/cafebonney" target="_blank" rel="noopener noreferrer">instagram</a>
           </span>
+          <span class="corner-smiley" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="16.5" cy="18.5" rx="2.3" ry="2.6" fill="currentColor" transform="rotate(-8 16.5 18.5)"/>
+              <ellipse cx="30.7" cy="14.9" rx="2.2" ry="2.5" fill="currentColor" transform="rotate(10 30.7 14.9)"/>
+              <path d="M20.2 28.9C21.7 30.7 23.5 31.6 25.5 31.6C27.6 31.7 29.6 30.8 31.1 29" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
         </span>
-      </div>
-    </div>
-    <div class="notebook-row footer-band">
-      <div class="corner-smiley" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="16.5" cy="18.5" rx="2.3" ry="2.6" fill="currentColor" transform="rotate(-8 16.5 18.5)"/>
-          <ellipse cx="30.7" cy="14.9" rx="2.2" ry="2.5" fill="currentColor" transform="rotate(10 30.7 14.9)"/>
-          <path d="M20.2 28.9C21.7 30.7 23.5 31.6 25.5 31.6C27.6 31.7 29.6 30.8 31.1 29" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
       </div>
     </div>
 
@@ -414,7 +437,7 @@
       const fillAfterFooter = document.querySelector(".desktop-fill--after-footer");
       const main = document.querySelector("main");
       const footerStart = document.querySelector(".asterisk-note")?.closest(".notebook-row");
-      const footerEnd = document.querySelector(".footer-band");
+      const footerEnd = document.querySelector(".footer-instagram");
       const sampleNote = document.querySelector(".note");
 
       if (!fillBeforeFooter || !fillAfterFooter || !main || !footerStart || !footerEnd || !sampleNote) return;
